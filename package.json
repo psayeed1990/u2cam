@@ -1,5 +1,5 @@
 {
-  "name": "swinance",
+  "name": "HTMLtoWPTheme",
   "version": "1.0.0",
   "description": "A affiliate blog",
   "main": "server.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/psayeed1990/swinance.git"
+    "url": "https://github.com/psayeed1990/html-to-wp-theme.git"
   },
   "keywords": [
     "ecommerce",
@@ -19,9 +19,9 @@
   "author": "Abu Sayeed Mondal",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/psayeed1990/swinance.git/issues"
+    "url": "https://github.com/psayeed1990/html-to-wp-theme.git/issues"
   },
-  "homepage": "https://github.com/psayeed1990/swinance.git#readme",
+  "homepage": "https://github.com/psayeed1990/html-to-wp-theme.git#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
