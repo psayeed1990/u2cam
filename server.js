@@ -18,5 +18,5 @@ const app = require('./app');
 //start server
 const PORT = process.env.PORT || 8082;
 const server = app.listen(PORT, () =>
-  console.log(`Faddist Server started at ${PORT}`)
+  console.log(`${process.env.PROJECT_NAME} Server started at ${PORT}`)
 );
