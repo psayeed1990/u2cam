@@ -12,15 +12,11 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 //load controller
-const authController = require('./controllers/authController');
+//const authController = require('./controllers/authController');
 const errorController = require('./controllers/errorController');
 
 //load routes
 const userRoutes = require('./routes/userRoutes');
-const productRoutes = require('./routes/productRoutes');
-const categoryRoutes = require('./routes/categoryRoutes');
-const postRoutes = require('./routes/postRoutes');
-const cartRoutes = require('./routes/cartRoutes');
 
 
 //enable proxy
@@ -31,7 +27,7 @@ app.use(cors());
 app.options('*', cors());
 
 //public static folder
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 //set security http header
 app.use(helmet());
@@ -60,16 +56,12 @@ app.use(xss());
 //prevent parameter pollution
 app.use(hpp());
 
-// app.use(compression());
+app.use(compression());
 
 //isLogged in
 //app.use(authController.isLoggedIn());
 //routes
 
-app.use('/api/v1/posts', postRoutes);
-app.use('/api/v1/products', productRoutes);
-app.use('/api/v1/categories', categoryRoutes);
-app.use('/api/v1/carts', cartRoutes);
 app.use('/api/v1/users', userRoutes);
 
 // 404
