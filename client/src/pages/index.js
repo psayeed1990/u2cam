@@ -12,7 +12,7 @@ const Home = ()=>{
             <Head>
                 <title>HTML to WP theme</title>
             </Head>
-            <button className={styles.button} >HTML-WP </button>
+
         </WebLayout>
 
     )

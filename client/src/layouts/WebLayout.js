@@ -1,10 +1,13 @@
+import React, {Fragment} from 'react';
+import Footer from '../components/footer';
+import Header from '../components/header';
 const WebLayout = ({children})=>{
     return (
-        <div>
-            <h1>header</h1>
-                <div>{children}</div>
-            <h1>Footer</h1>
-        </div>
+        <Fragment>
+            <Header />
+                <main>{children}</main>
+            <Footer />
+        </Fragment>
     )
 }
 
