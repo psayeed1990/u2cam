@@ -1,6 +1,13 @@
 #nav a {
-	padding: 5px;
+	color: var(--secondory);
+	text-decoration: none;
+	padding: 3px 30px;
+	margin: 10px;
+	text-transform: uppercase;
+	box-shadow: 0 0 9px -5px #486582;
+	border-bottom: 1px solid var(--fifth);
 }
 #menu {
-	background-color: aquamarine;
+	background-color: white;
+	padding: 30px;
 }

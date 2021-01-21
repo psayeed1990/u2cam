@@ -1,7 +1,11 @@
+import Link from 'next/link';
 import styles from './Logo.module.css';
 const Logo = ()=>{
     return(
-        <button className={styles.button} >HTML-WP </button>
+
+        <Link href="/" passHref>
+            <div className={styles.logo} >HTML-WP </div>
+        </Link>
 
     )
 }

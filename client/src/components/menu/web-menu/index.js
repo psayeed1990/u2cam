@@ -6,9 +6,9 @@ const WebMenu = ()=>{
     return (
         <menu id={styles.menu}>
             <nav id={styles.nav}>
-                <Link href="/">home</Link>
-                <Link href="/user/auth/login">login</Link>
-                <Link href="/user/auth/register">register</Link>
+                <Link href="/">Home</Link>
+                <Link href="/user/auth/login">Login</Link>
+                <Link href="/user/auth/register">Register</Link>
                 
             </nav>
         </menu>
