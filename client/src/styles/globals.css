@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
 * {
 	margin: 0;
 	padding: 0;
@@ -10,7 +10,6 @@
 	--btn-color: rgb(153, 150, 150);
 	--link-color: rgb(77, 80, 77);
 	--link-bg: white;
-	/* pallette */
 	--primary: #055ba6;
 	--secondory: #0367a6;
 	--third: #73b2d9;
@@ -22,9 +21,86 @@
 	--danger: #dc3545;
 	--light: #f8f9fa;
 	--dark: #343a40;
+
+	/* pallete */
+	--p1: #1493ff;
+	--p2: #1d365e;
+	--p3: #2cb459;
+	--p4: #ff3e30;
+	--p5: #f7b529;
+
+	/*pallete 2 */
+	--pp1: #edcec2;
+	--pp2: #f7f4dc;
+	--pp3: #c3e0c9;
+	--pp4: #97afcc;
+	--pp5: #e2bce8;
 }
 body {
 	font-family: 'arimo';
 	color: var(--body-color);
 	text-align: center;
 }
+.heading {
+	color: #7c99a4;
+	font-family: roboto;
+	font-weight: 100;
+	text-transform: uppercase;
+	text-shadow: 0 0 2px #e2e3e3;
+	width: max-content;
+	padding: 5px 20px;
+	margin: 50px auto;
+}
+.content {
+	width: 100%;
+}
+.image-container {
+	text-align: center;
+	padding: 20px;
+}
+
+/* starts form elements */
+.form-group {
+	padding: 15px 5px;
+	margin: 5px auto;
+	width: max-content;
+}
+input,
+select {
+	box-shadow: 0px 1px 0px 2px var(--pp1), 0px -1px 0px 2px var(--pp3),
+		1px 0px 0px 2px var(--pp4), -1px 0px 0px 2px var(--pp4),
+		0 0 5px 3px #c0c2c4;
+	padding: 10px 25px;
+	border-radius: 0;
+	color: var(--fourth);
+	border: 2px solid var(--light);
+	outline: 2px solid var(--light);
+}
+
+label,
+input {
+	display: block;
+}
+label {
+	visibility: hidden;
+	opacity: 0;
+	color: #9eabac;
+	width: max-content;
+	text-align: left;
+	padding: 5px 15px 0px;
+	margin-top: -68px;
+	position: absolute;
+	background: var(--light);
+	border: 1px solid #e5f7f3;
+	border-bottom: 0;
+	margin-left: -3px;
+	border-radius: 3px 3px 0px 0;
+	transition: opacity 0.3s ease-in-out;
+	box-shadow: inset 0px 8px 5px #e1dddd;
+}
+input:focus + label {
+	visibility: visible;
+	opacity: 1;
+}
+
+/*ends form element */

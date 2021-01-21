@@ -4,7 +4,7 @@ const Logo = ()=>{
     return(
 
         <Link href="/" passHref>
-            <div className={styles.logo} >HTML-WP </div>
+            <button className={styles.logo} >BOOK<span className={styles.logoLast}>ME</span></button>
         </Link>
 
     )

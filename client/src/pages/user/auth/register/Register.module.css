@@ -1,0 +1,7 @@
+#register {
+	padding: 4px;
+}
+#registerContent {
+	display: grid;
+	grid-template-columns: 30% 40% 30%;
+}
