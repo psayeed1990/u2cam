@@ -109,7 +109,7 @@ label {
 input:focus + label {
 	visibility: visible;
 	opacity: 1;
-	animation: flip 0.7s linear forwards;
+	animation: labels 0.7s linear forwards;
 }
 /* input:focus {
 	border: 1px solid var(--primary);
@@ -132,7 +132,7 @@ input:focus {
 	font-size: 1.5rem;
 	cursor: pointer;
 }
-@keyframes flip {
+@keyframes labels {
 	0% {
 		transform: rotateX(90deg);
 	}

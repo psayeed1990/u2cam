@@ -1,41 +1,43 @@
+import Head from 'next/head';
 import Image from 'next/image';
-
+import {useForm} from 'react-hook-form';
 import WebLayout from "../../../../layouts/WebLayout";
 
 import styles from './Register.module.css';
 
 const Register = ()=>{
+
+    const {register, handleSubmit} = useForm();
+    const onSubmit = (data) => alert(JSON.stringify(data));
+
     return (
         <WebLayout>
+            <Head><title>Register</title></Head>
             <div id={styles.register}>
                 <h1 className="heading">Register</h1>
 
                 <div className="content" id={styles.registerContent}>
-                    {/* <div className="image-container">
-                         <Image src="/images/icons/balloons.svg" width="80" height="auto" /> }
-                         <Image src="/images/icons/people.svg" width="300" height="auto" />  }
-                    </div> */}
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
                             
-                            <input id="name" autoFocus={true} name="name" type="text" placeholder="Name" autoComplete="new-password" />
+                            <input ref={register} id="name" autoFocus={true} name="name" type="text" placeholder="Name" autoComplete="new-password" />
                             <label for="name">Name</label>
                         </div>
                         
                         <div className="form-group">
                             
-                            <input id="email" name="email" type="email" placeholder="Email" autoComplete="new-password"
+                            <input ref={register} id="email" name="email" type="email" placeholder="Email" autoComplete="new-password"
 />
                             <label for="email">Email</label>
                         </div>
                         <div className="form-group">
                             
-                            <input id="password" name="password" type="password" placeholder="Password" autoComplete="new-password" />
+                            <input ref={register} id="password" name="password" type="password" placeholder="Password" autoComplete="new-password" />
                             <label for="password">Password</label>
                         </div>
                         <div className="form-group">
                             
-                            <input id="password-again" name="passwordAgain" type="password" placeholder="Password again" autoComplete="new-password" />
+                            <input ref={register} id="password-again" name="passwordAgain" type="password" placeholder="Password again" autoComplete="new-password" />
                             <label for="password-again">Password Again</label>
                         </div>
                        
@@ -50,10 +52,6 @@ const Register = ()=>{
                         </div>
 
                     </form>
-                    {/* <div className="image-container">
-                         <Image src="/images/icons/calender.svg" width="80" height="auto" /> }
-                        <Image src="/images/icons/buddha.svg" width="100" height="auto" /> }
-                    </div> */}
 
                 </div>
 
