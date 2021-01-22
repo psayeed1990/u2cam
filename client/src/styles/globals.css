@@ -143,3 +143,10 @@ input:focus {
 }
 
 /*ends form element */
+
+/* messages */
+.error {
+	color: #caa998;
+	margin: 11px 0 0;
+	display: block;
+}

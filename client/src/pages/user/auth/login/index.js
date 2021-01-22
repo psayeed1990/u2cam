@@ -3,7 +3,7 @@ import Head from 'next/head';
 import styles from './Login.module.css';
 import { useForm } from "react-hook-form";
 const Login = ()=>{
-    const {register, handleSubmit} = useForm();
+    const {register, errors, watch, setError, handleSubmit} = useForm();
 
     const onSubmit = (data) => alert(JSON.stringify(data));
 
@@ -21,14 +21,24 @@ const Login = ()=>{
                         
                         <div className="form-group">
                             
-                            <input ref={register} autoFocus={true} id="email" name="email" type="email" placeholder="Email" autoComplete="new-password"
+                            <input ref={register({
+                                required: 'Email is required',
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                    message: "Invalid email format"
+                                }
+                            })} autoFocus={true} id="email" name="email" type="email" placeholder="Email" autoComplete="new-password"
 />
                             <label for="email">Email</label>
+                            <span className={`${errors.email ? 'error': ''}`}>{errors.email?.message}</span>
                         </div>
                         <div className="form-group">
                             
-                            <input ref={register} id="password" name="password" type="password" placeholder="Password" autoComplete="new-password" />
+                            <input ref={register({
+                                required: 'Password is required',
+                            })} id="password" name="password" type="password" placeholder="Password" autoComplete="new-password" />
                             <label for="password">Password</label>
+                            <span className={`${errors.password ? 'error': ''}`}>{errors.password?.message}</span>
                         </div>
                        
                             
