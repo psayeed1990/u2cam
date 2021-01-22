@@ -29,7 +29,7 @@
 	--p4: #ff3e30;
 	--p5: #f7b529;
 
-	/*pallete 2 */
+	/*pallete 2 for svg*/
 	--pp1: #edcec2;
 	--pp2: #f7f4dc;
 	--pp3: #c3e0c9;
@@ -58,23 +58,29 @@ body {
 	text-align: center;
 	padding: 20px;
 }
-
+button,
+.cursor-pointer {
+	cursor: pointer;
+}
 /* starts form elements */
 .form-group {
 	padding: 15px 5px;
-	margin: 5px auto;
+	margin: 12px auto;
 	width: max-content;
 }
 input,
 select {
-	box-shadow: 0px 1px 0px 2px var(--pp1), 0px -1px 0px 2px var(--pp3),
+	/* box-shadow: 0px 1px 0px 2px var(--pp1), 0px -1px 0px 2px var(--pp3),
 		1px 0px 0px 2px var(--pp4), -1px 0px 0px 2px var(--pp4),
-		0 0 5px 3px #c0c2c4;
+		0 0 5px 3px #c0c2c4; */
+	background: var(--info);
+	box-shadow: 0 10px 16px -7px #1d3531;
 	padding: 10px 25px;
 	border-radius: 0;
-	color: var(--fourth);
-	border: 2px solid var(--light);
-	outline: 2px solid var(--light);
+	color: var(--light);
+	border: 1px solid var(--pp1);
+	outline: 1px solid var(--pp2);
+	transition: border 0.4s ease-in-out;
 }
 
 label,
@@ -82,25 +88,58 @@ input {
 	display: block;
 }
 label {
+	font-size: 0.7rem;
 	visibility: hidden;
 	opacity: 0;
-	color: #9eabac;
+	color: var(--light);
 	width: max-content;
 	text-align: left;
-	padding: 5px 15px 0px;
-	margin-top: -68px;
+	padding: 5px 15px 5px;
+	margin-top: -63px;
 	position: absolute;
-	background: var(--light);
-	border: 1px solid #e5f7f3;
+	background: var(--primary);
+	border: 2px solid var(--primary);
 	border-bottom: 0;
 	margin-left: -3px;
 	border-radius: 3px 3px 0px 0;
-	transition: opacity 0.3s ease-in-out;
-	box-shadow: inset 0px 8px 5px #e1dddd;
+	transition: opacity 0.7s ease-in-out;
+	text-transform: uppercase;
+	transform: rotateX(90deg);
 }
 input:focus + label {
 	visibility: visible;
 	opacity: 1;
+	animation: flip 0.7s linear forwards;
+}
+/* input:focus {
+	border: 1px solid var(--primary);
+	background: var(--primary);
+	color: white;
+	outline: 1px solid var(--primary);
+} */
+
+input:focus {
+	background: var(--p2);
+	color: white;
+	outline: 1px solid var(--primary);
+}
+#submit {
+	background: var(--primary);
+	text-transform: uppercase;
+	font-weight: bold;
+	border: 0;
+	outline: 0;
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+@keyframes flip {
+	0% {
+		transform: rotateX(90deg);
+	}
+
+	100% {
+		transform: rotateX(0deg);
+	}
 }
 
 /*ends form element */

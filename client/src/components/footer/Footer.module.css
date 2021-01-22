@@ -1,10 +1,16 @@
 #footer {
-	background: var(--light);
+	background: var(--p2);
+
+	box-shadow: 0 0px 8px 0px #202d42;
 }
 #footer h1 {
+	padding: 25px;
 	margin: 0;
 	text-align: center;
 	text-transform: uppercase;
-	color: var(--body-color);
-	margin-top: 70vh;
+	font-size: 1.5rem;
+	font-weight: 100;
+	color: var(--light);
+	width: max-content;
+	color: var(--light);
 }
