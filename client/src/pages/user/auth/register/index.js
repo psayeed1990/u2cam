@@ -11,10 +11,10 @@ const Register = ()=>{
                 <h1 className="heading">Register</h1>
 
                 <div className="content" id={styles.registerContent}>
-                    <div className="image-container">
-                        {/* <Image src="/images/icons/balloons.svg" width="80" height="auto" /> */}
-                        {/* <Image src="/images/icons/people.svg" width="300" height="auto" />  */}
-                    </div>
+                    {/* <div className="image-container">
+                         <Image src="/images/icons/balloons.svg" width="80" height="auto" /> }
+                         <Image src="/images/icons/people.svg" width="300" height="auto" />  }
+                    </div> */}
                     <form>
                         <div className="form-group">
                             
@@ -50,10 +50,10 @@ const Register = ()=>{
                         </div>
 
                     </form>
-                    <div className="image-container">
-                        {/* <Image src="/images/icons/calender.svg" width="80" height="auto" /> */}
-                        {/* <Image src="/images/icons/buddha.svg" width="100" height="auto" /> */}
-                    </div>
+                    {/* <div className="image-container">
+                         <Image src="/images/icons/calender.svg" width="80" height="auto" /> }
+                        <Image src="/images/icons/buddha.svg" width="100" height="auto" /> }
+                    </div> */}
 
                 </div>
 

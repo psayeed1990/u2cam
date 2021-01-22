@@ -1,0 +1,9 @@
+#login {
+	padding: 4px;
+	background-image: url(/images/icons/people.svg);
+	background-size: cover;
+	padding-bottom: 500px;
+}
+#loginContent {
+	display: block;
+}

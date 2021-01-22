@@ -2,9 +2,8 @@
 	padding: 4px;
 	background-image: url(/images/icons/people-formal.svg);
 	background-size: cover;
-	padding-bottom: 300px;
+	padding-bottom: 500px;
 }
 #registerContent {
-	display: grid;
-	grid-template-columns: 30% 40% 30%;
+	display: block;
 }
