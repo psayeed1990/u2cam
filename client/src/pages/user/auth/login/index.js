@@ -3,9 +3,11 @@ import Head from 'next/head';
 import styles from './Login.module.css';
 import { useForm } from "react-hook-form";
 import { apiCall } from "../../../../api";
+
+
+
 const Login = ()=>{
     const {register, errors, handleSubmit} = useForm();
-
     const onSubmit = async (data) => {
         return await apiCall('POST', 'users/login', 'login', data);
         
@@ -60,6 +62,7 @@ const Login = ()=>{
 
             </div>
         </WebLayout>
+
     )
 }
 

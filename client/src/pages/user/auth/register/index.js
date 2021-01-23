@@ -92,9 +92,9 @@ const Register = ()=>{
                                 }
                                 
                             }} />
-                            <label htmlFor="password-again">Password Again</label>
+                            <label htmlFor="confirm-password">Password Again</label>
                            
-                            <span className={`${errors.passwordAgain ? 'error': ''}`}>{errors.passwordAgain?.message}</span>
+                            <span className={`${errors.passwordConfirm ? 'error': ''}`}>{errors.passwordConfirm?.message}</span>
                         </div>
                        
                             

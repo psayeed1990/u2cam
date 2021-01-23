@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 export const apiCall = async (reqType, url, reason, formInput, user) => {
 
-    const URL = `http://localhost:8082/api/v1/${url}`;
+    const URL = `/api/v1/${url}`;
 	try {
 		if (reqType === 'GET') {
 			const {data} = await Axios.get(URL, formInput);
@@ -16,9 +16,9 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
 			if (reason === 'login') {
                 //login code
 				console.log(data)
-                // localStorage.setItem('token', data.refreshToken);
-                // localStorage.setItem('role', data.data.user.role);
-                // return(data.data.user);
+                localStorage.setItem('token', data.refreshToken);
+                localStorage.setItem('role', data.data.user.role);
+                return(data.data.user);
 				
                 
 			} else if (reason === 'registration') {

@@ -41,6 +41,7 @@ const createSendToken = (user, statusCode, req, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
+  console.log(req.body)
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -173,6 +174,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 // Only for rendered pages, no errors!
 exports.isLoggedIn = async (req, res, next) => {
   //for cookie
+ 
   if (req.cookies.jwt) {
     try {
       // 1) verify token
@@ -180,6 +182,7 @@ exports.isLoggedIn = async (req, res, next) => {
         req.cookies.jwt,
         process.env.JWT_SECRET
       );
+
 
       // 2) Check if user still exists
       const currentUser = await User.findById(decoded.id);
