@@ -7,8 +7,8 @@ const Login = ()=>{
     const {register, errors, handleSubmit} = useForm();
 
     const onSubmit = async (data) => {
-        const login = await apiCall('POST', '/users/login', 'login', data);
-        console.log(login);
+        return await apiCall('POST', 'users/login', 'login', data);
+        
     };
 
     return (

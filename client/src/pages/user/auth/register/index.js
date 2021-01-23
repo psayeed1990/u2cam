@@ -10,7 +10,8 @@ const Register = ()=>{
 
     const {register, errors, clearErrors, getValues, setError, handleSubmit} = useForm();
     const onSubmit = async (data) => {
-        return await apiCall('POST', 'users/signup', 'registration', data);
+        const registration = await apiCall('POST', 'users/signup', 'registration', data);
+        console.log('r', registration)
     };
 
     return (
