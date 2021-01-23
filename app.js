@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -57,6 +58,9 @@ app.use(xss());
 app.use(hpp());
 
 app.use(compression());
+
+//log with morgan
+app.use(morgan('dev'));
 
 //isLogged in
 //app.use(authController.isLoggedIn());

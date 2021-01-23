@@ -2,10 +2,14 @@ import WebLayout from "../../../../layouts/WebLayout";
 import Head from 'next/head';
 import styles from './Login.module.css';
 import { useForm } from "react-hook-form";
+import { apiCall } from "../../../../api";
 const Login = ()=>{
-    const {register, errors, watch, setError, handleSubmit} = useForm();
+    const {register, errors, handleSubmit} = useForm();
 
-    const onSubmit = (data) => alert(JSON.stringify(data));
+    const onSubmit = async (data) => {
+        const login = await apiCall('POST', '/users/login', 'login', data);
+        console.log(login);
+    };
 
     return (
         <WebLayout>
@@ -27,9 +31,8 @@ const Login = ()=>{
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                                     message: "Invalid email format"
                                 }
-                            })} autoFocus={true} id="email" name="email" type="email" placeholder="Email" autoComplete="new-password"
-/>
-                            <label for="email">Email</label>
+                            })} autoFocus={true} id="email" name="email" type="email" placeholder="Email" autoComplete="new-password"/>
+                            <label htmlFor="email">Email</label>
                             <span className={`${errors.email ? 'error': ''}`}>{errors.email?.message}</span>
                         </div>
                         <div className="form-group">
@@ -37,7 +40,7 @@ const Login = ()=>{
                             <input ref={register({
                                 required: 'Password is required',
                             })} id="password" name="password" type="password" placeholder="Password" autoComplete="new-password" />
-                            <label for="password">Password</label>
+                            <label htmlFor="password">Password</label>
                             <span className={`${errors.password ? 'error': ''}`}>{errors.password?.message}</span>
                         </div>
                        

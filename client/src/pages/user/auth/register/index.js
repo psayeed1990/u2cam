@@ -10,7 +10,7 @@ const Register = ()=>{
 
     const {register, errors, clearErrors, getValues, setError, handleSubmit} = useForm();
     const onSubmit = async (data) => {
-        return await apiCall('GET', '/api/user/signup', data);
+        return await apiCall('POST', 'users/signup', 'registration', data);
     };
 
     return (
@@ -34,7 +34,7 @@ const Register = ()=>{
                                     message: "Min 2 character",
                                 }
                             })} id="name" autoFocus={true} name="name" type="text" placeholder="Name" autoComplete="new-password" />
-                            <label for="name">Name</label>
+                            <label htmlFor="name">Name</label>
                             <span className={`${errors.name ? 'error': ''}`}>{errors.name?.message}</span>
                         </div>
                             
@@ -47,7 +47,7 @@ const Register = ()=>{
                                     message: 'Invalid email address format',
                                 },
                             })} id="email" name="email" type="text" placeholder="Email" autoComplete="new-password" />
-                            <label for="email">Email</label>
+                            <label htmlFor="email">Email</label>
                              <span className={`${errors.email ? 'error': ''}`}>{errors.email?.message}</span>
                         </div>
                         <div className="form-group">
@@ -63,35 +63,35 @@ const Register = ()=>{
                                     message: "Min 8 character",
                                 }
                             })} id="password" name="password" type="password" placeholder="Password" autoComplete="new-password" onChange={() => {
-                                if(getValues('password') !== getValues('passwordAgain') ){
-                                    setError("passwordAgain", {
+                                if(getValues('password') !== getValues('passwordConfirm') ){
+                                    setError("passwordConfirm", {
                                         type: "manual",
                                         message: "Password should match "
                                     });
                                 }else{
-                                    clearErrors('passwordAgain')
+                                    clearErrors('passwordConfirm')
                                 }
                                 
                             }}/>
-                            <label for="password">Password</label>
+                            <label htmlFor="password">Password</label>
                             <span className={`${errors.password ? 'error': ''}`}>{errors.password?.message}</span>
                         </div>
                         <div className="form-group">
                             
                             <input ref={register({
                                 required: "Password again is required"
-                            })} id="password-again" name="passwordAgain" type="password" placeholder="Password again" autoComplete="new-password" onChange={() => {
-                                if(getValues('password') !== getValues('passwordAgain') ){
-                                    setError("passwordAgain", {
+                            })} id="confirm-password" name="passwordConfirm" type="password" placeholder="Password Confirm" autoComplete="new-password" onChange={() => {
+                                if(getValues('password') !== getValues('passwordConfirm') ){
+                                    setError("passwordConfirm", {
                                         type: "manual",
                                         message: "Password should match "
                                     });
                                 }else{
-                                    clearErrors('passwordAgain')
+                                    clearErrors('passwordConfirm')
                                 }
                                 
                             }} />
-                            <label for="password-again">Password Again</label>
+                            <label htmlFor="password-again">Password Again</label>
                            
                             <span className={`${errors.passwordAgain ? 'error': ''}`}>{errors.passwordAgain?.message}</span>
                         </div>
@@ -111,7 +111,9 @@ const Register = ()=>{
                 </div>
 
             </div>
-            
+             
+
+
         </WebLayout>
     )
 }

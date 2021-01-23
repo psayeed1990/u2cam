@@ -40,6 +40,9 @@ body {
 	font-family: 'arimo';
 	color: var(--body-color);
 	text-align: center;
+	max-width: 1920px;
+	margin: 0 auto;
+	box-shadow: 0 0 22px 0px #d4c1c1;
 }
 .heading {
 	color: #7c99a4;
