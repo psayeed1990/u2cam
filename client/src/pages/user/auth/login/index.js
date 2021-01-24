@@ -1,18 +1,22 @@
+import { useContext } from "react";
 import WebLayout from "../../../../layouts/WebLayout";
 import Head from 'next/head';
 import styles from './Login.module.css';
 import { useForm } from "react-hook-form";
 import { apiCall } from "../../../../api";
 import { useRouter } from "next/router";
+import { UserContext } from "../../../../contexts/UserContext";
 
 
 
 const Login = ()=>{
+    const [user, setUser] = useContext(UserContext);
     const router = useRouter()
     const {register, errors, handleSubmit} = useForm();
     const onSubmit = async (data) => {
         const login = await apiCall('POST', 'users/login', 'login', data);
-        return router.replace('/user/dashboard')
+        setUser(login)
+        return router.push('/user/dashboard' )
         
     };
 
