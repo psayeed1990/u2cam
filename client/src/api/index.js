@@ -8,7 +8,7 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
 		if (reqType === 'GET') {
 			const {data} = await Axios.get(URL, formInput);
 
-			return data.json();
+			return data;
 		} else if (reqType === 'POST') {
 			
 			const {data} = await Axios.post(URL, formInput);
@@ -18,7 +18,7 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
 				console.log(data)
                 localStorage.setItem('token', data.refreshToken);
                 localStorage.setItem('role', data.data.user.role);
-                return(data.data.user);
+                return data.data.user;
 				
                 
 			} else if (reason === 'registration') {

@@ -2,10 +2,7 @@ import Head from 'next/head';
 import {useForm} from 'react-hook-form';
 import WebLayout from "../../../../layouts/WebLayout";
 import {apiCall} from "../../../../api";
-
-
 import styles from './Register.module.css';
-import withOutAuth from '../../../../hooks/withOutAuth';
 
 const Registration = ()=>{
 
@@ -120,4 +117,4 @@ const Registration = ()=>{
     )
 }
 
-export default withOutAuth(Registration);
+export default Registration;

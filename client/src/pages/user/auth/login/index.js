@@ -3,14 +3,16 @@ import Head from 'next/head';
 import styles from './Login.module.css';
 import { useForm } from "react-hook-form";
 import { apiCall } from "../../../../api";
-import withOutAuth from "../../../../hooks/withOutAuth";
+import { useRouter } from "next/router";
 
 
 
 const Login = ()=>{
+    const router = useRouter()
     const {register, errors, handleSubmit} = useForm();
     const onSubmit = async (data) => {
-        return await apiCall('POST', 'users/login', 'login', data);
+        const login = await apiCall('POST', 'users/login', 'login', data);
+        return router.replace('/user/dashboard')
         
     };
 
@@ -67,4 +69,4 @@ const Login = ()=>{
     )
 }
 
-export default withOutAuth(Login);
+export default Login;

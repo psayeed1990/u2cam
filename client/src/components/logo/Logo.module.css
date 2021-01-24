@@ -16,5 +16,9 @@
 	background-color: var(--light);
 	color: var(--primary);
 	padding: 0 15px;
-	border-radius: 30% 2px 2px 30%;
+	/* border-radius: 30% 2px 2px 30%; */
+}
+.round {
+	/* border: 2px solid var(--primary); */
+	border-radius: 50%; 
 }

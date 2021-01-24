@@ -4,7 +4,7 @@ const Logo = ()=>{
     return(
 
         <Link href="/" passHref>
-            <button className={styles.logo} >BOOK<span className={styles.logoLast}>ME</span></button>
+            <button className={styles.logo} >HTML<span className={styles.logoLast}><span className={styles.round}>W</span>P</span></button>
         </Link>
 
     )

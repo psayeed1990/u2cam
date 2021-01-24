@@ -1,4 +1,3 @@
-import withAuth from "../../../hooks/withAuth";
 import WebLayout from "../../../layouts/WebLayout";
 
 const Dashboard = ()=>{
@@ -10,4 +9,4 @@ const Dashboard = ()=>{
     )
 }
 
-export default withAuth(Dashboard);
+export default Dashboard;

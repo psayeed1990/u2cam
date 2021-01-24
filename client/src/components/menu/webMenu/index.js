@@ -8,7 +8,7 @@ const WebMenu = ()=>{
             <nav id={styles.nav}>
                 <Link href="/">Home</Link>
                 <Link href="/user/auth/login">Login</Link>
-                <Link href="/user/auth/register">Register</Link>
+                <Link href="/user/auth/registration">Register</Link>
 
                 
             </nav>
