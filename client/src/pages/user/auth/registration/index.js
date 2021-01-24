@@ -1,12 +1,13 @@
 import Head from 'next/head';
 import {useForm} from 'react-hook-form';
 import WebLayout from "../../../../layouts/WebLayout";
-import {apiCall} from "../../../../api/";
+import {apiCall} from "../../../../api";
 
 
 import styles from './Register.module.css';
+import withOutAuth from '../../../../hooks/withOutAuth';
 
-const Register = ()=>{
+const Registration = ()=>{
 
     const {register, errors, clearErrors, getValues, setError, handleSubmit} = useForm();
     const onSubmit = async (data) => {
@@ -119,4 +120,4 @@ const Register = ()=>{
     )
 }
 
-export default Register;
+export default withOutAuth(Registration);

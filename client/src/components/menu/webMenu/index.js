@@ -9,6 +9,7 @@ const WebMenu = ()=>{
                 <Link href="/">Home</Link>
                 <Link href="/user/auth/login">Login</Link>
                 <Link href="/user/auth/register">Register</Link>
+
                 
             </nav>
         </menu>

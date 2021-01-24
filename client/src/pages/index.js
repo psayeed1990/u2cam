@@ -1,17 +1,19 @@
-import React, {Fragment} from 'react';
 import Head from 'next/head';
-import Image from 'next/image'
 import styles from './Home.module.css';
 
 //layout
 import WebLayout from './../layouts/WebLayout';
 
-const Home = ()=>{
+const Home = ({message})=>{
+
     return (
+        
         <WebLayout>
             <Head>
                 <title>HTML to WP theme</title>
+                <p className="error">{message}</p>
             </Head>
+            <h1 className="heading">Home page</h1>
 
         </WebLayout>
 

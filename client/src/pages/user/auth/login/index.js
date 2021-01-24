@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styles from './Login.module.css';
 import { useForm } from "react-hook-form";
 import { apiCall } from "../../../../api";
+import withOutAuth from "../../../../hooks/withOutAuth";
 
 
 
@@ -66,4 +67,4 @@ const Login = ()=>{
     )
 }
 
-export default Login;
+export default withOutAuth(Login);

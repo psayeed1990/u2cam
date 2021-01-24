@@ -1,13 +1,31 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext} from 'react';
 import Footer from '../components/footer';
-import Header from '../components/header';
+import UserHeader from '../components/header/userHeader';
+import WebHeader from '../components/header/webHeader';
+import { UserContext } from '../contexts/UserContext';
+
 const WebLayout = ({children})=>{
+    const [user, setUser] = useContext(UserContext);
     return (
         <Fragment>
-            <Header />
-                <main>{children}</main>
-            <Footer />
+            {
+                user?
+
+                <Fragment>
+                    <UserHeader />
+                        <main>{children}</main>
+                    <Footer />
+                </Fragment>
+            :
+                <Fragment>
+                    <WebHeader />
+                        <main>{children}</main>
+                    <Footer />
+                </Fragment>
+
+            }
         </Fragment>
+        
     )
 }
 
