@@ -15,9 +15,9 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
 
 			if (reason === 'login') {
                 //login code
-				console.log(data)
+				
                 localStorage.setItem('token', data.refreshToken);
-                localStorage.setItem('role', data.data.user.role);
+                localStorage.setItem('user', data.data.user);
                 return data.data.user;
 				
                 

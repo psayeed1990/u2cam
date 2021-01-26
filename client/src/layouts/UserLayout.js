@@ -17,20 +17,19 @@ const UserLayout = ({children})=>{
     }, [user])
 
     return (
+
+        
         <Fragment>
-            {
-                user?
-
-                <Fragment>
-                    <UserHeader />
-                        <main>{children}</main>
-                    <Footer />
-                </Fragment>
+            <UserHeader />
+            { !loader && user?
+                
+                <main>{children}</main>
             :
-                <h1 className="heading">Checking user</h1>
-
+                <h1 className="heading">Fetching user...</h1>
             }
+            <Footer />
         </Fragment>
+        
         
     )
 }

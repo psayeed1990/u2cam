@@ -11,6 +11,17 @@ export const isAuthenticated = ()=>{
     }
 }
 
+export const userDetails = ()=>{
+    if (typeof window == 'undefined') {
+        return null;
+    }
+    if (localStorage.getItem('user')) {
+        return localStorage.getItem('user');
+    } else {
+        return null;
+    }
+}
+
 export const isAdmin = ()=>{
     
     if (typeof window == 'undefined') {
