@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import WebLayout from "../../../../layouts/WebLayout";
 import Head from 'next/head';
 import styles from './Login.module.css';
 import { useForm } from "react-hook-form";
 import { apiCall } from "../../../../api";
 import { useRouter } from "next/router";
 import { UserContext } from "../../../../contexts/UserContext";
+import AuthLayout from "../../../../layouts/AuthLayout";
 
 
 
@@ -17,11 +17,11 @@ const Login = ()=>{
         const login = await apiCall('POST', 'users/login', 'login', data);
         setUser(login)
         return router.push('/user/dashboard' )
-        
+
     };
 
     return (
-        <WebLayout>
+        <AuthLayout>
             <Head>
                 <title>Login</title>
             </Head>
@@ -68,7 +68,7 @@ const Login = ()=>{
                 </div>
 
             </div>
-        </WebLayout>
+        </AuthLayout>
 
     )
 }

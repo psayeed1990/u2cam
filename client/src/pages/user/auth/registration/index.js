@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import {useForm} from 'react-hook-form';
-import WebLayout from "../../../../layouts/WebLayout";
 import {apiCall} from "../../../../api";
 import styles from './Register.module.css';
+import AuthLayout from '../../../../layouts/AuthLayout';
 
 const Registration = ()=>{
 
@@ -13,7 +13,7 @@ const Registration = ()=>{
     };
 
     return (
-        <WebLayout>
+        <AuthLayout>
             <Head><title>Register</title></Head>
             <div id={styles.register}>
                 <h1 className="heading">Register</h1>
@@ -113,7 +113,7 @@ const Registration = ()=>{
              
 
 
-        </WebLayout>
+        </AuthLayout>
     )
 }
 

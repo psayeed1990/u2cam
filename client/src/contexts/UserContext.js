@@ -9,11 +9,13 @@ export const UserProvider = (props)=>{
     const [loader, setLoader] = useContext(LoaderContext);
     
     useEffect(() => {
-
+        
         const fetchData = async ()=>{
             try{
+                
                 setLoader(true);
                 const token = localStorage.getItem("token");
+                console.log(token)
                  
                 if(token){
                    

@@ -1,11 +1,11 @@
-import WebLayout from "../../../layouts/WebLayout";
+import UserLayout from "../../../layouts/UserLayout";
 
 const Dashboard = ()=>{
     return(
-        <WebLayout>
+        <UserLayout>
         <h1 className="heading">Dashboard</h1>
 
-        </WebLayout>
+        </UserLayout>
     )
 }
 
