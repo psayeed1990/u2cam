@@ -17,8 +17,6 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
                 //login code
 				
                 localStorage.setItem('token', data.refreshToken);
-				localStorage.setItem('name', data.data.user.name);
-				localStorage.setItem('role', data.data.user.role);
                 return data.data.user;
 				
                 

@@ -12,7 +12,6 @@ const Logout = ()=>{
         const logout = async()=>{
             const logout = await apiCall('GET', 'users/logout', 'logout');
             localStorage.removeItem("token");
-            localStorage.removeItem("user");
             setUser(null);
             return router.push('/user/auth/login')
         }
