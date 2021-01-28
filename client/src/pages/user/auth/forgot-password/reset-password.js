@@ -1,20 +1,19 @@
 import Head from 'next/head';
 import {useForm} from 'react-hook-form';
 import {apiCall} from "../../../../api";
-import styles from './Register.module.css';
+import styles from './../registration/Register.module.css';
 import AuthLayout from '../../../../layouts/AuthLayout';
 import { useState } from 'react';
-import Link from 'next/link';
 
-const Registration = ()=>{
+const ResetPassword = ()=>{
     const [operationalError, setOperationalError ] = useState('');
     const {register, errors, clearErrors, getValues, setError, handleSubmit} = useForm();
     const onSubmit = async (data) => {
         setOperationalError('')
-        const registration = await apiCall('POST', 'users/signup', 'registration', data);
+        const resetPassword = await apiCall('POST', 'users/resetPassword/', 'resetPassword', data);
 
-        if(registration.status === 'mongoError'){
-            const {errorFieldName, errorFieldValue, errorMsg} = registration;
+        if(resetPassword.status === 'mongoError'){
+            const {errorFieldName, errorFieldValue, errorMsg} = resetPassword;
             
             setError(`${errorFieldName}`, {
                 type: "manual",
@@ -22,50 +21,23 @@ const Registration = ()=>{
             });
         }
 
-        if(registration.operational){
-            setOperationalError(registration.operational)
+        if(resetPassword.operational){
+            setOperationalError(resetPassword.operational)
         }
        
     };
 
     return (
         <AuthLayout>
-            <Head><title>Register</title></Head>
+            <Head><title>Reset Password</title></Head>
             <div id={styles.register}>
-                <h1 className="heading">Register</h1>
+                <h1 className="heading">Reset Password</h1>
 
                 <div className="content" id={styles.registerContent}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <p className="error">{operationalError}</p>
-                        <div className="form-group">
-                            
-                            <input ref={register({
-                                required: "Name is required",
-                                maxLength: {
-                                    value: 32,
-                                    message: "Max 32 character",
-                                },
-                                minLength: {
-                                    value: 2,
-                                    message: "Min 2 character",
-                                }
-                            })} id="name" autoFocus={true} name="name" type="text" placeholder="Name" autoComplete="new-password" />
-                            <label htmlFor="name">Name</label>
-                            <span className={`${errors.name ? 'error': ''}`}>{errors.name?.message}</span>
-                        </div>
-                            
-                        <div className="form-group">
-                            
-                            <input ref={register({
-                                required: "Email is required",
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                    message: 'Invalid email address format',
-                                },
-                            })} id="email" name="email" type="text" placeholder="Email" autoComplete="new-password" />
-                            <label htmlFor="email">Email</label>
-                             <span className={`${errors.email ? 'error': ''}`}>{errors.email?.message}</span>
-                        </div>
+ 
+                    
                         <div className="form-group">
                             
                             <input ref={register({
@@ -118,12 +90,8 @@ const Registration = ()=>{
                         
                         <div className="form-group">
                             
-                            <input id="submit" type="submit" value="Signup" />
-                            <div className={styles.forgotBtn} >
+                            <input id="submit" type="submit" value="Change Password" />
 
-                                <Link href="/user/auth/login">Already have account? Login here </Link>
-                            </div>
-                            
                         </div>
 
                     </form>
@@ -138,4 +106,4 @@ const Registration = ()=>{
     )
 }
 
-export default Registration;
+export default ResetPassword;

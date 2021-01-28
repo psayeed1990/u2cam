@@ -147,6 +147,11 @@ input:focus {
 
 /*ends form element */
 
+a {
+	text-decoration: none;
+	color: var(--secondory);
+}
+
 /* messages */
 main .error {
 	color: #caa998;

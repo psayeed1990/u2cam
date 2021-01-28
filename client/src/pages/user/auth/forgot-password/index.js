@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import Head from 'next/head';
-import Link from 'next/link';
-import styles from './Login.module.css';
+import styles from './ForgotPassword.module.css';
 import { useForm } from "react-hook-form";
 import { apiCall } from "../../../../api";
 import { useRouter } from "next/router";
@@ -10,31 +9,31 @@ import AuthLayout from "../../../../layouts/AuthLayout";
 
 
 
-const Login = ()=>{
+const ForgotPassword = ()=>{
     const [operationalError, setOperationalError ] = useState('');
     const [user, setUser] = useContext(UserContext);
     const router = useRouter()
     const {register, errors, handleSubmit} = useForm();
     const onSubmit = async (data) => {
-        const login = await apiCall('POST', 'users/login', 'login', data);
+        const forgotPassword = await apiCall('POST', 'users/forgotPassword', 'forgotpassword', data);
 
-        if(login.operational){
-             return setOperationalError(login.operational)
+        if(forgotPassword.operational){
+             return setOperationalError(forgotPassword.operational)
         }
-        setUser(login)
-        return router.push('/user/dashboard' )
+        setUser(forgotPassword)
+        return router.push('/user/auth/forgot-password/reset-password' )
 
     };
 
     return (
         <AuthLayout>
             <Head>
-                <title>Login</title>
+                <title>Forgot Password</title>
             </Head>
-            <div id={styles.login}>
-                <h1 className="heading">Login</h1>
+            <div id={styles.forgotPassword}>
+                <h1 className="heading">Forgot Password</h1>
 
-                <div className="content" id={styles.loginContent}>
+                <div className="content" id={styles.forgotPasswordContent}>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <p className="error">{operationalError}</p>
@@ -50,14 +49,7 @@ const Login = ()=>{
                             <label htmlFor="email">Email</label>
                             <span className={`${errors.email ? 'error': ''}`}>{errors.email?.message}</span>
                         </div>
-                        <div className="form-group">
-                            
-                            <input ref={register({
-                                required: 'Password is required',
-                            })} id="password" name="password" type="password" placeholder="Password" autoComplete="new-password" />
-                            <label htmlFor="password">Password</label>
-                            <span className={`${errors.password ? 'error': ''}`}>{errors.password?.message}</span>
-                        </div>
+
                        
                             
                             <input id="hidden" name="hidden" type="hidden" placeholder="hidden" autoComplete="on" />
@@ -65,11 +57,7 @@ const Login = ()=>{
                         
                         <div className="form-group">
                             
-                            <input id="submit" type="submit" value="Login" />
-                            <div className={styles.forgotBtn} >
-                                <Link href="/user/auth/forgot-password">Forgot password?</Link><br />
-                                <Link href="/user/auth/registration">Don't have account? </Link>
-                            </div>
+                            <input id="submit" type="submit" value="Reset Password" />
                             
                         </div>
 
@@ -83,4 +71,4 @@ const Login = ()=>{
     )
 }
 
-export default Login;
+export default ForgotPassword;

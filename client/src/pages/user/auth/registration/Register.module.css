@@ -7,3 +7,11 @@
 #registerContent {
 	display: block;
 }
+.forgotBtn {
+	margin-top: 0px;
+	padding: 15px 0;
+}
+.forgotBtn a {
+	color: #979393;
+	font-size: .85rem;
+}
