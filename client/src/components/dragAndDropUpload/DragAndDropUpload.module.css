@@ -4,15 +4,19 @@
 }
 
 .dragDropZone {
-  padding: 2rem;
-  text-align: center;
-  background: #07F;
-  border-radius: 0.5rem;
-  box-shadow: 5px 5px 10px #C0C0C0;
+text-align: center;
+background: var(--secondory);
+border-radius: 0.5rem;
+box-shadow: 0 0 3px #666;
+width: 400px;
+margin: 100px auto 20px;
+padding: 0;
 }
 
 .dragDropZone p {
   color: #FFF;
+  padding: 50px;
+  background: var(--fifth);
 }
 
 .dragDropZone.insideDragArea {
