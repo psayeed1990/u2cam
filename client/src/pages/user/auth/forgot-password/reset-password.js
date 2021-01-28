@@ -4,9 +4,11 @@ import {apiCall} from "../../../../api";
 import styles from './../registration/Register.module.css';
 import AuthLayout from '../../../../layouts/AuthLayout';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 const ResetPassword = ()=>{
     const [operationalError, setOperationalError ] = useState('');
+    const router = useRouter();
     const {register, errors, clearErrors, getValues, setError, handleSubmit} = useForm();
     const onSubmit = async (data) => {
         setOperationalError('')
@@ -15,15 +17,16 @@ const ResetPassword = ()=>{
         if(resetPassword.status === 'mongoError'){
             const {errorFieldName, errorFieldValue, errorMsg} = resetPassword;
             
-            setError(`${errorFieldName}`, {
+            return setError(`${errorFieldName}`, {
                 type: "manual",
                 message: `${errorFieldName.toUpperCase()} ${errorMsg}`
             });
         }
 
         if(resetPassword.operational){
-            setOperationalError(resetPassword.operational)
+            return setOperationalError(resetPassword.operational)
         }
+        return router.push('/user/auth/login' )
        
     };
 

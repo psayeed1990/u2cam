@@ -5,9 +5,11 @@ import styles from './Register.module.css';
 import AuthLayout from '../../../../layouts/AuthLayout';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Registration = ()=>{
     const [operationalError, setOperationalError ] = useState('');
+    const router = useRouter();
     const {register, errors, clearErrors, getValues, setError, handleSubmit} = useForm();
     const onSubmit = async (data) => {
         setOperationalError('')
@@ -16,15 +18,17 @@ const Registration = ()=>{
         if(registration.status === 'mongoError'){
             const {errorFieldName, errorFieldValue, errorMsg} = registration;
             
-            setError(`${errorFieldName}`, {
+            return setError(`${errorFieldName}`, {
                 type: "manual",
                 message: `${errorFieldName.toUpperCase()} ${errorMsg}`
             });
         }
 
         if(registration.operational){
-            setOperationalError(registration.operational)
+            return setOperationalError(registration.operational)
         }
+
+        return router.push('/user/auth/login' )
        
     };
 

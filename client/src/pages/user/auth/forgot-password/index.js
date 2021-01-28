@@ -11,12 +11,20 @@ import AuthLayout from "../../../../layouts/AuthLayout";
 
 const ForgotPassword = ()=>{
     const [operationalError, setOperationalError ] = useState('');
+    const router = useRouter();
     const [user, setUser] = useContext(UserContext);
-    const router = useRouter()
     const {register, errors, handleSubmit} = useForm();
     const onSubmit = async (data) => {
         const forgotPassword = await apiCall('POST', 'users/forgotPassword', 'forgotpassword', data);
-
+        
+        if(forgotPassword.status === 'mongoError'){
+            const {errorFieldName, errorFieldValue, errorMsg} = forgotPassword;
+            
+            return setError(`${errorFieldName}`, {
+                type: "manual",
+                message: `${errorFieldName.toUpperCase()} ${errorMsg}`
+            });
+        }
         if(forgotPassword.operational){
              return setOperationalError(forgotPassword.operational)
         }

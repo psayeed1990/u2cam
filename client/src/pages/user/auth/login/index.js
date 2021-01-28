@@ -18,6 +18,14 @@ const Login = ()=>{
     const onSubmit = async (data) => {
         const login = await apiCall('POST', 'users/login', 'login', data);
 
+        if(login.status === 'mongoError'){
+            const {errorFieldName, errorFieldValue, errorMsg} = login;
+            
+            return setError(`${errorFieldName}`, {
+                type: "manual",
+                message: `${errorFieldName.toUpperCase()} ${errorMsg}`
+            });
+        }
         if(login.operational){
              return setOperationalError(login.operational)
         }
