@@ -3,13 +3,28 @@ import {useForm} from 'react-hook-form';
 import {apiCall} from "../../../../api";
 import styles from './Register.module.css';
 import AuthLayout from '../../../../layouts/AuthLayout';
+import { useState } from 'react';
 
 const Registration = ()=>{
-
+    const [operationalError, setOperationalError ] = useState('');
     const {register, errors, clearErrors, getValues, setError, handleSubmit} = useForm();
     const onSubmit = async (data) => {
+        setOperationalError('')
         const registration = await apiCall('POST', 'users/signup', 'registration', data);
-        console.log('r', registration)
+
+        if(registration.status === 'mongoError'){
+            const {errorFieldName, errorFieldValue, errorMsg} = registration;
+            
+            setError(`${errorFieldName}`, {
+                type: "manual",
+                message: `${errorFieldName.toUpperCase()} ${errorMsg}`
+            });
+        }
+
+        if(registration.operational){
+            setOperationalError(registration.operational)
+        }
+       
     };
 
     return (
@@ -20,6 +35,7 @@ const Registration = ()=>{
 
                 <div className="content" id={styles.registerContent}>
                     <form onSubmit={handleSubmit(onSubmit)}>
+                        <p className="error">{operationalError}</p>
                         <div className="form-group">
                             
                             <input ref={register({

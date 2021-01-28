@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Head from 'next/head';
 import styles from './Login.module.css';
 import { useForm } from "react-hook-form";
@@ -10,11 +10,16 @@ import AuthLayout from "../../../../layouts/AuthLayout";
 
 
 const Login = ()=>{
+    const [operationalError, setOperationalError ] = useState('');
     const [user, setUser] = useContext(UserContext);
     const router = useRouter()
     const {register, errors, handleSubmit} = useForm();
     const onSubmit = async (data) => {
         const login = await apiCall('POST', 'users/login', 'login', data);
+
+        if(login.operational){
+             return setOperationalError(login.operational)
+        }
         setUser(login)
         return router.push('/user/dashboard' )
 
@@ -31,7 +36,7 @@ const Login = ()=>{
                 <div className="content" id={styles.loginContent}>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        
+                        <p className="error">{operationalError}</p>
                         <div className="form-group">
                             
                             <input ref={register({

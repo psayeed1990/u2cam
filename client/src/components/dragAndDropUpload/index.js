@@ -72,9 +72,6 @@ const DragAndDropUpload = props => {
       
       
     </div>
-    <form>
-          <input type="file" id="fileInput" />
-    </form>
 
     </Fragment>
 
