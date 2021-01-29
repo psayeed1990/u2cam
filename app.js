@@ -28,9 +28,6 @@ app.enable('trust-proxy');
 app.use(cors());
 app.options('*', cors());
 
-//public static folder
-//app.use(express.static(path.join(__dirname, 'public')));
-
 //set security http header
 app.use(helmet());
 
@@ -48,6 +45,8 @@ app.use(
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
+
+
 
 //Database request sanitize against nosql injection
 app.use(mongoSanitize());
@@ -69,11 +68,14 @@ app.use(morgan('dev'));
 app.use('/api/v1/uploads', uploadRoutes)
 app.use('/api/v1/users', userRoutes);
 
+// set static folder
+app.use(express.static('client/out'));
 
-// 404
-app.all('*', (req, res, next) => {
-  res.send('Not found');
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'out', 'index.html'));
 });
+
+
 
 //error controller
 app.use(errorController);
