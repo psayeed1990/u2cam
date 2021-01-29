@@ -24,12 +24,19 @@
     margin-left: 170px;
     margin-top: -40px;
     opacity: 0;
-    transition: opacity 0.7s ease-in-out;
+    transition: opacity 0.7s linear;
 }
 
 .subMenu a {
     background-color: var(--primary);
     color: var(--light);
+    margin: 0;
+    box-shadow: 0 0 10px -1px #212c4f;
+    transition: background-color 0.4s linear;
+}
+.subMenu a:hover {
+    color: var(--primary);
+    background-color: var(--light);
     margin: 0;
     box-shadow: 0 0 10px -1px #212c4f;
 }
