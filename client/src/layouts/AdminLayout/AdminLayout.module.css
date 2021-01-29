@@ -1,0 +1,5 @@
+.AdminLayout {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 30px;
+}

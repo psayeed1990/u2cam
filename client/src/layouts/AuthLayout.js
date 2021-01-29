@@ -11,6 +11,9 @@ const AuthLayout = ({children})=>{
     const router = useRouter()
 
     useEffect(()=>{
+        if(loader){
+            return;
+        }
         if(user){
             return router.push('/user/dashboard')
         }

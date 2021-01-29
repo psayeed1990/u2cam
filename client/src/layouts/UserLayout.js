@@ -11,6 +11,9 @@ const UserLayout = ({children})=>{
     const router = useRouter()
 
     useEffect(()=>{
+        if(loader){
+            return;
+        }
         if(!user){
             return router.push('/user/auth/login')
         }

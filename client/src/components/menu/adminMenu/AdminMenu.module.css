@@ -1,0 +1,18 @@
+#nav a {
+	display: inline-block;
+	color: var(--secondory);
+	text-decoration: none;
+	padding: 3px 30px;
+	margin: 10px;
+	text-transform: uppercase;
+	box-shadow: 0 0 9px -5px #486582;
+	border-bottom: 1px solid var(--fifth);
+	transform-style: preserve-3d;
+}
+#nav a:hover {
+	border-color: #486582;
+}
+#menu {
+	background-color: white;
+	padding: 15px;
+}

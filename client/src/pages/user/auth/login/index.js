@@ -30,6 +30,9 @@ const Login = ()=>{
              return setOperationalError(login.operational)
         }
         setUser(login)
+        if(login.role === 'admin'){
+            return router.push('/admin/dashboard' )
+        }
         return router.push('/user/dashboard' )
 
     };
