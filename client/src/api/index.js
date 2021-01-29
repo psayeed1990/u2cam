@@ -8,7 +8,7 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
 		if (reqType === 'GET') {
 			const {data} = await Axios.get(URL, formInput);
 
-			return data;
+			return data.data.data;
 		} else if (reqType === 'POST') {
 			
 			const {data} = await Axios.post(URL, formInput);
@@ -27,7 +27,7 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
 
 			} else {
                 //normal code
-				return data;
+				return data.data.data;
 			}
 		} else if (reqType === 'PATCH') {
 			const {data} = await Axios.PATCH(URL, formInput);
@@ -36,9 +36,10 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
 		} else if (reqType === 'DELETE') {
 			const {data} = await Axios.DELETE(URL, formInput);
 
-			return data;
+			return data.data.data;
 		}
 	} catch (err) {
+		
 
 		if(err.response.data.error.isOperational){
 			return {operational: err.response.data.message}

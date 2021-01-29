@@ -66,9 +66,9 @@ app.use(morgan('dev'));
 //isLogged in
 //app.use(authController.isLoggedIn());
 //routes
-
-app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/uploads', uploadRoutes)
+app.use('/api/v1/users', userRoutes);
+
 
 // 404
 app.all('*', (req, res, next) => {

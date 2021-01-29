@@ -37,7 +37,7 @@
 	--pp5: #e2bce8;
 }
 body {
-	font-family: 'arimo';
+	font-family: 'roboto';
 	color: var(--body-color);
 	text-align: center;
 	max-width: 1920px;
@@ -158,4 +158,19 @@ main .error {
 	color: #caa998;
 	margin: 11px 0 0;
 	display: block;
+}
+.edit-btn {
+	font-size: .8rem;
+	margin: 2px;
+color: var(--third);
+background: var(--light);
+padding: 5px;
+}
+.delete-btn {
+	margin: 2px;
+font-size: .8rem;
+color: #fff;
+background: var(--danger);
+padding: 5px;
+text-align: right;
 }
