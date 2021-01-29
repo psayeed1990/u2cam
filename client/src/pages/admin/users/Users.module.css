@@ -29,10 +29,16 @@ box-shadow:0 0 14px #c8d0fb;
 
 }
 .name {
-	font-size: .9rem;
+font-size: .9rem;
+display: inline-block;
+text-transform: uppercase;
+color: #979292;
 }
 .value{
-	font-weight: 400;
+display: inline-block;
+font-weight: 400;
+color: var(--body-color);
+    
 }
 .listWrapper {
     padding: 15px;

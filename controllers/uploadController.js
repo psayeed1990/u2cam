@@ -29,17 +29,17 @@ const upload = multer({
 
 exports.uploadZipFile = upload.single('zippedTheme');
 exports.handleZippedTheme = catchAsync(async (req, res, next)=>{
-    console.log(req.file.filename)
-  fs.createReadStream(`tmp/my-uploads/${req.file.filename}`)
-  .pipe(unzipper.Parse())
-  .on('entry', function (entry) {
-    const fileName = entry.path;
-    const type = entry.type; // 'Directory' or 'File'
-    const size = entry.vars.uncompressedSize; // There is also compressedSize;
-    if (fileName === `${req.file.filename}`) {
-      entry.pipe(fs.createWriteStream('html-theme-uploads'));
-    } else {
-      entry.autodrain();
-    }
+
+  await fs.createReadStream(`tmp/my-uploads/${req.file.filename}`)
+  .pipe(unzipper.Extract({ path: `html-theme-uploads/${req.file.filename}` }));
+
+  
+
+  return res.status(204).json({
+    status: 'success',
+    data: null,
   });
+  
+
+
 })

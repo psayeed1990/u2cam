@@ -30,7 +30,7 @@ const DragAndDropUpload = props => {
     dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: true });
   };
 
-  const handleDrop = e => {
+  const handleDrop = async e => {
     e.preventDefault();
     e.stopPropagation();
     const fileInput = document.getElementById('fileInput');
@@ -48,12 +48,14 @@ const DragAndDropUpload = props => {
 
       const formData = new FormData();
       formData.append('zippedTheme', files[0]);
-      return Axios.post('/api/v1/uploads/zipped-html-theme', formData, {
+      const res = await Axios.post('/api/v1/uploads/zipped-html-theme', formData, {
             onUploadProgress: (progressEvent) => {
               const uploadPercentage = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
               dispatch({ type: 'SET_ERROR', ERROR: `File uploading ${uploadPercentage}%` })
             }
           })
+      return dispatch({ type: 'SET_ERROR', ERROR: `Your theme is uploaded` })
+      
     }
 
 
