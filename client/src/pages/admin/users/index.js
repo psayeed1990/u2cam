@@ -1,13 +1,16 @@
-import AdminLayout from '../../../layouts/AdminLayout';
 import { Fragment, useEffect, useState } from 'react';
+import AdminLayout from '../../../layouts/AdminLayout';
 import styles from './Users.module.css'
 import DeletePopups from '../../../components/popups/deletePopups';
 import { apiCall } from '../../../api';
+import { Link } from 'next/link';
+import { useRouter } from 'next/router';
 
-const Users = (props)=>{
+const Users = ()=>{
     const [deleteDetails, setDeleteDetails] = useState({});
     const [showDelPopup, setShowDelPopup] = useState(false);
     const [users, setUsers] = useState(null);
+    const router = useRouter();
 
     useEffect(()=>{
         const getUsers = async ()=>{
@@ -23,6 +26,10 @@ const Users = (props)=>{
         setDeleteDetails({type, id, b, c})
         setShowDelPopup(true);
 
+    }
+
+    const goToSinglePage = (pageId)=>{
+        router.push(`/admin/users/${pageId}`)
     }
 
     return(
@@ -44,7 +51,10 @@ const Users = (props)=>{
                             <span className={styles.show2}><span className={styles.name}>Email:</span><span className={styles.value}>{user.email}</span></span>
                            
                             <span className={styles.right}>
-                                <span className="edit-btn cursor-pointer">Edit</span>
+                                
+                                <span className="edit-btn cursor-pointer" onClick={()=>goToSinglePage(user._id)}>Edit</span>
+                                
+                              
                                 <span className="delete-btn cursor-pointer" onClick={()=>deleteData('user', user._id, user.name, user.email)} >Delete</span>
                             </span>
                          </p>

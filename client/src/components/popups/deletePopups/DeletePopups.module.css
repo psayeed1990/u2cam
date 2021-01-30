@@ -30,7 +30,6 @@ background: #e8e8e8;
 padding: 10px;
 box-shadow: 0 0 3px #2d2262;
 border-radius: 10px;
-border: 1px solid #0a334d;
 animation: paddingUp 0.3 forwards linear;
 }
 
@@ -44,18 +43,20 @@ animation: paddingUp 0.3 forwards linear;
 }
 
 .heading{
-color: var(--danger);
+color: #5d92ac;
 font-family: roboto;
-font-weight: 100;
+font-weight: bold;
 text-transform: uppercase;
 width: max-content;
 padding: 5px 20px;
 }
 
 .popupContent p{
+    font-family: 'arimo';
 color: var(--body-color);
 padding: 5px;
 margin: 6px auto;
+
 }
 
 .delNoBtn, .delYesBtn{
@@ -65,11 +66,11 @@ margin: 6px auto;
     cursor: pointer;
 }
 .delYesBtn{
-    background-color: var(--danger);
+    background-color: var(--secondory);
     color: var(--light);
 }
 .delNoBtn{
-    background-color: var(--success);
+    background-color: var(--third);
     color: var(--light);
 
 }
