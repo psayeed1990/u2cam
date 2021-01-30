@@ -15,7 +15,7 @@ const AdminSidebar = ()=>{
                             <Link href="/admin/users/profile">Profile</Link>
                         </li>
                         <li className={`${styles.adminLinks}`}>
-                            <Link href="/admin/users/create">Create User</Link>
+                            <Link href="/admin/users/create-user">Create User</Link>
                         </li>
                     </ul>
                 </li>

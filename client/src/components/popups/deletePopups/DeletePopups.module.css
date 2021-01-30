@@ -1,0 +1,28 @@
+#deletePopup{
+    background-color: rgba(25, 25, 78, 0.9);
+    position: fixed;
+    width: 100vw;
+	height: 100vh;
+	z-index: 999;
+	opacity: 1;
+	visibility: visible;
+    
+}
+.popupContent{
+    width: max-content;
+    margin: 5% auto;
+    background: #0e3573;
+    padding: 50px;
+    box-shadow: 0 0 3px #2d2262;
+}
+
+.popupContent > .heading{
+    color: #c7d2d7 !important;
+font-family: roboto;
+font-weight: 400;
+text-transform: uppercase;
+text-shadow: 0 0 12px #7d3a53;
+width: max-content;
+padding: 5px 20px;
+margin: 50px auto;
+}

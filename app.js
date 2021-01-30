@@ -19,7 +19,7 @@ const errorController = require('./controllers/errorController');
 //load routes
 const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
-
+const adminRoutes = require('./routes/adminRoutes');
 
 //enable proxy
 app.enable('trust-proxy');
@@ -67,6 +67,7 @@ app.use(morgan('dev'));
 //routes
 app.use('/api/v1/uploads', uploadRoutes)
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/admin', adminRoutes);
 
 // set static folder
 app.use(express.static('client/out'));

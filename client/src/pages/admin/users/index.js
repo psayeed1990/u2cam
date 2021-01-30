@@ -1,13 +1,24 @@
 import AdminLayout from '../../../layouts/AdminLayout';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { apiCall } from '../../../api';
 import styles from './Users.module.css'
 import Link from 'next/link';
 import axios from 'axios';
+import DeletePopups from '../../../components/popups/deletePopups';
 
 const Users = (props)=>{
+    const [deleteDetails, setDeleteDetails] = useState({});
+    const [showDelPopup, setShowDelPopup] = useState(null);
+
+    const deleteData = async (id, b, c)=>{
+        setDeleteDetails({id, b, c})
+        setShowDelPopup(true);
+
+    }
 
     return(
+        <Fragment>
+            {showDelPopup?<DeletePopups id={deleteDetails.id} b={deleteDetails.b} c={deleteDetails.c} /> : ''}
         <AdminLayout>
            
         <div className={styles.users}>
@@ -25,16 +36,23 @@ const Users = (props)=>{
                            
                             <span className={styles.right}>
                                 <span className="edit-btn cursor-pointer">Edit</span>
-                                <span className="delete-btn cursor-pointer">Delete</span>
+                                <span className="delete-btn cursor-pointer" onClick={()=>deleteData(user._id, user.name, user.email)} >Delete</span>
                             </span>
                          </p>
                          
                      </div>
                  )
              })}
+
+             
+
         </div>
+
+
         
         </AdminLayout>
+        </Fragment>
+        
     )
 }
 

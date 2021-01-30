@@ -13,6 +13,7 @@
 }
 .sidebar {
     padding-bottom: 400px;
+    
 }
 .sidebar li:hover .subMenu{
     opacity: 1;
@@ -25,6 +26,7 @@
     margin-top: -40px;
     opacity: 0;
     transition: opacity 0.7s linear;
+    z-index: 990;
 }
 
 .subMenu a {
