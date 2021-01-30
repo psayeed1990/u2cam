@@ -40,29 +40,33 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
 		}
 	} catch (err) {
 		
+		if(err.response){
 
-		if(err.response.data.error.isOperational){
-			return {operational: err.response.data.message}
-		}
-
-		//mongoose error code debunk
-		let errorName = err.response.data.error.name
-		if(errorName === 'MongoError'){
-			let errorCode = err.response.data.error.code;
-			let errorFieldName = Object.keys(err.response.data.error.keyValue)[0];
-			let errorFieldValue = Object.values(err.response.data.error.keyValue)[0];
-			let errorMsg = '';
-		
-			
-			if( errorCode === 11000){
-				errorMsg = `already exist`;
+			if(err.response.data.error.isOperational){
+				return {operational: err.response.data.message}
 			}
-		
 
-			return {status: 'mongoError', errorFieldName, errorFieldValue, errorMsg}
+			//mongoose error code debunk
+			let errorName = err.response.data.error.name
+			if(errorName === 'MongoError'){
+				let errorCode = err.response.data.error.code;
+				let errorFieldName = Object.keys(err.response.data.error.keyValue)[0];
+				let errorFieldValue = Object.values(err.response.data.error.keyValue)[0];
+				let errorMsg = '';
+			
+
+				if( errorCode === 11000){
+					errorMsg = `already exist`;
+				}
+			
+
+				return {status: 'mongoError', errorFieldName, errorFieldValue, errorMsg}
+			}
+
+			return { operational: err.response.data.message}
 		}
 
-		return { operational: err.response.data.message}
+		return err;
 
 	}
 };
