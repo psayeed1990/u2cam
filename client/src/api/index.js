@@ -30,13 +30,15 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
 				return data.data.data;
 			}
 		} else if (reqType === 'PATCH') {
-			const {data} = await Axios.PATCH(URL, formInput);
+			const {data} = await Axios.patch(URL, formInput);
 
 			return data.json();
 		} else if (reqType === 'DELETE') {
-			const {data} = await Axios.DELETE(URL, formInput);
 
-			return data.data.data;
+			console.log('hi')
+			const {data} = await Axios.delete(URL, formInput);
+
+			return data;
 		}
 	} catch (err) {
 		

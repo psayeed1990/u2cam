@@ -1,29 +1,38 @@
 import AdminLayout from '../../../layouts/AdminLayout';
 import { Fragment, useEffect, useState } from 'react';
-import { apiCall } from '../../../api';
 import styles from './Users.module.css'
-import Link from 'next/link';
-import axios from 'axios';
 import DeletePopups from '../../../components/popups/deletePopups';
+import { apiCall } from '../../../api';
 
 const Users = (props)=>{
     const [deleteDetails, setDeleteDetails] = useState({});
-    const [showDelPopup, setShowDelPopup] = useState(null);
+    const [showDelPopup, setShowDelPopup] = useState(false);
+    const [users, setUsers] = useState(null);
 
-    const deleteData = async (id, b, c)=>{
-        setDeleteDetails({id, b, c})
+    useEffect(()=>{
+        const getUsers = async ()=>{
+            const data = await apiCall('GET', 'users', 'get users');
+            return setUsers(data);
+        } 
+
+        getUsers()
+
+    },[])
+
+    const deleteData = async (type, id, b, c)=>{
+        setDeleteDetails({type, id, b, c})
         setShowDelPopup(true);
 
     }
 
     return(
         <Fragment>
-            {showDelPopup?<DeletePopups id={deleteDetails.id} b={deleteDetails.b} c={deleteDetails.c} /> : ''}
+            {showDelPopup?<DeletePopups listState={users} setListState={setUsers} url="users" showDelPopup={showDelPopup} setShowDelPopup={setShowDelPopup} type={deleteDetails.type} id={deleteDetails.id} b={deleteDetails.b} c={deleteDetails.c} /> : ''}
         <AdminLayout>
            
         <div className={styles.users}>
             <h1 className="heading">users</h1>
-             {props.users?.map((user, index)=>{
+             {users?.map((user, index)=>{
                  return(
                      <div className={`${styles.user}`} key={user._id}>
                          
@@ -36,7 +45,7 @@ const Users = (props)=>{
                            
                             <span className={styles.right}>
                                 <span className="edit-btn cursor-pointer">Edit</span>
-                                <span className="delete-btn cursor-pointer" onClick={()=>deleteData(user._id, user.name, user.email)} >Delete</span>
+                                <span className="delete-btn cursor-pointer" onClick={()=>deleteData('user', user._id, user.name, user.email)} >Delete</span>
                             </span>
                          </p>
                          
@@ -56,16 +65,16 @@ const Users = (props)=>{
     )
 }
 
-export const getServerSideProps = async context =>{
+// export const getServerSideProps = async context =>{
 
-    const response = await axios({
-        method: 'get',
-        url: 'http://localhost:8082/api/v1/users',
-        headers: { cookie: context.req.headers.cookie }
-    })
+//     const response = await axios({
+//         method: 'get',
+//         url: 'http://localhost:8082/api/v1/users',
+//         headers: { cookie: context.req.headers.cookie }
+//     })
 
-    return {props:{users: response.data.data.data}}
+//     return {props:{users: response.data.data.data}}
 
-}
+// }
 
 export default Users;

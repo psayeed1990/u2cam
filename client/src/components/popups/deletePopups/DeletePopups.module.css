@@ -1,28 +1,75 @@
 #deletePopup{
-    background-color: rgba(25, 25, 78, 0.9);
+    background-color: rgba(181, 181, 181, 0.9);
     position: fixed;
-    width: 100vw;
-	height: 100vh;
+    width: 80vw;
+	height: 80vh;
 	z-index: 999;
-	opacity: 1;
-	visibility: visible;
+	opacity: 0;
+    visibility: visible;
+    animation: showPopup 0.3s linear forwards;
     
 }
-.popupContent{
-    width: max-content;
-    margin: 5% auto;
-    background: #0e3573;
-    padding: 50px;
-    box-shadow: 0 0 3px #2d2262;
+
+@keyframes showPopup {
+    0% {
+        opacity: 0;
+        width: 80vw;
+        height: 80vh;
+    }
+    100% {
+        opacity: 1;
+        width: 100vw;
+        height: 100vh;
+    }
 }
 
-.popupContent > .heading{
-    color: #c7d2d7 !important;
+.popupContent{
+width: max-content;
+margin: 5% auto;
+background: #e8e8e8;
+padding: 10px;
+box-shadow: 0 0 3px #2d2262;
+border-radius: 10px;
+border: 1px solid #0a334d;
+animation: paddingUp 0.3 forwards linear;
+}
+
+@keyframes paddingUp{
+    0%{
+        padding: 10px;
+    }
+    100%{
+        padding: 50px;
+    }
+}
+
+.heading{
+color: var(--danger);
 font-family: roboto;
-font-weight: 400;
+font-weight: 100;
 text-transform: uppercase;
-text-shadow: 0 0 12px #7d3a53;
 width: max-content;
 padding: 5px 20px;
-margin: 50px auto;
+}
+
+.popupContent p{
+color: var(--body-color);
+padding: 5px;
+margin: 6px auto;
+}
+
+.delNoBtn, .delYesBtn{
+        margin: 5px;
+    padding: 6px 15px;
+    box-shadow: 0 0 3px #444;
+    cursor: pointer;
+}
+.delYesBtn{
+    background-color: var(--danger);
+    color: var(--light);
+}
+.delNoBtn{
+    background-color: var(--success);
+    color: var(--light);
+
 }
