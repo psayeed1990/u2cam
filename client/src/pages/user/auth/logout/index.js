@@ -20,11 +20,13 @@ const Logout = ()=>{
     
     return(
         <WebLayout>
+            <div className="content">
         {user?
             <h1 classname="heading">Logging out...</h1>
             :
             <h1 className="heading">Logged out</h1>
         }
+        </div>
         </WebLayout>
     )
 }

@@ -35,6 +35,7 @@ const Registration = ()=>{
     return (
         <AuthLayout>
             <Head><title>Register</title></Head>
+            <div className="content">
             <div id={styles.register}>
                 <h1 className="heading">Register</h1>
 
@@ -136,7 +137,7 @@ const Registration = ()=>{
 
             </div>
              
-
+                            </div>
 
         </AuthLayout>
     )

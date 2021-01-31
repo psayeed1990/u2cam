@@ -35,6 +35,7 @@ const CreateUser = ()=>{
     return (
         <AdminLayout>
             <Head><title>Create A User</title></Head>
+            <div className="content">
             <div id={styles.register}>
                 <h1 className="heading">Create a user, admin, moderator</h1>
 
@@ -161,7 +162,7 @@ const CreateUser = ()=>{
 
             </div>
              
-
+                        </div>
 
         </AdminLayout>
     )

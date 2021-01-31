@@ -46,6 +46,7 @@ const Login = ()=>{
             <Head>
                 <title>Login</title>
             </Head>
+            <div className="content">
             <div id={styles.login}>
                 <h1 className="heading">Login</h1>
 
@@ -92,6 +93,7 @@ const Login = ()=>{
 
                 </div>
 
+            </div>
             </div>
         </AuthLayout>
 

@@ -21,10 +21,12 @@ const SingleUser = ()=>{
 
     return(
         <AdminLayout>
+            <div className="content">
             {user?.name}
             {user?.email}
             {user?.phone}
             {user?.role}
+            </div>
         </AdminLayout>
     )
 }

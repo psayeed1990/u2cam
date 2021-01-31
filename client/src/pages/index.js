@@ -33,6 +33,7 @@ const Home = ({message})=>{
                 <title>HTML to WP theme</title>
                 <p className="error">{message}</p>
             </Head>
+            <div className="content">
             <h1 className="heading">Home page</h1>
 
             <div id={styles.drop} >
@@ -45,7 +46,7 @@ const Home = ({message})=>{
                 
                 
             </div>
-
+          </div>
         </WebLayout>
 
     )

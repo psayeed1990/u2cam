@@ -38,6 +38,7 @@ const ForgotPassword = ()=>{
             <Head>
                 <title>Forgot Password</title>
             </Head>
+            <div className="content">
             <div id={styles.forgotPassword}>
                 <h1 className="heading">Forgot Password</h1>
 
@@ -73,6 +74,7 @@ const ForgotPassword = ()=>{
 
                 </div>
 
+            </div>
             </div>
         </AuthLayout>
 

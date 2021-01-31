@@ -12,7 +12,9 @@ const Unauthorized = ()=>{
                 <title>Unauthorized</title>
                 
             </Head>
+            <div className="content">
             <h1 className="heading">Unauthorized page</h1>
+            </div>
 
 
         </WebLayout>

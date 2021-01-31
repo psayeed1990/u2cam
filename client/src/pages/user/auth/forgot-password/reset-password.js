@@ -33,6 +33,7 @@ const ResetPassword = ()=>{
     return (
         <AuthLayout>
             <Head><title>Reset Password</title></Head>
+            <div className="content">
             <div id={styles.register}>
                 <h1 className="heading">Reset Password</h1>
 
@@ -103,7 +104,7 @@ const ResetPassword = ()=>{
 
             </div>
              
-
+                            </div>
 
         </AuthLayout>
     )

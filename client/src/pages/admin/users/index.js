@@ -36,7 +36,7 @@ const Users = ()=>{
         <Fragment>
             {showDelPopup?<DeletePopups listState={users} setListState={setUsers} url="users" showDelPopup={showDelPopup} setShowDelPopup={setShowDelPopup} type={deleteDetails.type} id={deleteDetails.id} b={deleteDetails.b} c={deleteDetails.c} /> : ''}
         <AdminLayout>
-           
+        <div className="content">
         <div className={styles.users}>
             <h1 className="heading">users</h1>
              {users?.map((user, index)=>{
@@ -65,6 +65,7 @@ const Users = ()=>{
 
              
 
+        </div>
         </div>
 
 
