@@ -6,7 +6,7 @@ import styles from './AdminHeader.module.css';
 const AdminHeader = ()=>{
     const [loader, setLoader] = useContext(LoaderContext)
     return (
-        <header id={styles.header}>
+        <header id={styles.header} className="header">
             <Logo />
             {loader ? <Fragment /> : 
             <AdminMenu />}

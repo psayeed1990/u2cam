@@ -6,7 +6,7 @@ import styles from './AuthHeader.module.css';
 const AuthHeader = ()=>{
     const [loader, setLoader] = useContext(LoaderContext)
     return (
-        <header id={styles.header}>
+        <header id={styles.header} className="header">
             <Logo />
             {loader ? <Fragment /> : 
             <WebMenu />}

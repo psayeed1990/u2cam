@@ -17,6 +17,8 @@ padding: 0;
   color: #FFF;
   padding: 50px;
   background: var(--fifth);
+  box-shadow: 0 0 5px #464b6a;
+border-radius: 5px;
 }
 
 .dragDropZone.insideDragArea {
