@@ -5,7 +5,7 @@
 
 .dragDropZone {
 text-align: center;
-background: var(--secondory);
+background: var(--fifth);
 border-radius: 0.5rem;
 box-shadow: 0 0 3px #666;
 width: 400px;
@@ -16,9 +16,7 @@ padding: 0;
 .dragDropZone p {
   color: #FFF;
   padding: 50px;
-  background: var(--fifth);
-  box-shadow: 0 0 5px #464b6a;
-border-radius: 5px;
+
 }
 
 .dragDropZone.insideDragArea {
