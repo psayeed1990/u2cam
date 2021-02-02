@@ -31,15 +31,20 @@ const Login = ()=>{
         }
         await setUser(login)
         
-        if(user.role === 'admin'){
-            return router.push('/admin/dashboard' )
-        }
-        if(user.role === 'user'){
-            return router.push('/user/dashboard' )
-
-        }
+        
 
     };
+
+    useEffect(()=>{
+        if(user.role === 'admin'){
+            router.push('/admin/dashboard' )
+        }else if(user.role === 'user'){
+             router.push('/user/dashboard' )
+
+        }else{
+            return;
+        }
+    },[user])
 
 
     return (
