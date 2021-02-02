@@ -36,14 +36,17 @@ const Login = ()=>{
     };
 
     useEffect(()=>{
-        if(user.role === 'admin'){
-            router.push('/admin/dashboard' )
-        }else if(user.role === 'user'){
-             router.push('/user/dashboard' )
+        if(user){
+            if(user.role === 'admin'){
+                router.push('/admin/dashboard' )
+            }else if(user.role === 'user'){
+                 router.push('/user/dashboard' )
 
-        }else{
-            return;
+            }else{
+                return;
+            }
         }
+
     },[user])
 
 
