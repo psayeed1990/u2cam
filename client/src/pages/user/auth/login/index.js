@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from './Login.module.css';
@@ -29,17 +29,18 @@ const Login = ()=>{
         if(login.operational){
              return setOperationalError(login.operational)
         }
-        setUser(login)
+        await setUser(login)
         
-        if(login.role === 'admin'){
+        if(user.role === 'admin'){
             return router.push('/admin/dashboard' )
         }
-        if(login.role === 'user'){
+        if(user.role === 'user'){
             return router.push('/user/dashboard' )
 
         }
 
     };
+
 
     return (
         <AuthLayout>
