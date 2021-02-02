@@ -1,19 +1,20 @@
-import Head from 'next/head';
 import {useForm} from 'react-hook-form';
-import styles from './Register.module.css';
-import AuthLayout from '../../../../layouts/AuthLayout';
+import styles from './FormComponent.module.css';
 import { Fragment, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import ApiCallComponent from '../../../../api/apiCallComponent';
+import ApiCallComponent from '../../api/apiCallComponent';
+import TextField from './formFields/TextField';
 
-const Registration = ()=>{
+
+
+const FormComponent = ({fieldName})=>{
     const [success, setSuccess] = useState(false);
     const [apiCallComponent, setApiCallComponent] = useState(false);
     const [apiData, setApiData] = useState({});
     const [operationalError, setOperationalError ] = useState('');
     const router = useRouter();
-    const {register, errors, clearErrors, getValues, setError, handleSubmit, trigger} = useForm();
+    const {register, errors, clearErrors, getValues, setError, handleSubmit} = useForm();
     const onSubmit = async (data) => {
         setApiData(data)
         setApiCallComponent(true);
@@ -21,6 +22,7 @@ const Registration = ()=>{
        
     };
 
+    //redirect page on success
     useEffect(()=>{
         if(success){
             return router.push('/user/auth/login' )
@@ -28,8 +30,8 @@ const Registration = ()=>{
     },[success])
 
     return (
-        <AuthLayout>
-            <Head><title>Register</title></Head>
+        <Fragment>
+            
                 {apiCallComponent?<ApiCallComponent setSuccess={setSuccess} setApiCallComponent={setApiCallComponent} setError={setError} setOperationalError={setOperationalError} reqType='POST' url='users/signup' reason='registration' formInput={apiData}  /> 
             
                 :
@@ -42,24 +44,12 @@ const Registration = ()=>{
                 <h1 className="heading">Register</h1>
 
                 <div className="content" id={styles.registerContent}>
+                   
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <p className="error">{operationalError}</p>
-                        <div className="form-group">
-                            
-                            <input ref={register({
-                                required: "Name is required",
-                                maxLength: {
-                                    value: 32,
-                                    message: "Max 32 character",
-                                },
-                                minLength: {
-                                    value: 2,
-                                    message: "Min 2 character",
-                                }
-                            })} id="name" autoFocus={true} name="name" type="text" placeholder="Name" autoComplete="new-password" />
-                            <label htmlFor="name">Name</label>
-                            <span className={`${errors.name ? 'error': ''}`}>{errors.name?.message}</span>
-                        </div>
+                        
+                        <TextField initFocus={true} maxChar={max} minChar={min} isRequired={true} fieldName={fieldName} register={register} errors={errors} setError={setError} clearErrors={clearErrors} getValues={getValues} />
+
                             
                         <div className="form-group">
                             
@@ -135,6 +125,7 @@ const Registration = ()=>{
 
                     </form>
 
+
                 </div>
 
             </div>
@@ -142,8 +133,8 @@ const Registration = ()=>{
             </div>
         
 
-        </AuthLayout>
+        </Fragment>
     )
 }
 
-export default Registration;
+export default FormComponent;

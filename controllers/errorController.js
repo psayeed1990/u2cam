@@ -7,9 +7,9 @@ const handleCastErrorDB = err => {
 
 const handleDuplicateFieldsDB = err => {
   const errorPath = Object.keys(err.keyPattern)[0];
-  const value = err.message.match(/(["'])(\\?.)*?\1/)[0];
+  // const value = err.message.match(/(["'])(\\?.)*?\1/)[0];
 
-  const message = `${errorPath} Already exists!`;
+  const message = `${errorPath} already exists!`;
   return new AppError(message, 400);
 };
 

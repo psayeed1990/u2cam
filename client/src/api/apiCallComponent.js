@@ -18,7 +18,7 @@ const ApiCallComponent = ({setSuccess, setApiCallComponent, setError, setOperati
               
                 setError(`${inputName}`, {
                     type: 'manual',
-                    message: `${message}`
+                    message: `${message}`.replace(/^\w/, (c) => c.toUpperCase()),
                 });
                 
 		    }else if(data.response.data.status === 'error'){
@@ -28,7 +28,7 @@ const ApiCallComponent = ({setSuccess, setApiCallComponent, setError, setOperati
             }
             
             if(data.response.data.status === 'success'){
-                setSuccess('Success')
+                setSuccess(true)
             }
 
             return setApiCallComponent(false)
