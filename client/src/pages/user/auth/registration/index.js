@@ -1,40 +1,36 @@
 import Head from 'next/head';
 import {useForm} from 'react-hook-form';
-import {apiCall} from "../../../../api";
 import styles from './Register.module.css';
 import AuthLayout from '../../../../layouts/AuthLayout';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import ApiCallComponent from '../../../../api/apiCallComponent';
 
 const Registration = ()=>{
+    const [success, setSuccess] = useState(false);
+    const [apiCallComponent, setApiCallComponent] = useState(false);
+    const [apiData, setApiData] = useState({});
     const [operationalError, setOperationalError ] = useState('');
     const router = useRouter();
-    const {register, errors, clearErrors, getValues, setError, handleSubmit} = useForm();
+    const {register, errors, clearErrors, getValues, setError, handleSubmit, trigger} = useForm();
     const onSubmit = async (data) => {
-        setOperationalError('')
-        const registration = await apiCall('POST', 'users/signup', 'registration', data);
-
-        if(registration.status === 'mongoError'){
-            const {errorFieldName, errorFieldValue, errorMsg} = registration;
-            
-            return setError(`${errorFieldName}`, {
-                type: "manual",
-                message: `${errorFieldName.toUpperCase()} ${errorMsg}`
-            });
-        }
-
-        if(registration.operational){
-            return setOperationalError(registration.operational)
-        }
-
-        return router.push('/user/auth/login' )
+        setApiData(data)
+        setApiCallComponent(true);
+        //return router.push('/user/auth/login' )
        
     };
 
     return (
         <AuthLayout>
             <Head><title>Register</title></Head>
+                {apiCallComponent?<ApiCallComponent setSuccess={setSuccess} setApiCallComponent={setApiCallComponent} setError={setError} setOperationalError={setOperationalError} reqType='POST' url='users/signup' reason='registration' formInput={apiData}  /> 
+            
+                :
+                <Fragment></Fragment>
+            }
+            
+            
             <div className="content">
             <div id={styles.register}>
                 <h1 className="heading">Register</h1>
@@ -137,7 +133,8 @@ const Registration = ()=>{
 
             </div>
              
-                            </div>
+            </div>
+        
 
         </AuthLayout>
     )

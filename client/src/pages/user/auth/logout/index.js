@@ -9,18 +9,21 @@ const Logout = ()=>{
     const [user, setUser] = useContext(UserContext);
 
     useEffect(()=>{
-        const logout = async()=>{
-            const logout = await apiCall('GET', 'users/logout', 'logout');
-            localStorage.removeItem("token");
-            setUser(null);
-            return router.push('/user/auth/login')
+        if(user){
+            const logout = async()=>{
+                const logout = await apiCall('GET', 'users/logout', 'logout');
+                localStorage.removeItem("token");
+                setUser(null);
+                return router.push('/user/auth/login')
+            }
+            logout();
         }
-        logout();
+
     },[])
     
     return(
         <WebLayout>
-            <div className="content">
+        <div className="content">
         {user?
             <h1 classname="heading">Logging out...</h1>
             :
