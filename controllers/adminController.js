@@ -16,15 +16,15 @@ exports.createAdminUser = catchAsync(async (req, res, next) => {
     role: req.body.role,
   });
 
-  //generate jwt token to verify email
-  const EmailVerifyToken = await signToken(newUser._id);
+  // //generate jwt token to verify email
+  // const EmailVerifyToken = await signToken(newUser._id);
 
-  //verification url
-  const url = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/email-verify/${EmailVerifyToken}`;
+  // //verification url
+  // const url = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/api/v1/users/email-verify/${EmailVerifyToken}`;
 
-  await new Email(newUser, url).sendEmailVerify();
+  // await new Email(newUser, url).sendEmailVerify();
 
   return res.json({
       status: 'success',

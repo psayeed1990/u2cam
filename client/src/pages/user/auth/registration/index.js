@@ -3,6 +3,8 @@ import styles from './Register.module.css';
 import AuthLayout from '../../../../layouts/AuthLayout';
 import FormComponent from '../../../../components/formComponents';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 
 export const SubmitBtnExtra = ()=>(
@@ -11,8 +13,15 @@ export const SubmitBtnExtra = ()=>(
 )
 
 const Registration =()=>{
-    
+    const [success, setSuccess] = useState(false);
+    const [returnValue, setReturnValue] = useState({});
+    const router = useRouter();
 
+    useEffect(()=>{
+        if(success){
+            router.push('/user/auth/login')
+        }
+    }, [success])
 
     const formBuilder=
         [
@@ -31,7 +40,7 @@ const Registration =()=>{
                 <div id={styles.register}>
                     <h1 className="heading">Registration</h1>
                     <div id={styles.registerContent}>
-                        <FormComponent submitValue='Signup' reason='registration' reqType='POST' url='users/signup' formBuilder={formBuilder} submitBtnExtra={<SubmitBtnExtra />} sucessUrl='/user/auth/login' />
+                        <FormComponent setSuccess={setSuccess} setReturnValue={setReturnValue} submitValue='Signup' reason='registration' reqType='post' url='users/signup' formBuilder={formBuilder} submitBtnExtra={<SubmitBtnExtra />} sucessUrl='/user/auth/login' />
                     </div>
 
                 </div>

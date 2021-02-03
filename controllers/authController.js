@@ -35,7 +35,6 @@ const createSendToken = (user, statusCode, req, res) => {
     refreshToken: refreshToken,
     jwt: token,
     data: {
-      
       user,
     },
   });

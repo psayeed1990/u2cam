@@ -11,9 +11,8 @@ const PasswordConfirmField = lazy(() => import('./formFields/PasswordConfirmFiel
 
 
 
-const FormComponent = ({submitValue, reason, reqType, url, successUrl, formBuilder, submitBtnExtra})=>{
+const FormComponent = ({setReturnValue, setSuccess, submitValue, reason, reqType, url, formBuilder, submitBtnExtra})=>{
     const isServer = typeof window === "undefined";
-    const [success, setSuccess] = useState(false);
     const [apiCallComponent, setApiCallComponent] = useState(false);
     const [apiData, setApiData] = useState({});
     const [operationalError, setOperationalError ] = useState('');
@@ -26,18 +25,11 @@ const FormComponent = ({submitValue, reason, reqType, url, successUrl, formBuild
        
     };
 
-    //redirect page on success
-    useEffect(()=>{
-        if(success){
-            return router.push(successUrl)
-        }
-    },[success])
-
     return (
         <Fragment>
             
                 {apiCallComponent   ?
-                    <ApiCallComponent setSuccess={setSuccess} setApiCallComponent={setApiCallComponent} setError={setError} setOperationalError={setOperationalError} reqType={reqType} url={url} reason={reason} formInput={apiData}  /> 
+                    <ApiCallComponent setSuccess={setSuccess} setReturnValue={setReturnValue} setApiCallComponent={setApiCallComponent} setError={setError} setOperationalError={setOperationalError} reqType={reqType} url={url} reason={reason} formInput={apiData}  /> 
             
                 :
                     <Fragment></Fragment>

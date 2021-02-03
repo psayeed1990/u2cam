@@ -2,16 +2,23 @@ import { Fragment, useEffect } from "react";
 import { apiCall } from ".";
 
 
-const ApiCallComponent = ({setSuccess, setApiCallComponent, setError, setOperationalError, reqType, url, reason, formInput})=>{
+const ApiCallComponent = ({setSuccess, setReturnValue, setApiCallComponent, setError, setOperationalError, reqType, url, reason, formInput})=>{
 
     useEffect(()=>{
         
         const runApiCall = async()=>{
             setOperationalError('')
             const data = await apiCall(reqType, url, reason, formInput);
+            console.log(data)
+
+            //success
+            if(data.status === 'success'){
+                setSuccess(true);
+                setReturnValue(data);
+            }
             
-           
-            if(data.response.data.status === 'fail'){
+            //fail
+            else if(data.response.data.status === 'fail'){
 
                 const inputName = data.response.data.message.split(' ')[0].trim();
                 const message = data.response.data.message.split(' ').slice(1).join(' ');
@@ -27,10 +34,8 @@ const ApiCallComponent = ({setSuccess, setApiCallComponent, setError, setOperati
                 setOperationalError(data.response.data.message) 
             }
             
-            if(data.response.data.status === 'success'){
-                setSuccess(true)
-            }
-
+           
+            //always set this to false to run the form again in case of error
             return setApiCallComponent(false)
         }
 
