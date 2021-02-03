@@ -22,7 +22,7 @@ export const apiCall = async (reqType, url, reason, formInput, user) => {
                 
 			} else if (reason === 'registration') {
 				//register code
-				console.log(data)
+				// localStorage.setItem('token', data.refreshToken);
 				return data
 
 			} else {

@@ -35,13 +35,14 @@ const createSendToken = (user, statusCode, req, res) => {
     refreshToken: refreshToken,
     jwt: token,
     data: {
+      
       user,
     },
   });
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
-  console.log(req.body)
+
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -49,15 +50,15 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
   });
 
-  //generate jwt token to verify email
-  const EmailVerifyToken = await signToken(newUser._id);
+  // //generate jwt token to verify email
+  // const EmailVerifyToken = await signToken(newUser._id);
 
-  //verification url
-  const url = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/email-verify/${EmailVerifyToken}`;
+  // //verification url
+  // const url = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/api/v1/users/email-verify/${EmailVerifyToken}`;
 
-  await new Email(newUser, url).sendEmailVerify();
+  // await new Email(newUser, url).sendEmailVerify();
 
   createSendToken(newUser, 201, req, res);
 });

@@ -1,14 +1,18 @@
 import {useForm} from 'react-hook-form';
 import styles from './FormComponent.module.css';
-import { Fragment, useEffect, useState } from 'react';
-import Link from 'next/link';
+import {Suspense, lazy, Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ApiCallComponent from '../../api/apiCallComponent';
-import TextField from './formFields/TextField';
+
+const TextField = lazy(() => import('./formFields/TextField'));
+const EmailField = lazy(() => import('./formFields/EmailField'));
+const PasswordWithConfirmField = lazy(() => import('./formFields/PasswordWithConfirm'));
+const PasswordConfirmField = lazy(() => import('./formFields/PasswordConfirmField'));
 
 
 
-const FormComponent = ({fieldName})=>{
+const FormComponent = ({submitValue, reason, reqType, url, successUrl, formBuilder, submitBtnExtra})=>{
+    const isServer = typeof window === "undefined";
     const [success, setSuccess] = useState(false);
     const [apiCallComponent, setApiCallComponent] = useState(false);
     const [apiData, setApiData] = useState({});
@@ -25,112 +29,54 @@ const FormComponent = ({fieldName})=>{
     //redirect page on success
     useEffect(()=>{
         if(success){
-            return router.push('/user/auth/login' )
+            return router.push(successUrl)
         }
     },[success])
 
     return (
         <Fragment>
             
-                {apiCallComponent?<ApiCallComponent setSuccess={setSuccess} setApiCallComponent={setApiCallComponent} setError={setError} setOperationalError={setOperationalError} reqType='POST' url='users/signup' reason='registration' formInput={apiData}  /> 
+                {apiCallComponent   ?
+                    <ApiCallComponent setSuccess={setSuccess} setApiCallComponent={setApiCallComponent} setError={setError} setOperationalError={setOperationalError} reqType={reqType} url={url} reason={reason} formInput={apiData}  /> 
             
                 :
-                <Fragment></Fragment>
-            }
+                    <Fragment></Fragment>
+                }
             
             
-            <div className="content">
-            <div id={styles.register}>
-                <h1 className="heading">Register</h1>
-
-                <div className="content" id={styles.registerContent}>
                    
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <p className="error">{operationalError}</p>
-                        
-                        <TextField initFocus={true} maxChar={max} minChar={min} isRequired={true} fieldName={fieldName} register={register} errors={errors} setError={setError} clearErrors={clearErrors} getValues={getValues} />
-
-                            
-                        <div className="form-group">
-                            
-                            <input ref={register({
-                                required: "Email is required",
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                    message: 'Invalid email address format',
-                                },
-                            })} id="email" name="email" type="text" placeholder="Email" autoComplete="new-password" />
-                            <label htmlFor="email">Email</label>
-                             <span className={`${errors.email ? 'error': ''}`}>{errors.email?.message}</span>
-                        </div>
-                        <div className="form-group">
-                            
-                            <input ref={register({
-                                required: "Password is required",
-                                maxLength: {
-                                    value: 100,
-                                    message: "Max 100 character",
-                                },
-                                minLength: {
-                                    value: 8,
-                                    message: "Min 8 character",
-                                }
-                            })} id="password" name="password" type="password" placeholder="Password" autoComplete="new-password" onChange={() => {
-                                if(getValues('password') !== getValues('passwordConfirm') ){
-                                    setError("passwordConfirm", {
-                                        type: "manual",
-                                        message: "Password should match "
-                                    });
-                                }else{
-                                    clearErrors('passwordConfirm')
-                                }
-                                
-                            }}/>
-                            <label htmlFor="password">Password</label>
-                            <span className={`${errors.password ? 'error': ''}`}>{errors.password?.message}</span>
-                        </div>
-                        <div className="form-group">
-                            
-                            <input ref={register({
-                                required: "Password again is required"
-                            })} id="confirm-password" name="passwordConfirm" type="password" placeholder="Password Confirm" autoComplete="new-password" onChange={() => {
-                                if(getValues('password') !== getValues('passwordConfirm') ){
-                                    setError("passwordConfirm", {
-                                        type: "manual",
-                                        message: "Password should match "
-                                    });
-                                }else{
-                                    clearErrors('passwordConfirm')
-                                }
-                                
-                            }} />
-                            <label htmlFor="confirm-password">Password Again</label>
-                           
-                            <span className={`${errors.passwordConfirm ? 'error': ''}`}>{errors.passwordConfirm?.message}</span>
-                        </div>
-                       
-                            
-                            <input id="hidden" name="hidden" type="hidden" placeholder="hidden" autoComplete="on" />
+                        {(!isServer) &&
+                            <Suspense fallback={<></>}>
+                                {formBuilder?.map(f=>{
+                                    return(
+                                        <Fragment>
+                                            {(f.fieldType === 'TextField') && <TextField initFocus={f.initFocus} maxChar={f.maxChar} minChar={f.minChar} isRequired={f.isRequired} fieldName={f.fieldName} register={register} errors={errors} setError={setError} clearErrors={clearErrors} getValues={getValues} /> }
+                                            {(f.fieldType === 'EmailField') && <EmailField isRequired={f.isRequired} fieldName={f.fieldName} register={register} errors={errors} setError={setError} clearErrors={clearErrors} getValues={getValues} /> }
+                                            {(f.fieldType === 'PasswordWithConfirmField') && <PasswordWithConfirmField initFocus={f.initFocus} maxChar={f.maxChar} minChar={f.minChar} isRequired={f.isRequired} fieldName={f.fieldName} otherFieldName={f.otherFieldName} register={register} errors={errors} setError={setError} clearErrors={clearErrors} getValues={getValues} />}
+                                            {(f.fieldType === 'PasswordConfirmField') && <PasswordConfirmField initFocus={f.initFocus} maxChar={f.maxChar} minChar={f.minChar} isRequired={f.isRequired} fieldName={f.fieldName} otherFieldName={f.otherFieldName} register={register} errors={errors} setError={setError} clearErrors={clearErrors} getValues={getValues} />}
+                                            {(f.fieldType === 'PasswordField') && <PasswordWithConfirmField initFocus={f.initFocus} maxChar={f.maxChar} minChar={f.minChar} isRequired={f.isRequired} fieldName={f.fieldName} otherFieldName={f.otherFieldName} register={register} errors={errors} setError={setError} clearErrors={clearErrors} getValues={getValues} />}
+                                        </Fragment>
+                                    )
+                                    
+                              })}
+                            </Suspense>
+                        }
+                        <input id="hidden" name="hidden" type="hidden" placeholder="hidden" autoComplete="on" />
                             
                         
                         <div className="form-group">
                             
-                            <input id="submit" type="submit" value="Signup" />
+                            <input id="submit" type="submit" value={submitValue} />
                             <div className={styles.forgotBtn} >
-
-                                <Link href="/user/auth/login">Already have account? Login here </Link>
+                                {submitBtnExtra}
                             </div>
                             
                         </div>
 
                     </form>
 
-
-                </div>
-
-            </div>
-             
-            </div>
         
 
         </Fragment>

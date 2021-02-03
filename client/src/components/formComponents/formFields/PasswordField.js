@@ -1,6 +1,4 @@
-
-
-const TextField = ({initFocus, maxChar, minChar, isRequired, fieldName, register, errors, setError, clearErrors, getValues })=>{
+const PasswordField = ({initFocus, maxChar, minChar, isRequired, fieldName, register, errors, setError, clearErrors, getValues })=>{
     return(
         <div className="form-group">
                             
@@ -14,11 +12,11 @@ const TextField = ({initFocus, maxChar, minChar, isRequired, fieldName, register
                     value: minChar,
                     message: `Min ${minChar} character`,
                 }
-            })} id={fieldName} autoFocus={initFocus} name={fieldName} type="text" placeholder={fieldName} autoComplete="new-password" />
+            })} id={fieldName} autoFocus={initFocus} name={fieldName} type="password" placeholder={fieldName} autoComplete="new-password" />
             <label htmlFor={fieldName}>{fieldName}</label>
-            <span className={`${errors[fieldName] ? 'error': ''}`}>{errors[fieldName] && errors[fieldName].message}</span>
+            <span className={`${errors[fieldName] ? 'error': ''}`}>{errors[fieldName]?.message}</span>
         </div>
     )
 }
 
-export default TextField;
+export default PasswordField;
