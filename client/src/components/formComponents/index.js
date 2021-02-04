@@ -72,6 +72,8 @@ const FormComponent = ({
                 <Fragment>
                   {f.fieldType === "CustomTypeTextField" && (
                     <CustomTypeTextField
+                      value={f.value}
+                      label={f.label}
                       customTypesArray={f.customTypesArray}
                       initFocus={f.initFocus}
                       placeholder={f.placeholder}
@@ -80,6 +82,7 @@ const FormComponent = ({
                       isRequired={f.isRequired}
                       fieldName={f.fieldName}
                       register={register}
+                      setValue={setValue}
                       errors={errors}
                       setError={setError}
                       clearErrors={clearErrors}
@@ -88,6 +91,8 @@ const FormComponent = ({
                   )}
                   {f.fieldType === "TextField" && (
                     <TextField
+                      value={f.value}
+                      label={f.label}
                       initFocus={f.initFocus}
                       placeholder={f.placeholder}
                       maxChar={f.maxChar}
@@ -95,6 +100,7 @@ const FormComponent = ({
                       isRequired={f.isRequired}
                       fieldName={f.fieldName}
                       register={register}
+                      setValue={setValue}
                       errors={errors}
                       setError={setError}
                       clearErrors={clearErrors}
@@ -103,11 +109,14 @@ const FormComponent = ({
                   )}
                   {f.fieldType === "EmailField" && (
                     <EmailField
+                      value={f.value}
+                      label={f.label}
                       initFocus={f.initFocus}
                       placeholder={f.placeholder}
                       isRequired={f.isRequired}
                       fieldName={f.fieldName}
                       register={register}
+                      setValue={setValue}
                       errors={errors}
                       setError={setError}
                       clearErrors={clearErrors}
@@ -116,6 +125,8 @@ const FormComponent = ({
                   )}
                   {f.fieldType === "PasswordWithConfirmField" && (
                     <PasswordWithConfirmField
+                      value={f.value}
+                      label={f.label}
                       initFocus={f.initFocus}
                       placeholder={f.placeholder}
                       maxChar={f.maxChar}
@@ -124,6 +135,7 @@ const FormComponent = ({
                       fieldName={f.fieldName}
                       otherFieldName={f.otherFieldName}
                       register={register}
+                      setValue={setValue}
                       errors={errors}
                       setError={setError}
                       clearErrors={clearErrors}
@@ -132,6 +144,8 @@ const FormComponent = ({
                   )}
                   {f.fieldType === "PasswordConfirmField" && (
                     <PasswordConfirmField
+                      value={f.value}
+                      label={f.label}
                       initFocus={f.initFocus}
                       placeholder={f.placeholder}
                       maxChar={f.maxChar}
@@ -140,6 +154,7 @@ const FormComponent = ({
                       fieldName={f.fieldName}
                       otherFieldName={f.otherFieldName}
                       register={register}
+                      setValue={setValue}
                       errors={errors}
                       setError={setError}
                       clearErrors={clearErrors}
@@ -148,6 +163,8 @@ const FormComponent = ({
                   )}
                   {f.fieldType === "PasswordField" && (
                     <PasswordField
+                      value={f.value}
+                      label={f.label}
                       initFocus={f.initFocus}
                       placeholder={f.placeholder}
                       maxChar={f.maxChar}
@@ -155,6 +172,7 @@ const FormComponent = ({
                       isRequired={f.isRequired}
                       fieldName={f.fieldName}
                       register={register}
+                      setValue={setValue}
                       errors={errors}
                       setError={setError}
                       clearErrors={clearErrors}

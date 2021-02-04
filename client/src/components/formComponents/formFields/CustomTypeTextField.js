@@ -1,6 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 const CustomTypeTextField = ({
+  value,
+  label,
   customTypesArray,
   initFocus,
   placeholder,
@@ -9,11 +11,17 @@ const CustomTypeTextField = ({
   isRequired,
   fieldName,
   register,
+  setValue,
   errors,
   setError,
   clearErrors,
   getValues,
 }) => {
+  useEffect(() => {
+    if (value) {
+      setValue(fieldName, value);
+    }
+  }, []);
   return (
     <Fragment>
       <div className="form-group">
@@ -35,7 +43,7 @@ const CustomTypeTextField = ({
           autoFocus={initFocus}
           name={fieldName}
           type="text"
-          placeholder={customTypesArray.join(", ")}
+          placeholder={placeholder}
           autoComplete="new-password"
           onChange={() => {
             if (!customTypesArray.includes(getValues(fieldName))) {
@@ -48,7 +56,7 @@ const CustomTypeTextField = ({
             }
           }}
         />
-        <label htmlFor={fieldName}>{placeholder}</label>
+        <label htmlFor={fieldName}>{label}</label>
         <span className={`${errors[fieldName] ? "error" : ""}`}>
           {errors[fieldName] && errors[fieldName].message}
         </span>

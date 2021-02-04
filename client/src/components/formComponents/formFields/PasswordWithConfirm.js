@@ -1,4 +1,8 @@
+import { useEffect } from "react";
+
 const PasswordWithConfirmField = ({
+  value,
+  label,
   initFocus,
   placeholder,
   maxChar,
@@ -7,11 +11,17 @@ const PasswordWithConfirmField = ({
   fieldName,
   otherFieldName,
   register,
+  setValue,
   errors,
   setError,
   clearErrors,
   getValues,
 }) => {
+  useEffect(() => {
+    if (value) {
+      setValue(fieldName, value);
+    }
+  }, []);
   return (
     <div className="form-group">
       <input
@@ -43,7 +53,7 @@ const PasswordWithConfirmField = ({
           }
         }}
       />
-      <label htmlFor={fieldName}>{placeholder}</label>
+      <label htmlFor={fieldName}>{label}</label>
       <span className={`${errors[fieldName] ? "error" : ""}`}>
         {errors[fieldName]?.message}
       </span>

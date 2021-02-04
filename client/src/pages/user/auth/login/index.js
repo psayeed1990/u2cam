@@ -45,6 +45,7 @@ const Login = () => {
     {
       fieldType: "EmailField",
       placeholder: "Email",
+      label: "Email",
       initFocus: true,
       isRequired: true,
       fieldName: "email",
@@ -52,6 +53,7 @@ const Login = () => {
     {
       fieldType: "PasswordField",
       placeholder: "Password",
+      label: "Password",
       initFocus: false,
       maxChar: 100,
       minChar: 8,

@@ -40,6 +40,7 @@ const Registration = () => {
     {
       fieldType: "TextField",
       placeholder: "Name",
+      label: "Name",
       initFocus: true,
       maxChar: 32,
       minChar: 2,
@@ -49,6 +50,7 @@ const Registration = () => {
     {
       fieldType: "EmailField",
       placeholder: "Email",
+      label: "Email",
       initFocus: false,
       isRequired: true,
       fieldName: "email",
@@ -57,6 +59,7 @@ const Registration = () => {
     {
       fieldType: "PasswordWithConfirmField",
       placeholder: "Password",
+      label: "Password",
       initFocus: false,
       maxChar: 100,
       minChar: 8,
@@ -67,6 +70,7 @@ const Registration = () => {
     {
       fieldType: "PasswordConfirmField",
       placeholder: "Password Confirm",
+      label: "Password Confirm",
       initFocus: false,
       maxChar: 100,
       minChar: 8,

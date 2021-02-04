@@ -25,7 +25,8 @@ const CreateUser = () => {
   const formBuilder = [
     {
       fieldType: "CustomTypeTextField",
-      placeholder: "User Type",
+      placeholder: "user or admin or moderator",
+      label: "User Type",
       customTypesArray: ["user", "admin", "moderator"],
       initFocus: true,
       maxChar: 32,
@@ -36,6 +37,7 @@ const CreateUser = () => {
     {
       fieldType: "TextField",
       placeholder: "Name",
+      label: "Name",
       initFocus: false,
       maxChar: 32,
       minChar: 2,
@@ -45,6 +47,7 @@ const CreateUser = () => {
     {
       fieldType: "EmailField",
       placeholder: "Email",
+      label: "Email",
       initFocus: false,
       isRequired: true,
       fieldName: "email",
@@ -53,6 +56,7 @@ const CreateUser = () => {
     {
       fieldType: "PasswordWithConfirmField",
       placeholder: "Password",
+      label: "Password",
       initFocus: false,
       maxChar: 100,
       minChar: 8,
@@ -63,6 +67,7 @@ const CreateUser = () => {
     {
       fieldType: "PasswordConfirmField",
       placeholder: "Password Confirm",
+      label: "Password Confirm",
       initFocus: false,
       maxChar: 100,
       minChar: 8,
