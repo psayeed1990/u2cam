@@ -106,7 +106,7 @@ const SingleUser = () => {
                 setReturnValue={setReturnValue}
                 submitValue="Update"
                 reason="Update user"
-                reqType="post"
+                reqType="patch"
                 url={`/users/${id}`}
                 formBuilder={formBuilder}
                 submitBtnExtra={<SubmitBtnExtra />}
