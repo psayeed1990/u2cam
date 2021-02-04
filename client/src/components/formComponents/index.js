@@ -12,6 +12,9 @@ const PasswordConfirmField = lazy(() =>
   import("./formFields/PasswordConfirmField")
 );
 const PasswordField = lazy(() => import("./formFields/PasswordField"));
+const CustomTypeTextField = lazy(() =>
+  import("./formFields/CustomTypeTextField")
+);
 
 const FormComponent = ({
   setReturnValue,
@@ -31,6 +34,7 @@ const FormComponent = ({
     register,
     errors,
     clearErrors,
+    setValue,
     getValues,
     setError,
     handleSubmit,
@@ -48,6 +52,7 @@ const FormComponent = ({
           setReturnValue={setReturnValue}
           setApiCallComponent={setApiCallComponent}
           setError={setError}
+          setValue={setValue}
           setOperationalError={setOperationalError}
           reqType={reqType}
           url={url}
@@ -65,9 +70,26 @@ const FormComponent = ({
             {formBuilder?.map((f) => {
               return (
                 <Fragment>
+                  {f.fieldType === "CustomTypeTextField" && (
+                    <CustomTypeTextField
+                      customTypesArray={f.customTypesArray}
+                      initFocus={f.initFocus}
+                      placeholder={f.placeholder}
+                      maxChar={f.maxChar}
+                      minChar={f.minChar}
+                      isRequired={f.isRequired}
+                      fieldName={f.fieldName}
+                      register={register}
+                      errors={errors}
+                      setError={setError}
+                      clearErrors={clearErrors}
+                      getValues={getValues}
+                    />
+                  )}
                   {f.fieldType === "TextField" && (
                     <TextField
                       initFocus={f.initFocus}
+                      placeholder={f.placeholder}
                       maxChar={f.maxChar}
                       minChar={f.minChar}
                       isRequired={f.isRequired}
@@ -81,6 +103,8 @@ const FormComponent = ({
                   )}
                   {f.fieldType === "EmailField" && (
                     <EmailField
+                      initFocus={f.initFocus}
+                      placeholder={f.placeholder}
                       isRequired={f.isRequired}
                       fieldName={f.fieldName}
                       register={register}
@@ -93,6 +117,7 @@ const FormComponent = ({
                   {f.fieldType === "PasswordWithConfirmField" && (
                     <PasswordWithConfirmField
                       initFocus={f.initFocus}
+                      placeholder={f.placeholder}
                       maxChar={f.maxChar}
                       minChar={f.minChar}
                       isRequired={f.isRequired}
@@ -108,6 +133,7 @@ const FormComponent = ({
                   {f.fieldType === "PasswordConfirmField" && (
                     <PasswordConfirmField
                       initFocus={f.initFocus}
+                      placeholder={f.placeholder}
                       maxChar={f.maxChar}
                       minChar={f.minChar}
                       isRequired={f.isRequired}
@@ -123,6 +149,7 @@ const FormComponent = ({
                   {f.fieldType === "PasswordField" && (
                     <PasswordField
                       initFocus={f.initFocus}
+                      placeholder={f.placeholder}
                       maxChar={f.maxChar}
                       minChar={f.minChar}
                       isRequired={f.isRequired}

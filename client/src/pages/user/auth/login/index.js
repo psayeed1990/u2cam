@@ -44,12 +44,14 @@ const Login = () => {
   const formBuilder = [
     {
       fieldType: "EmailField",
+      placeholder: "Email",
       initFocus: true,
       isRequired: true,
       fieldName: "email",
     },
     {
       fieldType: "PasswordField",
+      placeholder: "Password",
       initFocus: false,
       maxChar: 100,
       minChar: 8,

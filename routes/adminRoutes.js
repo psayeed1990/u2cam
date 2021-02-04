@@ -1,13 +1,12 @@
-const express = require('express');
-const adminController = require('./../controllers/adminController');
-const authController = require('./../controllers/authController');
+const express = require("express");
+const adminController = require("./../controllers/adminController");
+const authController = require("./../controllers/authController");
 
 const router = express.Router();
 
-router.use(authController.restrictTo('admin'));
+router.use(authController.protect);
+router.use(authController.restrictTo("admin"));
 
-router
-  .route('/').post(adminController.createAdminUser);
-
+router.route("/users/create").post(adminController.createAdminUser);
 
 module.exports = router;

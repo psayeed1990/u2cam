@@ -68,6 +68,10 @@ body {
 .header {
 	box-shadow: 3px 0 7px 2px #b7bbc8;
 }
+.success-message {
+	font-weight: bold;
+	color: var(--success);
+}
 @keyframes forAllContent {
 	0%{
 		opacity: 0;

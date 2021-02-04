@@ -1,5 +1,6 @@
 const catchAsync = require("../utils/catchAsync");
-const Email = require('./../utils/emails');
+const Email = require("./../utils/emails");
+const User = require("./../models/userModel");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -27,9 +28,9 @@ exports.createAdminUser = catchAsync(async (req, res, next) => {
   // await new Email(newUser, url).sendEmailVerify();
 
   return res.json({
-      status: 'success',
-      data:{
-          user: newUser
-      }
-  })
+    status: "success",
+    data: {
+      user: newUser,
+    },
+  });
 });
