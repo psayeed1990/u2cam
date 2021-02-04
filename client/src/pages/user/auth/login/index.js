@@ -44,7 +44,7 @@ const Login = () => {
   const formBuilder = [
     {
       fieldType: "EmailField",
-      initFocus: false,
+      initFocus: true,
       isRequired: true,
       fieldName: "email",
     },
