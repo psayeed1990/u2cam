@@ -1,57 +1,48 @@
-import Axios from 'axios';
-
+import Axios from "axios";
 
 export const apiCall = async (reqType, url, reason, formInput, user) => {
+  const URL = `/api/v1/${url}`;
+  try {
+    console.log(formInput);
+    const { data } = await Axios[reqType](URL, formInput);
+    console.log(data);
+    return data;
 
-    const URL = `/api/v1/${url}`;
-	try {
+    // if (reqType === 'GET') {
+    // 	const {data} = await Axios.get(URL, formInput);
 
-		const {data} = await Axios[reqType](URL, formInput);
-		return data;
+    // 	return data.data.data;
+    // } else if (reqType === 'POST') {
 
-		// if (reqType === 'GET') {
-		// 	const {data} = await Axios.get(URL, formInput);
+    // 	const {data} = await Axios.post(URL, formInput);
 
-		// 	return data.data.data;
-		// } else if (reqType === 'POST') {
-			
-		// 	const {data} = await Axios.post(URL, formInput);
+    // 	if (reason === 'login') {
+    //         //login code
 
-		// 	if (reason === 'login') {
-        //         //login code
-				
-        //         localStorage.setItem('token', data.refreshToken);
-        //         return data.data.user;
-				
-                
-		// 	} else if (reason === 'registration') {
-		// 		//register code
-		// 		// localStorage.setItem('token', data.refreshToken);
-		// 		return data
+    //         localStorage.setItem('token', data.refreshToken);
+    //         return data.data.user;
 
-		// 	} else {
-        //         //normal code
-		// 		return data.data.data;
-		// 	}
-		// } else if (reqType === 'PATCH') {
-		// 	const {data} = await Axios.patch(URL, formInput);
+    // 	} else if (reason === 'registration') {
+    // 		//register code
+    // 		// localStorage.setItem('token', data.refreshToken);
+    // 		return data
 
-		// 	return data.json();
-		// } else if (reqType === 'DELETE') {
+    // 	} else {
+    //         //normal code
+    // 		return data.data.data;
+    // 	}
+    // } else if (reqType === 'PATCH') {
+    // 	const {data} = await Axios.patch(URL, formInput);
 
-		// 	console.log('hi')
-		// 	const {data} = await Axios.delete(URL, formInput);
+    // 	return data.json();
+    // } else if (reqType === 'DELETE') {
 
-		// 	return data;
-		// }
-	} catch (err) {
+    // 	console.log('hi')
+    // 	const {data} = await Axios.delete(URL, formInput);
 
-		return err
-		
-
-
-
-		
-
-	}
+    // 	return data;
+    // }
+  } catch (err) {
+    return err;
+  }
 };

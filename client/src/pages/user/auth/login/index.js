@@ -1,112 +1,85 @@
-import { useContext, useEffect, useState } from "react";
-import Head from 'next/head';
-import Link from 'next/link';
-import styles from './Login.module.css';
-import { useForm } from "react-hook-form";
-import { apiCall } from "../../../../api";
+import Head from "next/head";
+import styles from "./Login.module.css";
+import AuthLayout from "../../../../layouts/AuthLayout";
+import FormComponent from "../../../../components/formComponents";
+import Link from "next/link";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { UserContext } from "../../../../contexts/UserContext";
-import AuthLayout from "../../../../layouts/AuthLayout";
 
+export const SubmitBtnExtra = () => (
+  <Fragment>
+    <Link href="/user/auth/forgot-password">Forgot password?</Link>
+    <br />
+    <Link href="/user/auth/registration">Don't have account? </Link>
+  </Fragment>
+);
 
+const Login = () => {
+  const [user, setUser] = useContext(UserContext);
+  const [success, setSuccess] = useState(false);
+  const [returnValue, setReturnValue] = useState(null);
+  const router = useRouter();
 
-const Login = ()=>{
-    const [operationalError, setOperationalError ] = useState('');
-    const [user, setUser] = useContext(UserContext);
-    const router = useRouter()
-    const {register, errors, handleSubmit} = useForm();
-    const onSubmit = async (data) => {
-        const login = await apiCall('POST', 'users/login', 'login', data);
+  useEffect(() => {
+    if (success && returnValue) {
+      localStorage.setItem("token", returnValue.refreshToken);
+      console.log(returnValue);
+      setUser(returnValue.data.user);
+    }
+  }, [success, returnValue]);
 
-        if(login.status === 'mongoError'){
-            const {errorFieldName, errorFieldValue, errorMsg} = login;
-            
-            return setError(`${errorFieldName}`, {
-                type: "manual",
-                message: `${errorFieldName.toUpperCase()} ${errorMsg}`
-            });
-        }
-        if(login.operational){
-             return setOperationalError(login.operational)
-        }
-        await setUser(login)
-        
-        
+  useEffect(() => {
+    if (user) {
+      if (user.role === "admin") {
+        router.push("/admin/dashboard");
+      } else if (user.role === "user") {
+        router.push("/user/dashboard");
+      } else {
+        return;
+      }
+    }
+  }, [user]);
 
-    };
+  const formBuilder = [
+    {
+      fieldType: "EmailField",
+      initFocus: false,
+      isRequired: true,
+      fieldName: "email",
+    },
+    {
+      fieldType: "PasswordField",
+      initFocus: false,
+      maxChar: 100,
+      minChar: 8,
+      isRequired: true,
+      fieldName: "password",
+    },
+  ];
 
-    useEffect(()=>{
-        if(user){
-            if(user.role === 'admin'){
-                router.push('/admin/dashboard' )
-            }else if(user.role === 'user'){
-                 router.push('/user/dashboard' )
-
-            }else{
-                return;
-            }
-        }
-
-    },[user])
-
-
-    return (
-        <AuthLayout>
-            <Head>
-                <title>Login</title>
-            </Head>
-            <div className="content">
-            <div id={styles.login}>
-                <h1 className="heading">Login</h1>
-
-                <div className="content" id={styles.loginContent}>
-
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <p className="error">{operationalError}</p>
-                        <div className="form-group">
-                            
-                            <input ref={register({
-                                required: 'Email is required',
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                    message: "Invalid email format"
-                                }
-                            })} autoFocus={true} id="email" name="email" type="email" placeholder="Email" autoComplete="new-password"/>
-                            <label htmlFor="email">Email</label>
-                            <span className={`${errors.email ? 'error': ''}`}>{errors.email?.message}</span>
-                        </div>
-                        <div className="form-group">
-                            
-                            <input ref={register({
-                                required: 'Password is required',
-                            })} id="password" name="password" type="password" placeholder="Password" autoComplete="new-password" />
-                            <label htmlFor="password">Password</label>
-                            <span className={`${errors.password ? 'error': ''}`}>{errors.password?.message}</span>
-                        </div>
-                       
-                            
-                            <input id="hidden" name="hidden" type="hidden" placeholder="hidden" autoComplete="on" />
-                            
-                        
-                        <div className="form-group">
-                            
-                            <input id="submit" type="submit" value="Login" />
-                            <div className={styles.forgotBtn} >
-                                <Link href="/user/auth/forgot-password">Forgot password?</Link><br />
-                                <Link href="/user/auth/registration">Don't have account? </Link>
-                            </div>
-                            
-                        </div>
-
-                    </form>
-
-                </div>
-
-            </div>
-            </div>
-        </AuthLayout>
-
-    )
-}
+  return (
+    <AuthLayout>
+      <Head>Login form</Head>
+      <div className="content">
+        <div id={styles.login}>
+          <h1 className="heading">Login</h1>
+          <div id={styles.loginContent}>
+            <FormComponent
+              setSuccess={setSuccess}
+              setReturnValue={setReturnValue}
+              submitValue="Login"
+              reason="login"
+              reqType="post"
+              url="users/login"
+              formBuilder={formBuilder}
+              submitBtnExtra={<SubmitBtnExtra />}
+            />
+          </div>
+        </div>
+      </div>
+    </AuthLayout>
+  );
+};
 
 export default Login;
