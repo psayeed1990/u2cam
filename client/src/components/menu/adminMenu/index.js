@@ -1,17 +1,20 @@
-import Link from 'next/link';
+import Link from "next/link";
+import showMenu from "../../../hooks/showMenu";
 
-import styles from './AdminMenu.module.css';
+import styles from "./AdminMenu.module.css";
 
-const AdminMenu = ()=>{
-    return (
-        <menu id={styles.menu}>
-            <nav id={styles.nav}>
-                <Link href="/">Home</Link>
-                <Link href="/admin/dashboard">Dashboard</Link>
-                <Link href="/user/auth/logout">Logout</Link>
-                
-            </nav>
-        </menu>
-    )
-}
+const AdminMenu = () => {
+  return (
+    <menu id="menu">
+      <div id="menu-icon" onClick={showMenu}>
+        Menu
+      </div>
+      <nav id="nav">
+        <Link href="/">Home</Link>
+        <Link href="/admin/dashboard">Dashboard</Link>
+        <Link href="/user/auth/logout">Logout</Link>
+      </nav>
+    </menu>
+  );
+};
 export default AdminMenu;

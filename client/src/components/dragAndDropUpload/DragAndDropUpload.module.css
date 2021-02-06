@@ -8,14 +8,14 @@ text-align: center;
 background: var(--fifth);
 border-radius: 0.5rem;
 box-shadow: 0 0 3px #666;
-width: 400px;
+max-width: 600px;
 margin: 100px auto 20px;
 padding: 0;
 }
 
 .dragDropZone p {
   color: #FFF;
-  padding: 50px;
+  padding: 50px 10px;
 
 }
 

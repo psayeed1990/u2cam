@@ -1,5 +1,11 @@
 .UserLayout {
     display: grid;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 25% 75%;
     padding: 30px;
+}
+
+@media only screen and (max-width: 769px) {
+    .UserLayout {
+        grid-template-columns: 100%;
+    }
 }
