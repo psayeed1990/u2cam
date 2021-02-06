@@ -32,12 +32,14 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       if (user.role === "admin") {
-        router.push("/admin/dashboard");
+        return router.push("/admin/dashboard");
       } else if (user.role === "user") {
-        router.push("/user/dashboard");
+        return router.push("/user/dashboard");
       } else {
         return;
       }
+    } else {
+      return;
     }
   }, [user]);
 

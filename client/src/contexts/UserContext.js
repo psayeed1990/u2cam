@@ -1,49 +1,43 @@
-import React, {createContext, useState, useContext, useEffect} from 'react';
-import { LoaderContext } from './LoaderContext';
-import Axios from 'axios';
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { LoaderContext } from "./LoaderContext";
+import Axios from "axios";
 
 export const UserContext = createContext();
 
-export const UserProvider = (props)=>{
-    const [user, setUser] = useState(null);
-    const [loader, setLoader] = useContext(LoaderContext);
-    
-    useEffect(() => {
-        
-        const fetchData = async ()=>{
-            try{
-                
-                setLoader(true);
-                const token = localStorage.getItem("token");
-                 
-                if(token){
-                   
-                    const data = await Axios.post('/api/v1/users/authenticate', {token});
-                    setUser(data.data);
-                    
-                    return setLoader(false);
-                    
-                }
+export const UserProvider = (props) => {
+  const [user, setUser] = useState(null);
+  const [loader, setLoader] = useContext(LoaderContext);
 
-                return setLoader(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoader(true);
+        const token = localStorage.getItem("token");
 
-                
-            }catch(err){
-                console.log(err)
-                setUser(null);
-                setLoader(false);
-                
-            }
+        if (token) {
+          const data = await Axios.post("/api/v1/users/authenticate", {
+            token,
+          });
+          console.log(data.data);
+          setUser(data.data);
+
+          return setLoader(false);
         }
-        
-        fetchData();
-    }, []);
 
+        return setLoader(false);
+      } catch (err) {
+        console.log(err);
+        setUser(null);
+        setLoader(false);
+      }
+    };
 
+    fetchData();
+  }, []);
 
-    return(
-        <UserContext.Provider value={[user, setUser]}>
-            {props.children}
-        </UserContext.Provider>
-    )
-}
+  return (
+    <UserContext.Provider value={[user, setUser]}>
+      {props.children}
+    </UserContext.Provider>
+  );
+};

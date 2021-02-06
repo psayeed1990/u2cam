@@ -17,6 +17,9 @@ const AdminSidebar = () => {
           </ul>
         </li>
         <li className={styles.adminLinks}>
+          <Link href="/admin/profile">Profile</Link>
+        </li>
+        <li className={styles.adminLinks}>
           <Link href="/admin/uploads">Uploads</Link>
         </li>
       </ul>
