@@ -67,9 +67,9 @@ const FormComponent = ({
         <p className="error">{operationalError}</p>
         {!isServer && (
           <Suspense fallback={<></>}>
-            {formBuilder?.map((f) => {
+            {formBuilder?.map((f, i) => {
               return (
-                <Fragment>
+                <Fragment key={i}>
                   {f.fieldType === "CustomTypeTextField" && (
                     <CustomTypeTextField
                       value={f.value}

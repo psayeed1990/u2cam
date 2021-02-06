@@ -93,7 +93,9 @@ const SingleUser = () => {
 
   return (
     <AdminLayout>
-      <Head>User Form</Head>
+      <Head>
+        <title>User Update - Admin</title>
+      </Head>
       <div className="content">
         {singleUser ? (
           <div id={styles.register}>
@@ -107,7 +109,7 @@ const SingleUser = () => {
                 submitValue="Update"
                 reason="Update user"
                 reqType="patch"
-                url={`/users/${id}`}
+                url={`users/${id}`}
                 formBuilder={formBuilder}
                 submitBtnExtra={<SubmitBtnExtra />}
               />

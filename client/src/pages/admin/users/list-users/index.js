@@ -5,6 +5,7 @@ import DeletePopups from "../../../../components/popups/deletePopups";
 import { apiCall } from "../../../../api";
 import { Link } from "next/link";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const Users = () => {
   const [deleteDetails, setDeleteDetails] = useState({});
@@ -33,6 +34,9 @@ const Users = () => {
 
   return (
     <Fragment>
+      <Head>
+        <title>Users' List</title>
+      </Head>
       {showDelPopup ? (
         <DeletePopups
           listState={users}

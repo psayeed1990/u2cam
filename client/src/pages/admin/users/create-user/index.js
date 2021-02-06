@@ -79,7 +79,9 @@ const CreateUser = () => {
 
   return (
     <AdminLayout>
-      <Head>User Form</Head>
+      <Head>
+        <title>User Create</title>
+      </Head>
       <div className="content">
         <div id={styles.register}>
           <h1 className="heading">Create User or Admin</h1>
