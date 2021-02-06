@@ -1,12 +1,12 @@
 import CommonProfile from "../../../components/commonDashboard/commonProfile";
-import AdminLayout from "../../../layouts/AdminLayout";
+import UserLayout from "../../../layouts/UserLayout";
 import styles from "./Profile.module.css";
 
 const Profile = () => {
   return (
-    <AdminLayout>
+    <UserLayout>
       <CommonProfile />
-    </AdminLayout>
+    </UserLayout>
   );
 };
 

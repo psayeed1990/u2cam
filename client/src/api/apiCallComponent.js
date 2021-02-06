@@ -41,9 +41,11 @@ const ApiCallComponent = ({
           type: "manual",
           message: `${message}`.replace(/^\w/, (c) => c.toUpperCase()),
         });
+
+        if (data.response.data.isOperational) {
+          setOperationalError(data.response.data.message);
+        }
       } else if (data.response.data.status === "error") {
-        setOperationalError(data.response.data.message);
-      } else if (data.response.data.isOperational) {
         setOperationalError(data.response.data.message);
       }
 
