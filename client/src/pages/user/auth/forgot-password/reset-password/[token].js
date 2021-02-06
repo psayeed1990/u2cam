@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "./../ForgotPassword.module.css";
+import styles from "./ResetPassword.module.css";
 import AuthLayout from "../../../../../layouts/AuthLayout";
 import FormComponent from "../../../../../components/formComponents";
 import { Fragment, useContext, useEffect, useState } from "react";
@@ -70,9 +70,9 @@ const ResetPassword = () => {
     <AuthLayout>
       <Head>Change Password</Head>
       <div className="content">
-        <div id={styles.login}>
+        <div id={styles.resetPassword}>
           <h1 className="heading">Login</h1>
-          <div id={styles.loginContent}>
+          <div id={styles.resetPasswordContent}>
             <FormComponent
               setSuccess={setSuccess}
               setReturnValue={setReturnValue}
