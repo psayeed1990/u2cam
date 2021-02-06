@@ -29,7 +29,7 @@ const Users = () => {
   };
 
   const goToSinglePage = (pageId) => {
-    router.push(`/admin/users/single-user/${pageId}`);
+    router.push(`/admin/users/${pageId}`);
   };
 
   return (
