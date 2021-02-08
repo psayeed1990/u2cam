@@ -20,10 +20,8 @@ const ThemeListSidebar = () => {
       <ul>
         {lists?.map((list) => {
           return (
-            <li className={styles.themeLinks}>
-              <Link href={`/editor/${list._id}`} key={list._id}>
-                {list.name}
-              </Link>
+            <li className={styles.themeLinks} key={list._id}>
+              <Link href={`/editor/${list._id}/`}>{list.name}</Link>
             </li>
           );
         })}

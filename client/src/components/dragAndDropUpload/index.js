@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { useRouter } from 'next/router';
 import React, { Fragment, useEffect, useState } from 'react';
 import CheckNamePopups from '../popups/checkNamePopup';
 import styles from './DragAndDropUpload.module.css';
@@ -7,6 +8,7 @@ const DragAndDropUpload = (props) => {
   const [checkDetails, setCheckDetails] = useState({});
   const [showCheckNamePopup, setShowCheckNamePopup] = useState(false);
   const { data, dispatch } = props;
+  const router = useRouter();
 
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -70,7 +72,7 @@ const DragAndDropUpload = (props) => {
           type: 'SET_ERROR',
           ERROR: `Your theme is uploaded`,
         });
-        console.log(data.data.data);
+
         return setCheckDetails(data.data.data);
       }
     } catch (err) {
@@ -92,7 +94,10 @@ const DragAndDropUpload = (props) => {
   };
 
   useEffect(() => {
-    if (checkDetails?.name) setShowCheckNamePopup(true);
+    if (checkDetails?.name) {
+      setShowCheckNamePopup(true);
+      router.push(`/editor/${checkDetails._id}`);
+    }
   }, [checkDetails]);
   return (
     <Fragment>

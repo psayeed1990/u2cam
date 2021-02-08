@@ -19,6 +19,7 @@ const errorController = require('./controllers/errorController');
 //load routes
 const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const themeRoutes = require('./routes/themeRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
 //enable proxy
@@ -46,8 +47,6 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 
-
-
 //Database request sanitize against nosql injection
 app.use(mongoSanitize());
 
@@ -65,7 +64,8 @@ app.use(morgan('dev'));
 //isLogged in
 //app.use(authController.isLoggedIn());
 //routes
-app.use('/api/v1/uploads', uploadRoutes)
+app.use('/api/v1/themes', themeRoutes);
+app.use('/api/v1/uploads', uploadRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/admin', adminRoutes);
 
@@ -73,10 +73,8 @@ app.use('/api/v1/admin', adminRoutes);
 app.use(express.static('client/out'));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'out', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'client', 'out', 'index.html'));
 });
-
-
 
 //error controller
 app.use(errorController);
