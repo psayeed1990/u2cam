@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import { useRouter } from 'next/router';
 import React, { Fragment, useEffect, useState } from 'react';
 import CheckNamePopups from '../popups/checkNamePopup';
 import styles from './DragAndDropUpload.module.css';
@@ -8,7 +7,6 @@ const DragAndDropUpload = (props) => {
   const [checkDetails, setCheckDetails] = useState({});
   const [showCheckNamePopup, setShowCheckNamePopup] = useState(false);
   const { data, dispatch } = props;
-  const router = useRouter();
 
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -94,10 +92,7 @@ const DragAndDropUpload = (props) => {
   };
 
   useEffect(() => {
-    if (checkDetails?.name) {
-      setShowCheckNamePopup(true);
-      router.push(`/editor/${checkDetails._id}`);
-    }
+    if (checkDetails?.name) setShowCheckNamePopup(true);
   }, [checkDetails]);
   return (
     <Fragment>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import FormComponent from '../../formComponents';
 import styles from './CheckNamePopups.module.css';
@@ -14,6 +15,7 @@ const CheckNamePopups = ({
   name,
   id,
 }) => {
+  const router = useRouter();
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState('');
   const [returnValue, setReturnValue] = useState({});
@@ -26,6 +28,7 @@ const CheckNamePopups = ({
     if (success) {
       turnOffPopup();
       setMessage('Theme Name Updated');
+      return router.push(`/editor/${checkDetails._id}`);
     }
   }, [success]);
 
