@@ -1,8 +1,11 @@
 import Axios from 'axios';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import CheckNamePopups from '../popups/checkNamePopup';
 import styles from './DragAndDropUpload.module.css';
 
 const DragAndDropUpload = (props) => {
+  const [checkDetails, setCheckDetails] = useState({});
+  const [showCheckNamePopup, setShowCheckNamePopup] = useState(false);
   const { data, dispatch } = props;
 
   const handleDragEnter = (e) => {
@@ -51,7 +54,7 @@ const DragAndDropUpload = (props) => {
 
         const formData = new FormData();
         formData.append('zippedTheme', files[0]);
-        const res = await Axios.post('/api/v1/uploads/', formData, {
+        const { data } = await Axios.post('/api/v1/uploads/', formData, {
           onUploadProgress: (progressEvent) => {
             const uploadPercentage = Math.floor(
               (progressEvent.loaded / progressEvent.total) * 100
@@ -62,10 +65,13 @@ const DragAndDropUpload = (props) => {
             });
           },
         });
-        return dispatch({
+
+        dispatch({
           type: 'SET_ERROR',
           ERROR: `Your theme is uploaded`,
         });
+        console.log(data.data.data);
+        return setCheckDetails(data.data.data);
       }
     } catch (err) {
       if (
@@ -85,8 +91,20 @@ const DragAndDropUpload = (props) => {
     }
   };
 
+  useEffect(() => {
+    if (checkDetails?.name) setShowCheckNamePopup(true);
+  }, [checkDetails]);
   return (
     <Fragment>
+      {showCheckNamePopup && (
+        <CheckNamePopups
+          showCheckNamePopup={showCheckNamePopup}
+          setShowCheckNamePopup={setShowCheckNamePopup}
+          name={checkDetails?.name}
+          id={checkDetails?._id}
+          url="uploads"
+        />
+      )}
       <div
         className={
           data.inDropZone

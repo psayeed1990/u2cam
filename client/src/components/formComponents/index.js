@@ -1,19 +1,19 @@
-import { useForm } from "react-hook-form";
-import styles from "./FormComponent.module.css";
-import { Suspense, lazy, Fragment, useState } from "react";
-import ApiCallComponent from "../../api/apiCallComponent";
+import { useForm } from 'react-hook-form';
+import styles from './FormComponent.module.css';
+import { Suspense, lazy, Fragment, useState } from 'react';
+import ApiCallComponent from '../../api/apiCallComponent';
 
-const TextField = lazy(() => import("./formFields/TextField"));
-const EmailField = lazy(() => import("./formFields/EmailField"));
+const TextField = lazy(() => import('./formFields/TextField'));
+const EmailField = lazy(() => import('./formFields/EmailField'));
 const PasswordWithConfirmField = lazy(() =>
-  import("./formFields/PasswordWithConfirm")
+  import('./formFields/PasswordWithConfirm')
 );
 const PasswordConfirmField = lazy(() =>
-  import("./formFields/PasswordConfirmField")
+  import('./formFields/PasswordConfirmField')
 );
-const PasswordField = lazy(() => import("./formFields/PasswordField"));
+const PasswordField = lazy(() => import('./formFields/PasswordField'));
 const CustomTypeTextField = lazy(() =>
-  import("./formFields/CustomTypeTextField")
+  import('./formFields/CustomTypeTextField')
 );
 
 const FormComponent = ({
@@ -26,10 +26,10 @@ const FormComponent = ({
   formBuilder,
   submitBtnExtra,
 }) => {
-  const isServer = typeof window === "undefined";
+  const isServer = typeof window === 'undefined';
   const [apiCallComponent, setApiCallComponent] = useState(false);
   const [apiData, setApiData] = useState({});
-  const [operationalError, setOperationalError] = useState("");
+  const [operationalError, setOperationalError] = useState('');
   const {
     register,
     errors,
@@ -70,7 +70,7 @@ const FormComponent = ({
             {formBuilder?.map((f, i) => {
               return (
                 <Fragment key={i}>
-                  {f.fieldType === "CustomTypeTextField" && (
+                  {f.fieldType === 'CustomTypeTextField' && (
                     <CustomTypeTextField
                       value={f.value}
                       label={f.label}
@@ -89,7 +89,7 @@ const FormComponent = ({
                       getValues={getValues}
                     />
                   )}
-                  {f.fieldType === "TextField" && (
+                  {f.fieldType === 'TextField' && (
                     <TextField
                       value={f.value}
                       label={f.label}
@@ -107,7 +107,7 @@ const FormComponent = ({
                       getValues={getValues}
                     />
                   )}
-                  {f.fieldType === "EmailField" && (
+                  {f.fieldType === 'EmailField' && (
                     <EmailField
                       value={f.value}
                       label={f.label}
@@ -123,7 +123,7 @@ const FormComponent = ({
                       getValues={getValues}
                     />
                   )}
-                  {f.fieldType === "PasswordWithConfirmField" && (
+                  {f.fieldType === 'PasswordWithConfirmField' && (
                     <PasswordWithConfirmField
                       value={f.value}
                       label={f.label}
@@ -142,7 +142,7 @@ const FormComponent = ({
                       getValues={getValues}
                     />
                   )}
-                  {f.fieldType === "PasswordConfirmField" && (
+                  {f.fieldType === 'PasswordConfirmField' && (
                     <PasswordConfirmField
                       value={f.value}
                       label={f.label}
@@ -161,7 +161,7 @@ const FormComponent = ({
                       getValues={getValues}
                     />
                   )}
-                  {f.fieldType === "PasswordField" && (
+                  {f.fieldType === 'PasswordField' && (
                     <PasswordField
                       value={f.value}
                       label={f.label}
