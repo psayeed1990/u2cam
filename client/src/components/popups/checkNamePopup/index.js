@@ -28,7 +28,7 @@ const CheckNamePopups = ({
     if (success) {
       turnOffPopup();
       setMessage('Theme Name Updated');
-      return router.push(`/editor/${checkDetails._id}`);
+      return router.push(`/editor/${id}`);
     }
   }, [success]);
 
