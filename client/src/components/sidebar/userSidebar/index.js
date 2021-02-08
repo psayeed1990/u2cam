@@ -1,5 +1,5 @@
-import Link from "next/link";
-import styles from "./UserSidebar.module.css";
+import Link from 'next/link';
+import styles from './UserSidebar.module.css';
 
 const UserSidebar = () => {
   return (
@@ -10,6 +10,9 @@ const UserSidebar = () => {
         </li>
         <li className={styles.userLinks}>
           <Link href="/user/uploads">Uploads</Link>
+        </li>
+        <li className={styles.userLinks}>
+          <Link href="/editor">Theme Editor</Link>
         </li>
       </ul>
     </div>

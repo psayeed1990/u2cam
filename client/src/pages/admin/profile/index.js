@@ -1,8 +1,8 @@
-import CommonProfile from "../../../components/commonDashboard/commonProfile";
-import AdminLayout from "../../../layouts/AdminLayout";
-import styles from "./Profile.module.css";
+import CommonProfile from '../../../components/commonDashboard/commonProfile';
+import AdminLayout from '../../../layouts/AdminLayout';
+import styles from './AdminProfile.module.css';
 
-const Profile = () => {
+const AdminProfile = () => {
   return (
     <AdminLayout>
       <CommonProfile />
@@ -10,4 +10,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default AdminProfile;

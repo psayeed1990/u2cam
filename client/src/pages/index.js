@@ -30,11 +30,10 @@ const Home = ({ message }) => {
     <WebLayout>
       <Head>
         <title>HTML to WP theme</title>
-        <p className="error">{message}</p>
       </Head>
       <div className="content">
         <h1 className="heading">Home page</h1>
-
+        <p className="error">{message}</p>
         <div id={styles.drop}>
           <DragAndDropUpload data={data} dispatch={dispatch} />
 

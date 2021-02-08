@@ -1,5 +1,5 @@
-import Link from "next/link";
-import styles from "./AdminSidebar.module.css";
+import Link from 'next/link';
+import styles from './AdminSidebar.module.css';
 
 const AdminSidebar = () => {
   return (
@@ -21,6 +21,9 @@ const AdminSidebar = () => {
         </li>
         <li className={styles.adminLinks}>
           <Link href="/admin/uploads">Uploads</Link>
+        </li>
+        <li className={styles.adminLinks}>
+          <Link href="/editor">Theme Editor</Link>
         </li>
       </ul>
     </div>
