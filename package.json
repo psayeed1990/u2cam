@@ -7,6 +7,9 @@
     "server": "nodemon server.js",
     "start": "node server.js"
   },
+  "prettier": {
+    "singleQuote": true
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/psayeed1990/html-to-wp-theme.git"

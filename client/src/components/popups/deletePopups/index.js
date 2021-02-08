@@ -1,5 +1,5 @@
-import { apiCall } from "../../../api";
-import styles from "./DeletePopups.module.css";
+import { apiCall } from '../../../api';
+import styles from './DeletePopups.module.css';
 
 const DeletePopups = ({
   listState,
@@ -17,7 +17,7 @@ const DeletePopups = ({
   };
 
   const delData = async () => {
-    const data = await apiCall("delete", `${url}/${id}`, "user delete");
+    const data = await apiCall('delete', `${url}/${id}`);
 
     //remove item from state
     listState = listState.filter((item) => item._id !== id);

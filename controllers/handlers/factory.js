@@ -2,9 +2,13 @@ const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/appError');
 const APIFeatures = require('../../utils/apiFeatures');
 
-exports.deleteOne = (Model) =>
+exports.deleteOne = (Model, isPrivate) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findByIdAndDelete(req.params.id);
+    let doc = await Model.findById(req.params.id);
+    if (isPrivate && doc.user !== req.user.id) {
+      return next(new AppError('Wrong user', 404));
+    }
+    doc = await Model.findByIdAndDelete(req.params.id);
 
     if (!doc) {
       return next(new AppError('No document found with that ID', 404));
@@ -16,13 +20,15 @@ exports.deleteOne = (Model) =>
     });
   });
 
-exports.updateOne = (Model) =>
+exports.updateOne = (Model, isPrivate) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
-
+    if (isPrivate && doc.user !== req.user.id) {
+      return next(new AppError('Wrong user', 404));
+    }
     if (!doc) {
       return next(new AppError('No document found with that ID', 404));
     }
@@ -47,7 +53,7 @@ exports.createOne = (Model) =>
     });
   });
 
-exports.getOne = (Model, popOptions) =>
+exports.getOne = (Model, isPrivate, popOptions) =>
   catchAsync(async (req, res, next) => {
     let query = Model.findById(req.params.id);
     if (popOptions) query = query.populate(popOptions);
@@ -55,6 +61,14 @@ exports.getOne = (Model, popOptions) =>
 
     if (!doc) {
       return next(new AppError('No document found with that ID', 404));
+    }
+
+    if (popOptions && isPrivate && doc.user.id !== req.user.id) {
+      return next(new AppError('Wrong user', 404));
+    }
+
+    if (isPrivate && doc.user !== req.user.id) {
+      return next(new AppError('Wrong user', 404));
     }
 
     res.status(200).json({
@@ -65,12 +79,12 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+exports.getAll = (Model, isPrivate) =>
   catchAsync(async (req, res, next) => {
     // To allow for nested GET reviews on tour (hack)
     let filter = {};
-    if (req.params.tourId) filter = { tour: req.params.tourId };
-
+    if (req.params.userId) filter = { user: req.params.userId };
+    if (isPrivate) filter = { user: req.user.id };
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
