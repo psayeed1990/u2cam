@@ -46,8 +46,8 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
     visibility: 'private',
     user: req.user,
   });
-
-  return res.status(204).json({
+  console.log(newUpload);
+  return res.status(201).json({
     status: 'success',
     data: {
       data: newUpload,
