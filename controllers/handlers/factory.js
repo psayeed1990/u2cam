@@ -5,7 +5,7 @@ const APIFeatures = require('../../utils/apiFeatures');
 exports.deleteOne = (Model, isPrivate) =>
   catchAsync(async (req, res, next) => {
     let doc = await Model.findById(req.params.id);
-    if (isPrivate && doc.user !== req.user.id) {
+    if (isPrivate && doc.user != req.user.id) {
       return next(new AppError('Wrong user', 404));
     }
     doc = await Model.findByIdAndDelete(req.params.id);
@@ -26,7 +26,7 @@ exports.updateOne = (Model, isPrivate) =>
       new: true,
       runValidators: true,
     });
-    if (isPrivate && doc.user !== req.user.id) {
+    if (isPrivate && doc.user != req.user.id) {
       return next(new AppError('Wrong user', 404));
     }
     if (!doc) {
@@ -67,8 +67,10 @@ exports.getOne = (Model, isPrivate, popOptions) =>
       return next(new AppError('Wrong user', 404));
     }
 
-    if (isPrivate && doc.user !== req.user.id) {
-      return next(new AppError('Wrong user', 404));
+    if (isPrivate) {
+      if (doc.user != req.user.id) {
+        return next(new AppError('Wrong user', 404));
+      }
     }
 
     res.status(200).json({
