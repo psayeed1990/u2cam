@@ -5,6 +5,7 @@ const unzipper = require('unzipper');
 const fs = require('fs');
 const Upload = require('../models/uploadModel');
 const factory = require('./handlers/factory');
+const decompress = require('decompress');
 
 const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -38,6 +39,11 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
     .pipe(
       unzipper.Extract({ path: `html-theme-uploads/${req.file.filename}` })
     );
+
+  // await decompress(
+  //   `tmp/my-uploads/${req.file.filename}`,
+  //   `html-theme-uploads/${req.file.filename}`
+  // );
 
   const newUpload = await Upload.create({
     name: req.file.filename,

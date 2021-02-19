@@ -37,7 +37,7 @@ const SingleEditor = () => {
             <h1 className="heading">{theme?.themeName}</h1>
             <h5>{theme?.size / 1000}KB</h5>
             <ul>
-              {theme?.children[0]?.children?.map((t, i) => {
+              {theme?.children?.map((t, i) => {
                 function recursiveFileRead(folder, index) {
                   return (
                     <li key={index}>
