@@ -6,6 +6,8 @@ const fs = require('fs');
 const Upload = require('../models/uploadModel');
 const factory = require('./handlers/factory');
 const decompress = require('decompress');
+const NodeClam = require('clamscan');
+const ClamScan = new NodeClam().init();
 
 const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -33,6 +35,26 @@ const upload = multer({
 
 exports.uploadZipFile = upload.single('zippedTheme');
 exports.handleZippedTheme = catchAsync(async (req, res, next) => {
+  //scan file here
+  ClamScan.then(async (clamscan) => {
+    try {
+      // You can re-use the `clamscan` object as many times as you want
+      const version = await clamscan.get_version();
+      console.log(`ClamAV Version: ${version}`);
+
+      const { is_infected, file, viruses } = await clamscan.is_infected(
+        `tmp/my-uploads/${req.file.filename}`
+      );
+      if (is_infected) console.log(`${file} is infected with ${viruses}!`);
+    } catch (err) {
+      // Handle any errors raised by the code in the try block
+      console.log(err);
+    }
+  }).catch((err) => {
+    // Handle errors that may have occurred during initialization
+    console.log(err);
+  });
+
   //extract zipped theme here
   await fs
     .createReadStream(`tmp/my-uploads/${req.file.filename}`)
