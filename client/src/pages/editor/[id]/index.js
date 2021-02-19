@@ -38,25 +38,24 @@ const SingleEditor = () => {
             <h5>{theme?.size / 1000}KB</h5>
             <ul>
               {theme?.children[0]?.children?.map((t, i) => {
-                return (
-                  <li key={i}>
-                    <b>{i + 1}:</b>
-                    {t.name}
+                function recursiveFileRead(folder, index) {
+                  return (
+                    <li key={index}>
+                      <b>{index + 1}:</b>
+                      {folder.name}
 
-                    {t.type === 'directory' && (
-                      <ul>
-                        {t.children.map((d, k) => {
-                          return (
-                            <li key={k + 1}>
-                              <b>{k + 1}:</b>
-                              {d.name}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </li>
-                );
+                      {folder.type === 'directory' && (
+                        <ul>
+                          {folder.children.map((d, k) => {
+                            return recursiveFileRead(d, k);
+                          })}
+                        </ul>
+                      )}
+                    </li>
+                  );
+                }
+
+                return recursiveFileRead(t, i);
               })}
             </ul>
           </div>
