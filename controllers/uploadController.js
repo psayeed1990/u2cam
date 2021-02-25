@@ -9,6 +9,11 @@ const decompress = require('decompress');
 const NodeClam = require('clamscan');
 const ClamScan = new NodeClam().init();
 
+exports.setTimeOutLimit = (req, res, next) => {
+  req.socket.setTimeout(10 * 60 * 1000);
+  next();
+};
+
 const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'tmp/my-uploads');

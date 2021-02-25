@@ -9,6 +9,7 @@ router
   .get(authController.protect, uploadController.getAllUploads)
   .post(
     authController.protect,
+    uploadController.setTimeOutLimit,
     uploadController.uploadZipFile,
     uploadController.handleZippedTheme
   );
