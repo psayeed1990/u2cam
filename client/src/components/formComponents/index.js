@@ -15,6 +15,7 @@ const PasswordField = lazy(() => import('./formFields/PasswordField'));
 const CustomTypeTextField = lazy(() =>
   import('./formFields/CustomTypeTextField')
 );
+const CustomSelectField = lazy(() => import('./formFields/CustomSelectField'));
 
 const FormComponent = ({
   setReturnValue,
@@ -179,6 +180,28 @@ const FormComponent = ({
                       getValues={getValues}
                     />
                   )}
+                  {f.fieldType === 'CustomSelectField' && (
+                    <CustomSelectField
+                      value={f.value}
+                      label={f.label}
+                      customTypesArray={f.customTypesArray}
+                      selectMenuArray={f.selectMenuArray}
+                      initFocus={f.initFocus}
+                      nameToShowOnList={f.nameToShowOnList}
+                      nameToUseAsValue={f.nameToUseAsValue}
+                      placeholder={f.placeholder}
+                      maxChar={f.maxChar}
+                      minChar={f.minChar}
+                      isRequired={f.isRequired}
+                      fieldName={f.fieldName}
+                      register={register}
+                      setValue={setValue}
+                      errors={errors}
+                      setError={setError}
+                      clearErrors={clearErrors}
+                      getValues={getValues}
+                    />
+                  )}
                 </Fragment>
               );
             })}
@@ -194,7 +217,9 @@ const FormComponent = ({
 
         <div className="form-group">
           <input id="submit" type="submit" value={submitValue} />
-          <div className={styles.forgotBtn}>{submitBtnExtra}</div>
+          <div className={`${styles.forgotBtn} forgot-btn`}>
+            {submitBtnExtra}
+          </div>
         </div>
       </form>
     </Fragment>

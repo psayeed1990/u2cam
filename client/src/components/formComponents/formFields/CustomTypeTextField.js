@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect } from 'react';
 
 const CustomTypeTextField = ({
   value,
@@ -37,7 +37,7 @@ const CustomTypeTextField = ({
               message: `Min ${minChar} character`,
             },
             validate: (value) =>
-              customTypesArray.includes(value) || customTypesArray.join(" or "),
+              customTypesArray.includes(value) || customTypesArray.join(' or '),
           })}
           id={fieldName}
           autoFocus={initFocus}
@@ -48,8 +48,8 @@ const CustomTypeTextField = ({
           onChange={() => {
             if (!customTypesArray.includes(getValues(fieldName))) {
               setError(fieldName, {
-                type: "manual",
-                message: `Only ${customTypesArray.join(", ")} allowed `,
+                type: 'manual',
+                message: `${customTypesArray.join(', ')} allowed `,
               });
             } else {
               clearErrors(fieldName);
@@ -57,7 +57,7 @@ const CustomTypeTextField = ({
           }}
         />
         <label htmlFor={fieldName}>{label}</label>
-        <span className={`${errors[fieldName] ? "error" : ""}`}>
+        <span className={`${errors[fieldName] ? 'error' : ''}`}>
           {errors[fieldName] && errors[fieldName].message}
         </span>
       </div>
