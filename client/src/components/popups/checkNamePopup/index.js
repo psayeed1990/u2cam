@@ -24,6 +24,7 @@ const CheckNamePopups = ({
     setShowCheckNamePopup(false);
   };
 
+  //redirect on update
   useEffect(() => {
     if (success) {
       turnOffPopup();
