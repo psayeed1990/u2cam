@@ -5,7 +5,7 @@ const fs = require('fs');
 const Upload = require('../models/uploadModel');
 const factory = require('./handlers/factory');
 const NodeClam = require('clamscan');
-const ClamScan = new NodeClam().init();
+// const ClamScan = new NodeClam().init();
 const path = require('path');
 const StreamZip = require('node-stream-zip');
 
