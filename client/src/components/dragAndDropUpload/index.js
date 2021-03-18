@@ -86,7 +86,7 @@ const DragAndDropUpload = (props) => {
         console.log(err.response);
         return dispatch({
           type: 'SET_ERROR',
-          ERROR: err.response.statusText,
+          ERROR: `Server Error: ${err.response.statusText}`,
         });
       }
     }
