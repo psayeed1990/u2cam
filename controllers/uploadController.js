@@ -118,6 +118,10 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
     });
   });
 
+  fs.unlink(`./tmp/my-uploads/${req.file.filename}`, () =>
+    console.log('deleted')
+  );
+
   const newUpload = await Upload.create({
     name: req.file.filename,
     filename: req.file.filename,
