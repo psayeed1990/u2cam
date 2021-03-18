@@ -86,7 +86,7 @@ const DragAndDropUpload = (props) => {
         console.log(err.response);
         return dispatch({
           type: 'SET_ERROR',
-          ERROR: `Wrong file type`,
+          ERROR: err.response.data.message,
         });
       }
     }
