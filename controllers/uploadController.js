@@ -118,9 +118,17 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
     });
   });
 
+  //delete tmp uploaded zip file
   fs.unlink(`./tmp/my-uploads/${req.file.filename}`, () =>
     console.log('deleted')
   );
+
+  //remove _macos folder
+  if (`html-theme-uploads/${req.file.filename}/__MACOSX`) {
+    fs.unlink(`html-theme-uploads/${req.file.filename}/__MACOSX`, () =>
+      console.log('deleted')
+    );
+  }
 
   const newUpload = await Upload.create({
     name: req.file.filename,
