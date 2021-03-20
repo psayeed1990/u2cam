@@ -54,6 +54,7 @@
     "nodemailer": "^6.4.12",
     "pug": "^3.0.0",
     "react-router-dom": "^5.2.0",
+    "rimraf": "^3.0.2",
     "sharp": "^0.26.1",
     "slugify": "^1.4.6",
     "validator": "^13.1.17",

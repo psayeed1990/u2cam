@@ -8,6 +8,7 @@ const NodeClam = require('clamscan');
 // const ClamScan = new NodeClam().init();
 const path = require('path');
 const StreamZip = require('node-stream-zip');
+const rimraf = require('rimraf');
 
 exports.setTimeOutLimit = (req, res, next) => {
   req.socket.setTimeout(10 * 60 * 1000);
@@ -25,9 +26,14 @@ const multerStorage = multer.diskStorage({
 });
 
 const multerFilter = (req, file, cb) => {
-  if (file.mimetype === 'application/zip') {
+  const ext = file.mimetype.split('/')[1];
+  if (ext === 'zip') {
     cb(null, true);
-  } else {
+  }
+  //   if (file.mimetype === 'application/zip') {
+  //     cb(null, true);
+  //   }
+  else {
     cb(new AppError('Not an zip! Please upload only zip.', 400), false);
   }
 };
@@ -124,11 +130,10 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
   );
 
   //remove _macos folder
-  if (`html-theme-uploads/${req.file.filename}/__MACOSX`) {
-    fs.unlink(`html-theme-uploads/${req.file.filename}/__MACOSX`, () =>
-      console.log('deleted')
-    );
-  }
+  const dataPath = path.normalize(
+    __dirname + `/html-theme-uploads/${req.file.filename}/__MACOSX/`
+  );
+  rimraf(dataPath, () => console.log('deleted'));
 
   const newUpload = await Upload.create({
     name: req.file.filename,
