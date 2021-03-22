@@ -70,10 +70,18 @@ const DragAndDropUpload = (props) => {
           type: 'SET_ERROR',
           ERROR: `Your theme is uploaded`,
         });
+        console.log(data);
+        if (data.status === 'Failed') {
+          return dispatch({
+            type: 'SET_ERROR',
+            ERROR: data.message,
+          });
+        }
 
         return setCheckDetails(data.data.data);
       }
     } catch (err) {
+      console.log('err');
       if (
         err.response.data.status === 'fail' ||
         err.response.data.status === 'error'

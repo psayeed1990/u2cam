@@ -9,6 +9,7 @@ const NodeClam = require('clamscan');
 const path = require('path');
 const StreamZip = require('node-stream-zip');
 const rimraf = require('rimraf');
+const FileType = require('file-type');
 
 exports.setTimeOutLimit = (req, res, next) => {
   req.socket.setTimeout(10 * 60 * 1000);
@@ -25,27 +26,40 @@ const multerStorage = multer.diskStorage({
   },
 });
 
-const multerFilter = (req, file, cb) => {
-  const ext = file.mimetype.split('/')[1];
-  if (ext === 'zip') {
-    cb(null, true);
-  }
-  //   if (file.mimetype === 'application/zip') {
-  //     cb(null, true);
-  //   }
-  else {
-    cb(new AppError('Not an zip! Please upload only zip.', 400), false);
-  }
-};
+// const multerFilter = (req, file, cb) => {
+//   const buffer = readChunk.sync(file, 0, 4100);
+//   if (fileType(buffer).ext == 'zip') {
+//     cb(null, true);
+//   } else {
+//     cb(new AppError('Not an zip! Please upload only zip.', 400), false);
+//   }
+// };
 
 //upload zipped theme with multer
 const upload = multer({
   storage: multerStorage,
-  fileFilter: multerFilter,
+  // fileFilter: multerFilter,
 });
 
 exports.uploadZipFile = upload.single('zippedTheme');
 exports.handleZippedTheme = catchAsync(async (req, res, next) => {
+  //check file type
+  const zipFileCheck = await FileType.fromFile(
+    `./tmp/my-uploads/${req.file.filename}`
+  );
+
+  if (!zipFileCheck || zipFileCheck.mime !== 'application/zip') {
+    console.log('wrong');
+    //delete tmp uploaded zip file
+    fs.unlink(`./tmp/my-uploads/${req.file.filename}`, () =>
+      console.log('deleted')
+    );
+    return res.status(201).json({
+      status: 'Failed',
+      message: 'Not a zip file! Upload only zip',
+    });
+  }
+
   // //scan file here
   // ClamScan.then(async (clamscan) => {
   //   try {
