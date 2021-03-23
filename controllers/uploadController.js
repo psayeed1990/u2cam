@@ -21,8 +21,8 @@ const multerStorage = multer.diskStorage({
     cb(null, 'tmp/my-uploads');
   },
   filename: function (req, file, cb) {
-    const ext = file.mimetype.split('/')[1];
-    cb(null, file.fieldname + '-' + Date.now() + '.' + ext);
+    // const ext = file.mimetype.split('/')[1];
+    cb(null, file.fieldname + '-' + Date.now());
   },
 });
 
@@ -44,6 +44,7 @@ const upload = multer({
 exports.uploadZipFile = upload.single('zippedTheme');
 exports.handleZippedTheme = catchAsync(async (req, res, next) => {
   let extractCount = 0;
+
   //check file type
   const zipFileCheck = await FileType.fromFile(
     `./tmp/my-uploads/${req.file.filename}`
@@ -149,8 +150,6 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
                 () => {
                   console.log('deleted macosx folder');
 
-                  //move files to parent directory
-
                   //check theme if rules met
                 }
               );
@@ -162,12 +161,13 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
   });
 
   //delete tmp uploaded zip file
-  await fs.unlink(`./tmp/my-uploads/${req.file.filename}`, () =>
+  fs.unlink(`./tmp/my-uploads/${req.file.filename}`, () =>
     console.log('uploaded zip deleted')
   );
 
   const themeName = req.file.originalname.split('.');
   themeName.pop();
+
   const newUpload = await Upload.create({
     name: themeName.join('.'),
     filename: req.file.filename,

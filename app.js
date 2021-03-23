@@ -9,6 +9,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
+const dirTree = require('directory-tree');
 
 const app = express();
 
@@ -77,15 +78,25 @@ app.use('/html-preview', express.static(__dirname + '/html-theme-uploads'));
 //theme preview link
 app.get('/html-preview/:filename/*', (req, res) => {
   const { filename } = req.params;
-  res.sendFile(
-    path.resolve(
-      __dirname,
-      'html-theme-uploads',
-      filename,
-      'portal-1',
-      'index.html'
-    )
-  );
+  //move files to parent directory
+  const tree = dirTree(`html-theme-uploads/${req.file.filename}/`);
+  if (tree.children.length === 1 && tree.children[0].type === 'directory') {
+    extraFolderName = tree.children[0].name;
+
+    res.sendFile(
+      path.resolve(
+        __dirname,
+        'html-theme-uploads',
+        filename,
+        extraFolderName,
+        'index.html'
+      )
+    );
+  } else {
+    res.sendFile(
+      path.resolve(__dirname, 'html-theme-uploads', filename, 'index.html')
+    );
+  }
 });
 
 // set static folder

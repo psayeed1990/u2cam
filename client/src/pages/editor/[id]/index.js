@@ -5,6 +5,7 @@ import { apiCall } from '../../../api';
 import ThemeListSidebar from '../../../components/sidebar/themeListSidebar';
 import WebLayout from '../../../layouts/WebLayout';
 import styles from './SingleEditor.module.css';
+import Iframe from 'react-iframe';
 
 const SingleEditor = () => {
   const [theme, setTheme] = useState(null);
@@ -16,8 +17,7 @@ const SingleEditor = () => {
       console.log(id);
       const getThemeFiles = async () => {
         const files = await apiCall('get', `themes/${id}`);
-        console.log(files.data.data.size);
-        console.log(files.data.data.children[0].children);
+        console.log('uo', files.data.data.upload);
         setTheme(files.data.data);
       };
 
@@ -34,29 +34,55 @@ const SingleEditor = () => {
         <div id={styles.editor}>
           <ThemeListSidebar />
           <div className="editor">
-            <h1 className="heading">{theme?.themeName}</h1>
-            <h5>{theme?.size / 1000}KB</h5>
+            <h1 className="heading">{theme?.tree?.themeName}</h1>
+            <h5>{theme?.tree?.size / 1000}KB</h5>
             <ul>
-              {theme?.children?.map((t, i) => {
-                function recursiveFileRead(folder, index) {
-                  return (
-                    <li key={index}>
-                      <b>{index + 1}:</b>
-                      {folder.name}
-
-                      {folder.type === 'directory' && (
-                        <ul>
-                          {folder.children.map((d, k) => {
-                            return recursiveFileRead(d, k);
-                          })}
-                        </ul>
-                      )}
-                    </li>
-                  );
-                }
-
-                return recursiveFileRead(t, i);
-              })}
+              {
+                //if extra folder exist
+              }
+              {theme?.tree?.children?.length === 1 &&
+              theme?.tree?.children[0]?.type === 'directory' ? (
+                <Iframe
+                  url={`/html-preview/${theme?.upload?.filename}/${theme?.tree?.children[0]?.name}/index.html`}
+                  width="100%"
+                  height="1500"
+                  id="myId"
+                  className="myClassname"
+                  display="initial"
+                  position="relative"
+                />
+              ) : (
+                <Iframe
+                  url={`/html-preview/${theme?.upload?.filename}/index.html`}
+                  width="100%"
+                  height="1500"
+                  id="myId"
+                  className="myClassname"
+                  display="initial"
+                  position="relative"
+                />
+              )}
+              {
+                //theme?.children?.map((t, i) => {
+                //recursive files in folder read
+                // function recursiveFileRead(folder, index) {
+                //   return (
+                //     <li key={index}>
+                //       <b>{index + 1}:</b>
+                //       {folder.name}
+                //       {folder.type === 'directory' && (
+                //         <ul>
+                //           {folder.children.map((d, k) => {
+                //             return recursiveFileRead(d, k);
+                //           })}
+                //         </ul>
+                //       )}
+                //     </li>
+                //   );
+                // }
+                // return recursiveFileRead(t, i);
+                //})
+              }
             </ul>
           </div>
         </div>

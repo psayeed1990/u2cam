@@ -11,6 +11,11 @@ const uploadSchema = new Schema({
     trim: true,
     required: [true, 'Theme Name is required'],
   },
+  filename: {
+    type: String,
+    trim: true,
+    required: [true, 'File Name is required'],
+  },
   link: {
     type: String,
     trim: true,
