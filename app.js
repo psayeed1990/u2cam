@@ -71,6 +71,23 @@ app.use('/api/v1/uploads', uploadRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/admin', adminRoutes);
 
+//public folder for theme
+app.use('/html-preview', express.static(__dirname + '/html-theme-uploads'));
+
+//theme preview link
+app.get('/html-preview/:filename/*', (req, res) => {
+  const { filename } = req.params;
+  res.sendFile(
+    path.resolve(
+      __dirname,
+      'html-theme-uploads',
+      filename,
+      'portal-1',
+      'index.html'
+    )
+  );
+});
+
 // set static folder
 app.use(express.static('client/out'));
 

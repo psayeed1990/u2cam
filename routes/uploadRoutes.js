@@ -16,7 +16,11 @@ router
 router
   .route('/:id')
   .get(authController.protect, uploadController.getUpload)
-  .patch(authController.protect, uploadController.updateUpload)
+  .patch(
+    authController.protect,
+    // uploadController.fix__MACOSX_folders,
+    uploadController.updateUpload
+  )
   .delete(authController.protect, uploadController.deleteUpload);
 
 module.exports = router;

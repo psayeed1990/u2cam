@@ -43,6 +43,7 @@ const upload = multer({
 
 exports.uploadZipFile = upload.single('zippedTheme');
 exports.handleZippedTheme = catchAsync(async (req, res, next) => {
+  let extractCount = 0;
   //check file type
   const zipFileCheck = await FileType.fromFile(
     `./tmp/my-uploads/${req.file.filename}`
@@ -85,16 +86,15 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
     storeEntries: true,
   });
 
-  zip.on('error', function (err) {
+  zip.on('error', async (err) => {
     console.error('[ERROR]', err);
   });
 
-  zip.on('ready', function () {
+  zip.on('ready', async () => {
     console.log('All entries read: ' + zip.entriesCount);
-    //console.log(zip.entries());
   });
 
-  zip.on('entry', function (entry) {
+  zip.on('entry', async (entry) => {
     var pathname = path.resolve(
       `html-theme-uploads/${req.file.filename}`,
       entry.name
@@ -112,18 +112,20 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
     }
 
     if ('/' === entry.name[entry.name.length - 1]) {
-      console.log('[DIR]', entry.name);
+      // console.log('[DIR]', entry.name);
+      //add directories amount to extract count
+      extractCount += 1;
       return;
     }
 
-    console.log('[FILE]', entry.name);
-    zip.stream(entry.name, function (err, stream) {
+    // await console.log('[FILE]', entry.name);
+    await zip.stream(entry.name, async (err, stream) => {
       if (err) {
         console.error('Error:', err.toString());
         return;
       }
 
-      stream.on('error', function (err) {
+      stream.on('error', (err) => {
         console.log('[ERROR]', err);
         return;
       });
@@ -132,25 +134,42 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
       //stream.pipe(process.stdout);
 
       // example: save contents to file
-      fs.mkdir(path.dirname(pathname), { recursive: true }, function (err) {
-        stream.pipe(fs.createWriteStream(pathname));
-      });
+
+      await fs.mkdir(
+        path.dirname(pathname),
+        { recursive: true },
+        async (err) => {
+          await stream.pipe(fs.createWriteStream(pathname)).on('close', () => {
+            extractCount += 1;
+
+            //delete macosx folder
+            if (extractCount === zip.entriesCount) {
+              rimraf(
+                `html-theme-uploads/${req.file.filename}/__MACOSX/`,
+                () => {
+                  console.log('deleted macosx folder');
+
+                  //move files to parent directory
+
+                  //check theme if rules met
+                }
+              );
+            }
+          });
+        }
+      );
     });
   });
 
   //delete tmp uploaded zip file
-  fs.unlink(`./tmp/my-uploads/${req.file.filename}`, () =>
-    console.log('deleted')
+  await fs.unlink(`./tmp/my-uploads/${req.file.filename}`, () =>
+    console.log('uploaded zip deleted')
   );
 
-  //remove _macos folder
-  const dataPath = path.normalize(
-    __dirname + `/html-theme-uploads/${req.file.filename}/__MACOSX/`
-  );
-  rimraf(dataPath, () => console.log('deleted'));
-
+  const themeName = req.file.originalname.split('.');
+  themeName.pop();
   const newUpload = await Upload.create({
-    name: req.file.filename,
+    name: themeName.join('.'),
     filename: req.file.filename,
     link: `html-theme-uploads/${req.file.filename}`,
     type: 'html',
@@ -164,6 +183,33 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
       data: newUpload,
     },
   });
+});
+
+// OBSOLETE fix __MACOSX files and folders
+exports.fix__MACOSX_folders = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const upload = await Upload.findById(id);
+  // RIMRAF remove _macos folder
+  // const dataPath = path.normalize(
+  //   __dirname + `/html-theme-uploads/${req.file.filename}/__MACOSX/`
+  // );
+
+  if (`${upload.link}/__MACOSX/`) {
+    await rimraf(`${upload.link}/__MACOSX/`, () => console.log('deleted'));
+  }
+
+  // //fs module remove _macos folder
+  // const dir = `html-theme-uploads/${req.file.filename}/__MACOSX`;
+  // console.log(dir);
+  // fs.rmdir(dir, { recursive: true }, (err) => {
+  //   if (err) {
+  //     throw err;
+  //   }
+
+  //   console.log(`${dir} is deleted!`);
+  // });
+
+  next();
 });
 
 //get all by users

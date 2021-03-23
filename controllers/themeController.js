@@ -10,6 +10,9 @@ exports.getTheme = catchAsync(async (req, res, next) => {
   const tree = dirTree(`${upload.link}/`);
   tree.themeName = upload.name;
 
+  // upload.link = tree.children[0].path;
+  // await upload.save();
+
   return res.status(200).json({
     status: 'success',
     data: {
