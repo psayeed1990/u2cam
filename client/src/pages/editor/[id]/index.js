@@ -6,6 +6,7 @@ import ThemeListSidebar from '../../../components/sidebar/themeListSidebar';
 import WebLayout from '../../../layouts/WebLayout';
 import styles from './SingleEditor.module.css';
 import Iframe from 'react-iframe';
+import Link from 'next/link';
 
 const SingleEditor = () => {
   const [theme, setTheme] = useState(null);
@@ -36,6 +37,9 @@ const SingleEditor = () => {
           <div className="editor">
             <h1 className="heading">{theme?.tree?.themeName}</h1>
             <h5>{theme?.tree?.size / 1000}KB</h5>
+            <Link href="#">
+              <button>Convert To WordPress</button>
+            </Link>
             <ul>
               {
                 //if extra folder exist

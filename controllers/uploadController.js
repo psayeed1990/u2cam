@@ -44,12 +44,16 @@ const upload = multer({
 exports.uploadZipFile = upload.single('zippedTheme');
 exports.handleZippedTheme = catchAsync(async (req, res, next) => {
   let extractCount = 0;
+  let indexHTML = false;
+  let entryCount = 0;
+  let skipSuccess = false;
 
   //check file type
   const zipFileCheck = await FileType.fromFile(
     `./tmp/my-uploads/${req.file.filename}`
   );
 
+  //check zip file
   if (!zipFileCheck || zipFileCheck.mime !== 'application/zip') {
     console.log('wrong');
     //delete tmp uploaded zip file
@@ -61,6 +65,8 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
       message: 'Not a zip file! Upload only zip',
     });
   }
+
+  //check zip file for
 
   // //scan file here
   // ClamScan.then(async (clamscan) => {
@@ -82,91 +88,122 @@ exports.handleZippedTheme = catchAsync(async (req, res, next) => {
   //   console.log(err);
   // });
 
-  var zip = new StreamZip({
-    file: `./tmp/my-uploads/${req.file.filename}`,
-    storeEntries: true,
-  });
+  const fileFunction = async () => {
+    var zip = new StreamZip({
+      file: `./tmp/my-uploads/${req.file.filename}`,
+      storeEntries: true,
+    });
 
-  zip.on('error', async (err) => {
-    console.error('[ERROR]', err);
-  });
+    zip.on('error', async (err) => {
+      console.error('[ERROR]', err);
+    });
 
-  zip.on('ready', async () => {
-    console.log('All entries read: ' + zip.entriesCount);
-  });
+    zip.on('ready', async () => {
+      console.log('All entries read: ' + zip.entriesCount);
+    });
 
-  zip.on('entry', async (entry) => {
-    var pathname = path.resolve(
-      `html-theme-uploads/${req.file.filename}`,
-      entry.name
-    );
-    if (
-      /\.\./.test(
-        path.relative(`html-theme-uploads/${req.file.filename}`, pathname)
-      )
-    ) {
-      console.warn(
-        '[zip warn]: ignoring maliciously crafted paths in zip file:',
+    zip.on('entry', async (entry) => {
+      var pathname = path.resolve(
+        `html-theme-uploads/${req.file.filename}`,
         entry.name
       );
-      return;
-    }
-
-    if ('/' === entry.name[entry.name.length - 1]) {
-      // console.log('[DIR]', entry.name);
-      //add directories amount to extract count
-      extractCount += 1;
-      return;
-    }
-
-    // await console.log('[FILE]', entry.name);
-    await zip.stream(entry.name, async (err, stream) => {
-      if (err) {
-        console.error('Error:', err.toString());
+      if (
+        /\.\./.test(
+          path.relative(`html-theme-uploads/${req.file.filename}`, pathname)
+        )
+      ) {
+        console.warn(
+          '[zip warn]: ignoring maliciously crafted paths in zip file:',
+          entry.name
+        );
         return;
       }
 
-      stream.on('error', (err) => {
-        console.log('[ERROR]', err);
+      if ('/' === entry.name[entry.name.length - 1]) {
+        // console.log('[DIR]', entry.name);
+        //add directories amount to extract count
+        extractCount += 1;
+
+        //increase entry for each folder
+        entryCount += 1;
         return;
-      });
+      }
 
-      // example: print contents to screen
-      //stream.pipe(process.stdout);
+      // increase entry for each file
+      entryCount += 1;
 
-      // example: save contents to file
+      //check for index.html
+      if (
+        entry.name.split('/')[entry.name.split('/').length - 1] === 'index.html'
+      ) {
+        //delete tmp uploaded zip file
+        console.log(entry.name.split('/')[entry.name.split('/').length - 1]);
+        indexHTML = true;
+      }
+      if (entryCount === zip.entriesCount && !indexHTML) {
+        await fs.unlink(`./tmp/my-uploads/${req.file.filename}`, () => {
+          console.log('uploaded zip deleted');
+        });
+        // return res.status(201).json({
+        //   status: 'Failed',
+        //   message: 'No index.html. Please upload a theme with index.html',
+        // });
+        return new AppError(
+          'No index.html. Please upload a theme with index.html',
+          400
+        );
+      } else {
+        //await console.log('[FILE]', entry.name);
+        await zip.stream(entry.name, async (err, stream) => {
+          if (err) {
+            console.error('Error:', err.toString());
+            return;
+          }
 
-      await fs.mkdir(
-        path.dirname(pathname),
-        { recursive: true },
-        async (err) => {
-          await stream.pipe(fs.createWriteStream(pathname)).on('close', () => {
-            extractCount += 1;
-
-            //delete macosx folder
-            if (extractCount === zip.entriesCount) {
-              rimraf(
-                `html-theme-uploads/${req.file.filename}/__MACOSX/`,
-                () => {
-                  console.log('deleted macosx folder');
-
-                  //check theme if rules met
-                }
-              );
-            }
+          stream.on('error', (err) => {
+            console.log('[ERROR]', err);
+            return;
           });
-        }
-      );
-    });
-  });
 
+          // example: print contents to screen
+          //stream.pipe(process.stdout);
+
+          // example: save contents to file
+
+          await fs.mkdir(
+            path.dirname(pathname),
+            { recursive: true },
+            async (err) => {
+              await stream
+                .pipe(fs.createWriteStream(pathname))
+                .on('close', () => {
+                  extractCount += 1;
+
+                  //delete macosx folder
+                  if (extractCount === zip.entriesCount) {
+                    rimraf(
+                      `html-theme-uploads/${req.file.filename}/__MACOSX/`,
+                      () => {
+                        console.log('deleted macosx folder');
+                      }
+                    );
+                  }
+                });
+            }
+          );
+        });
+      }
+    });
+  };
+
+  await fileFunction();
   //delete tmp uploaded zip file
-  fs.unlink(`./tmp/my-uploads/${req.file.filename}`, () =>
+
+  fs.unlink(`./tmp/my-uploads/${req.file.filename}`, async () =>
     console.log('uploaded zip deleted')
   );
-
-  const themeName = req.file.originalname.split('.');
-  themeName.pop();
+  const themeName = await req.file.originalname.split('.');
+  await themeName.pop();
 
   const newUpload = await Upload.create({
     name: themeName.join('.'),
