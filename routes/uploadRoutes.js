@@ -1,4 +1,5 @@
 const express = require('express');
+const checkIndexHTML = require('../utils/checkIndexHTML');
 const checkZipFile = require('../utils/checkZipFile');
 const clamScan = require('../utils/clamScan');
 const unzip = require('../utils/unzip');
@@ -17,6 +18,7 @@ router
     checkZipFile,
     //clamScan,
     unzip,
+    checkIndexHTML,
     uploadController.handleZippedTheme
   );
 router

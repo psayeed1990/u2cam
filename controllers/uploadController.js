@@ -4,6 +4,7 @@ const multer = require('multer');
 const fs = require('fs').promises;
 const Upload = require('../models/uploadModel');
 const factory = require('./handlers/factory');
+const checkIndexHTML = require('../utils/checkIndexHTML');
 
 exports.setTimeOutLimit = (req, res, next) => {
   req.socket.setTimeout(10 * 60 * 1000);
@@ -37,6 +38,8 @@ const upload = multer({
 
 exports.uploadZipFile = upload.single('zippedTheme');
 exports.handleZippedTheme = catchAsync(async (req, res, next) => {
+  //check index file
+
   const themeName = await req.file.originalname.split('.');
   await themeName.pop();
 

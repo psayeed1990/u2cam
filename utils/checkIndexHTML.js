@@ -1,29 +1,19 @@
-const dirTree = require('directory-tree');
+const fs = require('fs').promises;
+const catchAsync = require('./catchAsync');
 
-module.exports = (filePath) => {
-  const tree = dirTree(filePath);
+const fileExists = async (path) => !!(await fs.stat(path).catch((e) => false));
 
-  const checkIndexFile = (child) => {
-    return child.name === 'index.html';
-  };
+module.exports = catchAsync(async (req, res, next) => {
+  const path = `./html-theme-uploads/${req.file.filename}/index.html`;
 
-  const checkIndexFileInDir = (child) => {
-    return child.children.some(checkIndexFile);
-  };
+  const indexFileExists = await fileExists(path);
 
-  //   console.log(tree.children);
-  if (tree.children.some(checkIndexFile)) {
-    return true;
-  } else if (
-    tree.children.length > 0 &&
-    tree.children.every((c) => {
-      return c.type === 'directory';
-    })
-  ) {
-    if (tree.children.some(checkIndexFileInDir)) {
-      return true;
-    }
-  } else {
-    return false;
+  if (!indexFileExists) {
+    return res.status(401).json({
+      status: 'Failed',
+      message: 'No index.html found in root directory',
+    });
   }
-};
+
+  next();
+});
