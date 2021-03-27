@@ -1,20 +1,18 @@
-var child = require('child_process');
+const fs = require('fs').promises;
+const Path = require('path');
 
-var rmdir = function (directories, callback) {
-  console.log('hi');
-  if (typeof directories === 'string') {
-    directories = [directories];
+module.exports = async (directoryPath)=> {
+  if (await fs.exists(directoryPath)) {
+    await fs.readdir(directoryPath).forEach((file, index) => {
+      const curPath = path.join(directoryPath, file);
+      if (await fs.lstat(curPath).isDirectory()) {
+        // recurse
+        await deleteFolderRecursive(curPath);
+      } else {
+        // delete file
+        await fs.unlink(curPath);
+      }
+    });
+    await fs.rmdir(directoryPath);
   }
-  var args = directories;
-  args.unshift('-rf');
-  child.execFile(
-    'rm',
-    args,
-    { env: process.env },
-    function (err, stdout, stderr) {
-      callback.apply(this, arguments);
-    }
-  );
 };
-
-module.exports = rmdir;

@@ -1,4 +1,7 @@
 const express = require('express');
+const checkZipFile = require('../utils/checkZipFile');
+const clamScan = require('../utils/clamScan');
+const unzip = require('../utils/unzip');
 const authController = require('./../controllers/authController');
 const uploadController = require('./../controllers/uploadController');
 
@@ -11,6 +14,9 @@ router
     authController.protect,
     uploadController.setTimeOutLimit,
     uploadController.uploadZipFile,
+    checkZipFile,
+    //clamScan,
+    unzip,
     uploadController.handleZippedTheme
   );
 router
