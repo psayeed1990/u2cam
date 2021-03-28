@@ -37,7 +37,7 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "directory-tree": "^2.2.6",
+    "directory-tree": "^2.2.7",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",

@@ -84,7 +84,8 @@ const DragAndDropUpload = (props) => {
       console.log('err');
       if (
         err.response.data.status === 'fail' ||
-        err.response.data.status === 'error'
+        err.response.data.status === 'error' ||
+        err.response.data.status === 'Custom'
       ) {
         return dispatch({
           type: 'SET_ERROR',
