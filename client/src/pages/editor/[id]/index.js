@@ -7,6 +7,7 @@ import WebLayout from '../../../layouts/WebLayout';
 import styles from './SingleEditor.module.css';
 import Iframe from 'react-iframe';
 import Link from 'next/link';
+import iframeFunction from '../../../hooks/iframeFunction';
 
 const SingleEditor = () => {
   const [theme, setTheme] = useState(null);
@@ -15,10 +16,8 @@ const SingleEditor = () => {
 
   useEffect(() => {
     if (id) {
-      console.log(id);
       const getThemeFiles = async () => {
         const files = await apiCall('get', `themes/${id}`);
-        console.log('uo', files.data.data.upload);
         setTheme(files.data.data);
       };
 
@@ -50,20 +49,22 @@ const SingleEditor = () => {
                   url={`/html-preview/${theme?.upload?.filename}/${theme?.tree?.children[0]?.name}/index.html`}
                   width="100%"
                   height="1500"
-                  id="myId"
+                  id="edit-frame"
                   className="myClassname"
                   display="initial"
                   position="relative"
+                  onLoad={iframeFunction}
                 />
               ) : (
                 <Iframe
                   url={`/html-preview/${theme?.upload?.filename}/index.html`}
                   width="100%"
                   height="1500"
-                  id="myId"
+                  id="edit-frame"
                   className="myClassname"
                   display="initial"
                   position="relative"
+                  onLoad={iframeFunction}
                 />
               )}
               {
