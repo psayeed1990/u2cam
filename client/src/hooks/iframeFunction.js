@@ -22,9 +22,9 @@ const iframeFunction = () => {
           elementArray[i].addEventListener('click', () => {
             //get file path
             var path = innerDoc.location.pathname;
-            //   var page = path.split('/').pop();
-            console.log(path);
-            elementArray[i].innerHTML = path;
+            var page = path.split('/').pop();
+            console.log(page);
+            elementArray[i].innerHTML = `Clicked ${page}`;
           });
         }
       };
