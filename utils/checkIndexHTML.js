@@ -1,9 +1,23 @@
 const fs = require('fs').promises;
+const mv = require('mv');
 const catchAsync = require('./catchAsync');
 const rmfr = require('rmfr');
 
 const indexCheckFunction = (filesArray) => {
   return filesArray === 'index.html';
+};
+
+const moveToParentFolder = async (files, parentPath) => {
+  mv(
+    `${parentPath}/${files[0]}/`,
+    parentPath,
+    { mkdirp: false, clobber: false },
+    (err) => {
+      if (err) {
+        throw err;
+      }
+    }
+  );
 };
 
 module.exports = catchAsync(async (req, res, next) => {
@@ -26,6 +40,9 @@ module.exports = catchAsync(async (req, res, next) => {
             message: 'No index.html found in root directory',
           });
         }
+
+        //move files to root directory
+        //await moveToParentFolder(files, path);
       }
     } else {
       //remove folder
