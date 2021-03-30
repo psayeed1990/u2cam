@@ -26,7 +26,7 @@ const iframeFunction = () => {
             console.log(page);
             elementArray[
               i
-            ].innerHTML = `Clicked <${element}> #-${i} of ${page}`;
+            ].innerHTML = `Clicked &lt;${element}&gt; #-${i} of ${page}`;
           });
         }
       };
