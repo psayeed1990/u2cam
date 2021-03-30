@@ -57,7 +57,7 @@ const iframeFunction = () => {
             }
 
             //change innerhtml of tooltip
-            tooltipId.innerHTML = `Clicked &lt;${element}&gt; #-${i} of ${page}`;
+            tooltipId.innerHTML = `Clicked #${i} &lt;${element}&gt; of ${page}`;
 
             //make content editable
             elementArray[i].setAttribute('contenteditable', 'true');
