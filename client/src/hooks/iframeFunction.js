@@ -13,7 +13,7 @@ const iframeFunction = () => {
         'top: 0;left: 0;opacity:0;position: absolute;z-index: 1000;width:auto;padding:4px;color: #444;background: white;';
 
       //set id for tooltip
-      const text = document.createTextNode('Click to edit!');
+      const text = document.createTextNode('Double click to edit!');
       tooltip.setAttribute('id', 'tooltip-inside-editor');
       tooltip.appendChild(text);
       const iframeBody = innerDoc.getElementsByTagName('body')[0];
@@ -40,11 +40,32 @@ const iframeFunction = () => {
         'h5',
         'h6',
         'a',
+        'span',
+        'b',
+        'em',
+        'i',
+        'strong',
+        'small',
+        'sup',
+        'mark',
+        'del',
+        'ins',
+        'sub',
+        'blockquote',
+        'abbr',
+        'address',
+        'cite',
+        'q',
+        'tr',
+        'th',
+        'td',
+        'dt',
+        'dd',
       ];
 
       const clicked = (elementArray, element) => {
         for (let i = 0; i < elementArray.length; i++) {
-          elementArray[i].addEventListener('click', () => {
+          elementArray[i].addEventListener('dblclick', () => {
             //get file path
             var path = innerDoc.location.pathname;
             var page = path.split('/').pop();
@@ -67,8 +88,10 @@ const iframeFunction = () => {
 
       // run clicked function for each tag
       elementArrayList.forEach((element) => {
-        const elementArray = innerDoc.getElementsByTagName(element);
-        clicked(elementArray, element);
+        if (innerDoc.getElementsByTagName(element)) {
+          const elementArray = innerDoc.getElementsByTagName(element);
+          clicked(elementArray, element);
+        }
       });
     }
   }
