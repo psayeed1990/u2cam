@@ -1,7 +1,7 @@
-import Link from "next/link";
-import showMenu from "../../../hooks/showMenu";
+import Link from 'next/link';
+import showMenu from '../../../utils/showMenu';
 
-import styles from "./AdminMenu.module.css";
+import styles from './AdminMenu.module.css';
 
 const AdminMenu = () => {
   return (

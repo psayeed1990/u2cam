@@ -60,6 +60,9 @@ const List = ({ model, url, singlePageUrl, data1, data2, heading }) => {
             return (
               <div className={styles.list} key={list._id}>
                 <p className={styles.listWrapper}>
+                  <span className={styles.left}>
+                    <input type="checkbox" />
+                  </span>
                   <span className={styles.left}>{index + 1}</span>
                   {/* <span className={styles.show1}><span className={styles.name}>ID:</span><span className={styles.value}>{list._id}</span></span><br /> */}
                   <span className={styles.show1}>

@@ -1,3 +1,6 @@
+import elementArrayList from './elementArrayList';
+import getAllElements from './getAllElements';
+
 const iframeFunction = () => {
   if (document.getElementById('edit-frame')) {
     //grab iframe document
@@ -7,6 +10,11 @@ const iframeFunction = () => {
       : iframe.contentWindow.document;
     //if iframe oaded
     if (innerDoc.readyState == 'complete') {
+      //show all the elements
+      getAllElements(innerDoc);
+      // show all the elements class
+      // show tree heirarchy of nested elements
+
       //create tooltip
       const tooltip = document.createElement('p');
       tooltip.style.cssText =
@@ -29,47 +37,12 @@ const iframeFunction = () => {
 
       innerDoc.addEventListener('mousemove', fn, false);
 
-      //list all the tag to edit
-      const elementArrayList = [
-        'p',
-        'button',
-        'h1',
-        'h2',
-        'h3',
-        'h4',
-        'h5',
-        'h6',
-        'a',
-        'span',
-        'b',
-        'em',
-        'i',
-        'strong',
-        'small',
-        'sup',
-        'mark',
-        'del',
-        'ins',
-        'sub',
-        'blockquote',
-        'abbr',
-        'address',
-        'cite',
-        'q',
-        'tr',
-        'th',
-        'td',
-        'dt',
-        'dd',
-      ];
-
       const clicked = (elementArray, element) => {
         for (let i = 0; i < elementArray.length; i++) {
           elementArray[i].addEventListener('dblclick', () => {
             //get file path
             var path = innerDoc.location.pathname;
             var page = path.split('/').pop();
-            console.log(page);
 
             //set other editable to non editable/normal
             const editables = innerDoc.querySelectorAll('[contenteditable]');

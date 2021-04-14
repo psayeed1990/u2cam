@@ -7,7 +7,7 @@ import WebLayout from '../../../layouts/WebLayout';
 import styles from './SingleEditor.module.css';
 import Iframe from 'react-iframe';
 import Link from 'next/link';
-import iframeFunction from '../../../hooks/iframeFunction';
+import iframeFunction from '../../../utils/iframeFunction';
 
 const SingleEditor = () => {
   const [theme, setTheme] = useState(null);
