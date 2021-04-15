@@ -1,8 +1,8 @@
-import { elementArrayList } from './iframeFunction';
+import elementArrayList from './elementArrayList';
 
 const getAllElements = (doc) => {
   var elements = doc.body.getElementsByTagName('*');
-  console.log(elements);
+  return elements;
 };
 
 export default getAllElements;

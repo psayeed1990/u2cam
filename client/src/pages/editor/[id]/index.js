@@ -21,7 +21,7 @@ const SingleEditor = () => {
         setTheme(files.data.data);
       };
 
-      getThemeFiles();
+      //getThemeFiles();
     }
   }, [id]);
 
@@ -40,7 +40,17 @@ const SingleEditor = () => {
               <button>Convert To WordPress</button>
             </Link>
             <ul>
-              {
+              <Iframe
+                url={`/themes/eshopper/index.html`}
+                width="100%"
+                height="1500"
+                id="edit-frame"
+                className="myClassname"
+                display="initial"
+                position="relative"
+                onLoad={iframeFunction}
+              />
+              {/* {
                 //if extra folder exist
               }
               {theme?.tree?.children?.length === 1 &&
@@ -87,7 +97,7 @@ const SingleEditor = () => {
                 // }
                 // return recursiveFileRead(t, i);
                 //})
-              }
+              } */}
             </ul>
           </div>
         </div>
