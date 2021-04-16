@@ -1,9 +1,10 @@
 import createTooltip from './createTooltip';
-import editOnDblClick from './editOnDblClick';
+import eventFunctionsOnEditor from './eventFunctionsOnEditor';
 import elementArrayList from './elementArrayList';
 import getAllElements from './getAllElements';
 import innerDoc from './innerDocFunction';
 import tooltipFollowFunction from './tooltipFollowFunction';
+import createStyleInIframe from './createStyleInIframe';
 
 const iframeFunction = () => {
   if (document.getElementById('edit-frame')) {
@@ -18,7 +19,8 @@ const iframeFunction = () => {
       const tooltipId = doc.getElementById('tooltip-inside-editor');
       //create tooltip
       createTooltip(tooltipId);
-      //get id of tooltip
+      //create style in iframe
+      createStyleInIframe(doc);
 
       doc.addEventListener('mousemove', tooltipFollowFunction, false);
 
@@ -26,7 +28,7 @@ const iframeFunction = () => {
       elementArrayList.forEach((element) => {
         if (doc.getElementsByTagName(element)) {
           const elementArray = doc.getElementsByTagName(element);
-          editOnDblClick(doc, elementArray, element);
+          eventFunctionsOnEditor(doc, elementArray, element);
         }
       });
     }
