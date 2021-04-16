@@ -16,13 +16,13 @@ const iframeFunction = () => {
       getAllElements(doc);
       // show all the elements class
       // show tree heirarchy of nested elements
-      const tooltipId = doc.getElementById('tooltip-inside-editor');
+      //const tooltipId = doc.getElementById('tooltip-inside-editor');
       //create tooltip
-      createTooltip(tooltipId);
+      //createTooltip(tooltipId);
       //create style in iframe
       createStyleInIframe(doc);
 
-      doc.addEventListener('mousemove', tooltipFollowFunction, false);
+      //doc.addEventListener('mousemove', tooltipFollowFunction, false);
 
       // run dbl clicked function for each tag
       elementArrayList.forEach((element) => {

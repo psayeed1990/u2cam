@@ -1,5 +1,25 @@
 const createStyleInIframe = (doc) => {
-  var css = '.editor-border { border: 1px solid black; }',
+  var css = `
+        .editor-border { border: 1px solid #999 !important; box-shadow: 0 0 3px #444 !important}
+        .editor-options-wp-converter-78235{
+            position:absolute !important; 
+            background: #e1e1e1 !important; 
+            z-index:999 !important;
+            padding: 10px;
+            box-shadow: 0 0 3px #555;
+        }
+        .editor-options-wp-converter-78235 span{
+            color: #666 !important; 
+            font-size: 13px !important; 
+            font-weight: normal;
+            text-decoration: none;
+            padding: 5px
+            
+        }
+        .editor-options-wp-converter-78235 span:hover{
+            background: #fff
+        }
+    `,
     head = doc.head || doc.getElementsByTagName('head')[0],
     style = document.createElement('style');
 
