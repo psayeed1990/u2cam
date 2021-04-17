@@ -2,7 +2,7 @@ import hideEditorOptions from './eventFunctions/hideEditorOptions';
 import showEditorOptions from './eventFunctions/showEditorOptions';
 
 const eventFunctionsOnEditor = (doc, elementArray, element) => {
-  const tooltipId = doc.getElementById('tooltip-inside-editor');
+  //const tooltipId = doc.getElementById('tooltip-inside-editor');
 
   for (let i = 0; i < elementArray.length; i++) {
     //show editor options

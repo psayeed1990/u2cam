@@ -13,7 +13,8 @@ const createStyleInIframe = (doc) => {
             font-size: 13px !important; 
             font-weight: normal;
             text-decoration: none;
-            padding: 5px
+            padding: 5px;
+            cursor: pointer;
             
         }
         .editor-options-wp-converter-78235 span:hover{

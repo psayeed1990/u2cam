@@ -1,20 +1,14 @@
+import add from '../editOptions/add';
+import deleteDom from '../editOptions/deleteDom';
+import editDom from '../editOptions/editDom';
 import innerDoc from '../innerDocFunction';
+import removeEditorBorder from './removeEditorOptions';
 
 const showEditorOptions = (e) => {
   //remove editor-border class from each ele except the one
   const doc = innerDoc();
-  const selectedElements = doc.getElementsByClassName('editor-border');
-  for (var i = 0; i < selectedElements.length; i++) {
-    selectedElements[i].classList.remove('editor-border');
-  }
 
-  //remove options
-  const ShownOptionsOfSelectedElements = doc.getElementsByClassName(
-    'editor-options-wp-converter-78235'
-  );
-  for (var i = 0; i < ShownOptionsOfSelectedElements.length; i++) {
-    ShownOptionsOfSelectedElements[i].remove();
-  }
+  removeEditorBorder();
 
   //add editor class to the one
   e.currentTarget.classList.add('editor-border');
@@ -25,18 +19,31 @@ const showEditorOptions = (e) => {
   options.classList.add('editor-options-wp-converter-78235');
   options.innerHTML = `
     <p>
-      <span>Add</span><span>Edit</span><span>design</span><span>Delete</span>
+      <span id="add-w453">Add</span><span id="edit-w453">Edit</span><span id="design-w453">design</span><span id="delete-w453">Delete</span>
     </p>
 
   `;
 
   //add editor options to all except tooltip
-  const tooltip = doc.getElementById('tooltip-inside-editor');
-  if (e.currentTarget === tooltip) {
-    return;
-  }
+  // const tooltip = doc.getElementById('tooltip-inside-editor');
+  // if (e.currentTarget === tooltip) {
+  //   return;
+  // }
 
   e.currentTarget.appendChild(options);
+
+  //functions for edit options
+  //add
+  const addButton = doc.getElementById('add-w453');
+  addButton.addEventListener('click', add);
+
+  //edit
+  const editButon = doc.getElementById('edit-w453');
+  editButon.addEventListener('click', editDom);
+
+  //delete
+  const deleteButon = doc.getElementById('delete-w453');
+  deleteButon.addEventListener('click', deleteDom);
 };
 
 export default showEditorOptions;
