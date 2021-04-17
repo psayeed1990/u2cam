@@ -32,6 +32,7 @@ const elementArrayList = [
   'dt',
   'dd',
   'li',
+  'img',
 ];
 
 export default elementArrayList;

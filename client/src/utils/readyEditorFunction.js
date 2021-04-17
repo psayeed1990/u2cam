@@ -6,7 +6,7 @@ import innerDoc from './innerDocFunction';
 import tooltipFollowFunction from './tooltipFollowFunction';
 import createStyleInIframe from './createStyleInIframe';
 
-const iframeFunction = () => {
+const readyEditorFunction = () => {
   if (document.getElementById('edit-frame')) {
     const doc = innerDoc();
     //if iframe loaded
@@ -31,8 +31,12 @@ const iframeFunction = () => {
           eventFunctionsOnEditor(doc, elementArray, element);
         }
       });
+
+      return;
+    } else {
+      return false;
     }
   }
 };
 
-export default iframeFunction;
+export default readyEditorFunction;

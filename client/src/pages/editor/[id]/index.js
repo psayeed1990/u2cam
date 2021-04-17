@@ -1,15 +1,18 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { apiCall } from '../../../api';
 import ThemeListSidebar from '../../../components/sidebar/themeListSidebar';
 import WebLayout from '../../../layouts/WebLayout';
 import styles from './SingleEditor.module.css';
 import Iframe from 'react-iframe';
 import Link from 'next/link';
-import iframeFunction from '../../../utils/iframeFunction';
+import readyEditorFunction from '../../../utils/readyEditorFunction';
 
 const SingleEditor = () => {
+  const [editorLoader, setEditorLoader] = useState(true);
+  const [failed, setFailed] = useState('');
+  const [success, setSuccess] = useState('');
   const [theme, setTheme] = useState(null);
   const router = useRouter();
   const { id } = router.query;
@@ -26,6 +29,22 @@ const SingleEditor = () => {
     }
   }, [id]);
 
+  //call iframeFunction function
+  const editorFunctionReady = async () => {
+    try {
+      const readyEditor = await readyEditorFunction();
+      if (readyEditor) {
+        setSuccess('Fully loaded theme');
+        return setEditorLoader(false);
+      }
+      setFailed('Theme loading failed. Please refresh');
+      return setEditorLoader(false);
+    } catch (err) {
+      setFailed('Theme loading failed. Please refresh');
+      return setEditorLoader(false);
+    }
+  };
+
   return (
     <WebLayout>
       <Head>
@@ -36,11 +55,22 @@ const SingleEditor = () => {
           <ThemeListSidebar />
           <div className="editor">
             <h1 className="heading">{theme?.tree?.themeName}</h1>
+            <p className="error">{failed}</p>
+            <p className="success">{success}</p>
             <h5>{theme?.tree?.size / 1000}KB</h5>
             <Link href="#">
               <button>Convert To WordPress</button>
             </Link>
             <ul>
+              {
+                //set loader
+                editorLoader ? (
+                  <div id={styles.popupEditor}></div>
+                ) : (
+                  <Fragment></Fragment>
+                )
+              }
+
               <Iframe
                 url={`/themes/eshopper/index.html`}
                 width="100%"
@@ -49,7 +79,7 @@ const SingleEditor = () => {
                 className="myClassname"
                 display="initial"
                 position="relative"
-                onLoad={iframeFunction}
+                onLoad={editorFunctionReady}
               />
               {/* {
                 //if extra folder exist
