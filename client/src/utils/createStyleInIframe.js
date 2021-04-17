@@ -20,6 +20,9 @@ const createStyleInIframe = (doc) => {
         .editor-options-wp-converter-78235 span:hover{
             background: #fff
         }
+        .draggable-wp364 {
+          cursor: pointer;
+        }
     `,
     head = doc.head || doc.getElementsByTagName('head')[0],
     style = document.createElement('style');
