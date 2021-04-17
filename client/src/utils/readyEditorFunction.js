@@ -32,10 +32,12 @@ const readyEditorFunction = () => {
         }
       });
 
-      return;
+      return true;
     } else {
       return false;
     }
+  } else {
+    return false;
   }
 };
 

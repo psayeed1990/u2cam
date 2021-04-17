@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { apiCall } from '../../../api';
 import ThemeListSidebar from '../../../components/sidebar/themeListSidebar';
 import WebLayout from '../../../layouts/WebLayout';
@@ -8,6 +8,8 @@ import styles from './SingleEditor.module.css';
 import Iframe from 'react-iframe';
 import Link from 'next/link';
 import readyEditorFunction from '../../../utils/readyEditorFunction';
+import EditorPopup from '../../../components/popups/editorPopup';
+import EditorLoaderComp from '../../../components/editor/editorLoaderComp';
 
 const SingleEditor = () => {
   const [editorLoader, setEditorLoader] = useState(true);
@@ -62,15 +64,10 @@ const SingleEditor = () => {
               <button>Convert To WordPress</button>
             </Link>
             <ul>
-              {
-                //set loader
-                editorLoader ? (
-                  <div id={styles.popupEditor}></div>
-                ) : (
-                  <Fragment></Fragment>
-                )
-              }
-
+              <EditorPopup
+                editorLoader={editorLoader}
+                content={<EditorLoaderComp />}
+              />
               <Iframe
                 url={`/themes/eshopper/index.html`}
                 width="100%"
