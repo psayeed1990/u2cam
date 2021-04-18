@@ -1,7 +1,8 @@
-import elementArrayList from './elementArrayList';
+import innerDoc from './innerDocFunction';
 
-const getAllElements = (doc) => {
-  var elements = doc.body.getElementsByTagName('*');
+const getAllElements = () => {
+  const doc = innerDoc();
+  const elements = doc.body.getElementsByTagName('*');
   return elements;
 };
 

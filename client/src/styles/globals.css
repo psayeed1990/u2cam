@@ -223,3 +223,19 @@ padding: 5px;
 text-align: right;
 }
 
+.editor-options-wp-converter-78235{
+	        background: white;
+width: 200px;
+padding: 0px;
+border: 1px solid #bdb3b3;
+box-shadow: 0 0 3px #999;
+list-style: none;
+top: 50%;
+left: 40%;
+position: absolute;
+}
+.editor-options-wp-converter-78235 li{
+	border-bottom: 1px solid #ddd;
+	padding: 5px;
+	cursor: pointer;
+}

@@ -1,5 +1,8 @@
-const createStyleInIframe = (doc) => {
-  var css = `
+import innerDoc from './innerDocFunction';
+
+const createStyleInIframe = () => {
+  const doc = innerDoc();
+  const css = `
         .editor-border { border: 1px solid #999 !important; box-shadow: 0 0 3px #444 !important}
         .editor-options-wp-converter-78235{
             position:absolute !important; 
@@ -23,6 +26,7 @@ const createStyleInIframe = (doc) => {
         .draggable-wp364 {
           cursor: pointer;
         }
+
     `,
     head = doc.head || doc.getElementsByTagName('head')[0],
     style = document.createElement('style');

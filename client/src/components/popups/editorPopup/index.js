@@ -1,10 +1,18 @@
 import { Fragment } from 'react';
 import styles from './EditorPopup.module.css';
-const EditorPopup = ({ editorLoader, content }) => {
+const EditorPopup = ({
+  editorLoader,
+  initialLoader,
+  loadingIcon,
+  popupMessage,
+}) => {
   return (
     //set loader
-    editorLoader ? (
-      <div id={styles.popupEditor}>{content}</div>
+    editorLoader || initialLoader ? (
+      <div id={styles.popupEditor}>
+        <div>{loadingIcon}</div>
+        <p>{popupMessage}</p>
+      </div>
     ) : (
       <Fragment></Fragment>
     )

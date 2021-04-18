@@ -10,11 +10,22 @@ import Link from 'next/link';
 import readyEditorFunction from '../../../utils/readyEditorFunction';
 import EditorPopup from '../../../components/popups/editorPopup';
 import EditorLoaderComp from '../../../components/editor/editorLoaderComp';
+import getAllElements from '../../../utils/getAllElements';
+import createStyleInIframe from '../../../utils/createStyleInIframe';
+import eventFunctionsOnEditor from '../../../utils/eventFunctionsOnEditor';
+import rightClickEditMenu from '../../../utils/eventFunctions/rightClickEditMenu';
+import innerDoc from '../../../utils/innerDocFunction';
+import hideEditorOptions from '../../../utils/eventFunctions/hideEditorOptions';
+import EditorRightMenu from '../../../components/editor/editorRightMenu';
+import removeEditorBorder from '../../../utils/eventFunctions/removeEditorOptions';
 
 const SingleEditor = () => {
-  const [editorLoader, setEditorLoader] = useState(true);
+  const [initialLoader, setInitialLoader] = useState(true);
+  const [editorLoader, setEditorLoader] = useState(false);
+  const [rightMenu, setRightMenu] = useState(false);
   const [failed, setFailed] = useState('');
   const [success, setSuccess] = useState('');
+  const [popupMessage, setPopupMessage] = useState('');
   const [theme, setTheme] = useState(null);
   const router = useRouter();
   const { id } = router.query;
@@ -31,21 +42,87 @@ const SingleEditor = () => {
     }
   }, [id]);
 
-  //call iframeFunction function
-  const editorFunctionReady = async () => {
+  //check if iframe loaded
+  const editorFunctionReady = () => {
     try {
-      const readyEditor = await readyEditorFunction();
+      const readyEditor = readyEditorFunction();
       if (readyEditor) {
-        setSuccess('Fully loaded theme');
-        return setEditorLoader(false);
+        setPopupMessage('Fully loaded theme');
+        setInitialLoader(false);
+        return setEditorLoader(true);
       }
       setFailed('Theme loading failed. Please refresh');
-      return setEditorLoader(false);
+      return setInitialLoader(false);
     } catch (err) {
-      setFailed('Theme loading failed. Please refresh');
-      return setEditorLoader(false);
+      setInitialLoader(false);
+      return setFailed('Theme loading failed. Please refresh');
     }
   };
+
+  useEffect(() => {
+    if (editorLoader) {
+      setPopupMessage('Making theme contents editable');
+      const doc = innerDoc();
+
+      // get all the elements
+      const allElements = getAllElements();
+
+      //create style in iframe
+      createStyleInIframe();
+
+      //doc.addEventListener('mousemove', tooltipFollowFunction, false);
+      setPopupMessage('Adding edit options on right click');
+      // run dbl clicked function for each tag
+      for (var i = 0; i < allElements.length; i++) {
+        const element = allElements[i];
+
+        //hide editor options
+        element.addEventListener('click', hideEditorOptions);
+
+        if (doc.addEventListener) {
+          element.addEventListener(
+            'contextmenu',
+            (e) => {
+              //prevent default actions of right click
+              e.preventDefault();
+              window.event.returnValue = false;
+
+              // get the doc and clicked element
+
+              const elm = e.currentTarget;
+
+              // remove all the effects added by this functions before starting again
+              removeEditorBorder();
+
+              //Now start adding all the functions to the right click
+              //add editor class to the one
+              elm.classList.add('editor-border');
+              setRightMenu(true);
+            },
+            false
+          );
+        } else {
+          element.attachEvent('oncontextmenu', () => {
+            window.event.returnValue = false;
+
+            // get the doc and clicked element
+
+            const elm = e.currentTarget;
+
+            // remove all the effects added by this functions before starting again
+            removeEditorBorder();
+
+            //Now start adding all the functions to the right click
+            //add editor class to the one
+            elm.classList.add('editor-border');
+            setRightMenu(true);
+          });
+        }
+      }
+      setPopupMessage('');
+      setEditorLoader(false);
+    }
+  }, [editorLoader, setEditorLoader]);
 
   return (
     <WebLayout>
@@ -66,7 +143,15 @@ const SingleEditor = () => {
             <ul>
               <EditorPopup
                 editorLoader={editorLoader}
-                content={<EditorLoaderComp />}
+                initialLoader={initialLoader}
+                loadingIcon={<EditorLoaderComp />}
+                popupMessage={popupMessage}
+              />
+              <EditorPopup
+                editorLoader={rightMenu}
+                initialLoader={initialLoader}
+                loadingIcon={<EditorRightMenu setRightMenu={setRightMenu} />}
+                popupMessage={popupMessage}
               />
               <Iframe
                 url={`/themes/eshopper/index.html`}
