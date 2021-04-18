@@ -1,4 +1,5 @@
 import hideEditorOptions from './eventFunctions/hideEditorOptions';
+import rightClickEditMenu from './eventFunctions/rightClickEditMenu';
 import showEditorOptions from './eventFunctions/showEditorOptions';
 
 const eventFunctionsOnEditor = (doc, elementArray, element) => {
@@ -10,6 +11,16 @@ const eventFunctionsOnEditor = (doc, elementArray, element) => {
 
     //hide editor options
     elementArray[i].addEventListener('mouseleave', hideEditorOptions);
+
+    if (doc.addEventListener) {
+      elementArray[i].addEventListener(
+        'contextmenu',
+        rightClickEditMenu,
+        false
+      );
+    } else {
+      elementArray[i].attachEvent('oncontextmenu', rightClickEditMenu);
+    }
 
     // edit on double click function
     // elementArray[i].addEventListener('dblclick', () => {
