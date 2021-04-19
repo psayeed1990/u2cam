@@ -244,9 +244,18 @@ position: fixed;
 	cursor: pointer;
 	color: #73717b;
 	font-size: 14px;
+	border-right: 5px solid #6cb07a;
 }
 .editor-options-wp-converter-78235 li:hover{
 background-color: #98ca98;
 font-weight: 600;
 color: #f4e5d1;
+border-right: 5px solid #e2e6d4;
 }
+iframe {
+	position: relative;
+display: initial;
+border: 1px solid #7ba897;
+box-shadow: 0 0 3px #ccc;
+}
+

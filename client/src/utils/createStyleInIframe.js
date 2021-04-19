@@ -3,6 +3,25 @@ import innerDoc from './innerDocFunction';
 const createStyleInIframe = () => {
   const doc = innerDoc();
   const css = `
+        html {
+          --scrollbarBG:  #7fd09a;
+          --thumbBG: #2479ac;
+        }
+        html::-webkit-scrollbar {
+          width: 11px;
+        }
+        html {
+          scrollbar-width: thin;
+          scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+        }
+        html::-webkit-scrollbar-track {
+          background: var(--scrollbarBG);
+        }
+        html::-webkit-scrollbar-thumb {
+          background-color: var(--thumbBG) ;
+          border-radius: 6px;
+          border: 3px solid var(--scrollbarBG);
+        }
         .editor-border { border: 1px solid #999 !important; box-shadow: 0 0 3px #444 !important}
         .editor-options-wp-converter-78235{
             position:absolute !important; 

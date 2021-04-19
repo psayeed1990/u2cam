@@ -36,7 +36,7 @@ const SingleEditor = () => {
       };
 
       //for dev
-      getThemeFiles();
+      //getThemeFiles();
     }
   }, [id]);
 
@@ -142,7 +142,7 @@ const SingleEditor = () => {
             <p className="success">{success}</p>
             <h5>{theme?.tree?.size / 1000}KB</h5>
             <Link href="#">
-              <button>Convert To WordPress</button>
+              <button id={styles.convert}>Convert To WordPress</button>
             </Link>
 
             <ul>
@@ -161,25 +161,21 @@ const SingleEditor = () => {
                 />
               )}
 
-              {/*
-                
-                <Iframe
-                  url={`/themes/eshopper/index.html`}
-                  width="100%"
-                  height="1500"
-                  id="edit-frame"
-                  className="myClassname"
-                  display="initial"
-                  position="relative"
-                  onLoad={editorFunctionReady}
-                  onError={() => {
-                    setFailed('Failed to load theme');
-                  }}
-                />
-                
-               */}
+              <Iframe
+                url={`/themes/eshopper/index.html`}
+                width="100%"
+                height="1500"
+                id="edit-frame"
+                className="myClassname"
+                display="initial"
+                position="relative"
+                onLoad={editorFunctionReady}
+                onError={() => {
+                  setFailed('Failed to load theme');
+                }}
+              />
 
-              {
+              {/* {
                 //if extra folder exist
               }
               {theme?.tree?.children?.length === 1 &&
@@ -232,7 +228,7 @@ const SingleEditor = () => {
                 // }
                 // return recursiveFileRead(t, i);
                 //})
-              }
+              } */}
             </ul>
           </div>
         </div>

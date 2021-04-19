@@ -11,3 +11,11 @@
 #editor ul li {
     text-align: left;
 }
+#convert {
+    background: #379785;
+color: white;
+border: 1px solid #5d9588;
+padding: 6px;
+box-shadow: 0 0 2px 3px #ddd;
+margin: 5px;
+}
