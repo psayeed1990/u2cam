@@ -1,5 +1,11 @@
 //list all the tag to edit
 const elementArrayList = [
+  'header',
+  'footer',
+  'article',
+  'section',
+  'div',
+  'figcaption',
   'address',
   'p',
   'label',

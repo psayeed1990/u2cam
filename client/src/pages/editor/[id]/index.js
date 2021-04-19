@@ -36,7 +36,7 @@ const SingleEditor = () => {
       };
 
       //for dev
-      getThemeFiles();
+      //getThemeFiles();
     }
   }, [id]);
 
@@ -160,7 +160,7 @@ const SingleEditor = () => {
                 />
               )}
 
-              {/* <Iframe
+              <Iframe
                 url={`/themes/eshopper/index.html`}
                 width="100%"
                 height="1500"
@@ -169,8 +169,8 @@ const SingleEditor = () => {
                 display="initial"
                 position="relative"
                 onLoad={editorFunctionReady}
-              /> */}
-              {
+              />
+              {/* {
                 //if extra folder exist
               }
               {theme?.tree?.children?.length === 1 &&
@@ -217,7 +217,7 @@ const SingleEditor = () => {
                 // }
                 // return recursiveFileRead(t, i);
                 //})
-              }
+              } */}
             </ul>
           </div>
         </div>
