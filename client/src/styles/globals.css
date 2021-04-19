@@ -231,12 +231,12 @@ text-align: right;
 	        background: white;
 width: 200px;
 padding: 0px;
-border: 1px solid #bdb3b3;
-box-shadow: 0 0 3px #999;
+border: 1px solid #d0dba0;
+box-shadow: 0 0 17px 2px #a69d9d;
 list-style: none;
 position: fixed;
             top: 40%;
-            left: 55%
+            left: 50%
 }
 .editor-options-wp-converter-78235 li{
 	border-bottom: 1px solid #ddd;
@@ -246,6 +246,7 @@ position: fixed;
 	font-size: 14px;
 }
 .editor-options-wp-converter-78235 li:hover{
-	background-color: #98ca98;
-	font-weight: 400;
+background-color: #98ca98;
+font-weight: 600;
+color: #f4e5d1;
 }

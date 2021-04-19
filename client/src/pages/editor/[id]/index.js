@@ -36,7 +36,7 @@ const SingleEditor = () => {
       };
 
       //for dev
-      //getThemeFiles();
+      getThemeFiles();
     }
   }, [id]);
 
@@ -144,6 +144,7 @@ const SingleEditor = () => {
             <Link href="#">
               <button>Convert To WordPress</button>
             </Link>
+
             <ul>
               <EditorPopup
                 editorLoader={editorLoader}
@@ -160,17 +161,25 @@ const SingleEditor = () => {
                 />
               )}
 
-              <Iframe
-                url={`/themes/eshopper/index.html`}
-                width="100%"
-                height="1500"
-                id="edit-frame"
-                className="myClassname"
-                display="initial"
-                position="relative"
-                onLoad={editorFunctionReady}
-              />
-              {/* {
+              {/*
+                
+                <Iframe
+                  url={`/themes/eshopper/index.html`}
+                  width="100%"
+                  height="1500"
+                  id="edit-frame"
+                  className="myClassname"
+                  display="initial"
+                  position="relative"
+                  onLoad={editorFunctionReady}
+                  onError={() => {
+                    setFailed('Failed to load theme');
+                  }}
+                />
+                
+               */}
+
+              {
                 //if extra folder exist
               }
               {theme?.tree?.children?.length === 1 &&
@@ -184,6 +193,9 @@ const SingleEditor = () => {
                   display="initial"
                   position="relative"
                   onLoad={editorFunctionReady}
+                  onError={() => {
+                    setFailed('Failed to load theme');
+                  }}
                 />
               ) : (
                 <Iframe
@@ -195,6 +207,9 @@ const SingleEditor = () => {
                   display="initial"
                   position="relative"
                   onLoad={editorFunctionReady}
+                  onError={() => {
+                    setFailed('Failed to load theme');
+                  }}
                 />
               )}
               {
@@ -217,7 +232,7 @@ const SingleEditor = () => {
                 // }
                 // return recursiveFileRead(t, i);
                 //})
-              } */}
+              }
             </ul>
           </div>
         </div>
