@@ -10,14 +10,12 @@ import Link from 'next/link';
 import readyEditorFunction from '../../../utils/readyEditorFunction';
 import EditorPopup from '../../../components/popups/editorPopup';
 import EditorLoaderComp from '../../../components/editor/editorLoaderComp';
-import getAllElements from '../../../utils/getAllElements';
 import createStyleInIframe from '../../../utils/createStyleInIframe';
-import eventFunctionsOnEditor from '../../../utils/eventFunctionsOnEditor';
-import rightClickEditMenu from '../../../utils/eventFunctions/rightClickEditMenu';
 import innerDoc from '../../../utils/innerDocFunction';
 import hideEditorOptions from '../../../utils/eventFunctions/hideEditorOptions';
 import EditorRightMenu from '../../../components/editor/editorRightMenu';
 import removeEditorBorder from '../../../utils/eventFunctions/removeEditorOptions';
+import elementArrayList from '../../../utils/elementArrayList';
 
 const SingleEditor = () => {
   const [initialLoader, setInitialLoader] = useState(true);
@@ -38,7 +36,7 @@ const SingleEditor = () => {
       };
 
       //for dev
-      //getThemeFiles();
+      getThemeFiles();
     }
   }, [id]);
 
@@ -65,30 +63,52 @@ const SingleEditor = () => {
       const doc = innerDoc();
 
       // get all the elements
-      const allElements = getAllElements();
+      //const allElements = getAllElements();
 
       //create style in iframe
       createStyleInIframe();
 
       //doc.addEventListener('mousemove', tooltipFollowFunction, false);
       setPopupMessage('Adding edit options on right click');
-      // run dbl clicked function for each tag
-      for (var i = 0; i < allElements.length; i++) {
-        const element = allElements[i];
 
-        //hide editor options
-        element.addEventListener('click', hideEditorOptions);
+      elementArrayList.forEach((elems) => {
+        const allElements = doc.getElementsByTagName(elems);
+        for (var i = 0; i < allElements.length; i++) {
+          const element = allElements[i];
 
-        if (doc.addEventListener) {
-          element.addEventListener(
-            'contextmenu',
-            (e) => {
-              //prevent default actions of right click
+          //mouse enter and leave functions
+          element.addEventListener('mouseover', (e) => {
+            e.currentTarget.classList.add('editor-border');
+          });
+          element.addEventListener('mouseleave', (e) => {
+            e.currentTarget.classList.remove('editor-border');
+          });
+
+          //hide editor options
+          element.addEventListener('click', hideEditorOptions);
+
+          if (doc.addEventListener) {
+            element.addEventListener(
+              'contextmenu',
+              (e) => {
+                e.preventDefault();
+                window.event.returnValue = false;
+                const elm = e.currentTarget;
+
+                // remove all the effects added by this functions before starting again
+                removeEditorBorder();
+
+                //Now start adding all the functions to the right click
+                //add editor class to the one
+                elm.classList.add('editor-border');
+                setRightMenu(true);
+              },
+              false
+            );
+          } else {
+            element.attachEvent('oncontextmenu', (e) => {
               e.preventDefault();
               window.event.returnValue = false;
-
-              // get the doc and clicked element
-
               const elm = e.currentTarget;
 
               // remove all the effects added by this functions before starting again
@@ -98,31 +118,15 @@ const SingleEditor = () => {
               //add editor class to the one
               elm.classList.add('editor-border');
               setRightMenu(true);
-            },
-            false
-          );
-        } else {
-          element.attachEvent('oncontextmenu', () => {
-            window.event.returnValue = false;
-
-            // get the doc and clicked element
-
-            const elm = e.currentTarget;
-
-            // remove all the effects added by this functions before starting again
-            removeEditorBorder();
-
-            //Now start adding all the functions to the right click
-            //add editor class to the one
-            elm.classList.add('editor-border');
-            setRightMenu(true);
-          });
+            });
+          }
         }
-      }
+      });
+
       setPopupMessage('');
       setEditorLoader(false);
     }
-  }, [editorLoader, setEditorLoader]);
+  }, [editorLoader]);
 
   return (
     <WebLayout>
@@ -147,13 +151,16 @@ const SingleEditor = () => {
                 loadingIcon={<EditorLoaderComp />}
                 popupMessage={popupMessage}
               />
-              <EditorPopup
-                editorLoader={rightMenu}
-                initialLoader={initialLoader}
-                loadingIcon={<EditorRightMenu setRightMenu={setRightMenu} />}
-                popupMessage={popupMessage}
-              />
-              <Iframe
+              {rightMenu && (
+                <EditorPopup
+                  editorLoader={rightMenu}
+                  initialLoader={initialLoader}
+                  loadingIcon={<EditorRightMenu setRightMenu={setRightMenu} />}
+                  popupMessage={popupMessage}
+                />
+              )}
+
+              {/* <Iframe
                 url={`/themes/eshopper/index.html`}
                 width="100%"
                 height="1500"
@@ -162,8 +169,8 @@ const SingleEditor = () => {
                 display="initial"
                 position="relative"
                 onLoad={editorFunctionReady}
-              />
-              {/* {
+              /> */}
+              {
                 //if extra folder exist
               }
               {theme?.tree?.children?.length === 1 &&
@@ -176,7 +183,7 @@ const SingleEditor = () => {
                   className="myClassname"
                   display="initial"
                   position="relative"
-                  onLoad={iframeFunction}
+                  onLoad={editorFunctionReady}
                 />
               ) : (
                 <Iframe
@@ -187,7 +194,7 @@ const SingleEditor = () => {
                   className="myClassname"
                   display="initial"
                   position="relative"
-                  onLoad={iframeFunction}
+                  onLoad={editorFunctionReady}
                 />
               )}
               {
@@ -210,7 +217,7 @@ const SingleEditor = () => {
                 // }
                 // return recursiveFileRead(t, i);
                 //})
-              } */}
+              }
             </ul>
           </div>
         </div>

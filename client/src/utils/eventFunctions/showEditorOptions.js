@@ -11,12 +11,12 @@ const showEditorOptions = (elm) => {
 
   removeEditorBorder();
 
-  //stop drag and drop options for all
-  const allDraggable = doc.getElementsByClassName('draggable-wp364');
-  for (var i = 0; i < allDraggable.length; i++) {
-    allDraggable[i].removeAttribute('draggable');
-    allDraggable[i].classList.remove('draggable-wp364');
-  }
+  // //stop drag and drop options for all
+  // const allDraggable = doc.getElementsByClassName('draggable-wp364');
+  // for (var i = 0; i < allDraggable.length; i++) {
+  //   allDraggable[i].removeAttribute('draggable');
+  //   allDraggable[i].classList.remove('draggable-wp364');
+  //}
 
   // //start drag and drop options
   // //key press to grab

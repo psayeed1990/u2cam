@@ -10,7 +10,7 @@ const EditorPopup = ({
     //set loader
     editorLoader || initialLoader ? (
       <div id={styles.popupEditor}>
-        <div>{loadingIcon}</div>
+        <div className={styles.relative}>{loadingIcon}</div>
         <p>{popupMessage}</p>
       </div>
     ) : (

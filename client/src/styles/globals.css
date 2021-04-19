@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
 @import url('./css//root.css');
+
+body{
+	position: relative;
+}
 .heading {
 	color: #7c99a4;
 	font-family: roboto;
@@ -230,12 +234,18 @@ padding: 0px;
 border: 1px solid #bdb3b3;
 box-shadow: 0 0 3px #999;
 list-style: none;
-top: 50%;
-left: 40%;
-position: absolute;
+position: fixed;
+            top: 40%;
+            left: 55%
 }
 .editor-options-wp-converter-78235 li{
 	border-bottom: 1px solid #ddd;
 	padding: 5px;
 	cursor: pointer;
+	color: #73717b;
+	font-size: 14px;
+}
+.editor-options-wp-converter-78235 li:hover{
+	background-color: #98ca98;
+	font-weight: 400;
 }

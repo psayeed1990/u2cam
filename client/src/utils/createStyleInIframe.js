@@ -6,10 +6,12 @@ const createStyleInIframe = () => {
         .editor-border { border: 1px solid #999 !important; box-shadow: 0 0 3px #444 !important}
         .editor-options-wp-converter-78235{
             position:absolute !important; 
-            background: #e1e1e1 !important; 
+            background: #ccd0c4 !important; 
             z-index:999 !important;
             padding: 10px;
             box-shadow: 0 0 3px #555;
+            transition: background-color 0.5s
+
         }
         .editor-options-wp-converter-78235 span{
             color: #666 !important; 
