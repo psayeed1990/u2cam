@@ -5,7 +5,8 @@
 }
 
 #editor ul{
-    margin: 30px;
+    margin-right: 30px;
+    background: #dbece2;
 }
 
 #editor ul li {
@@ -17,5 +18,5 @@ color: white;
 border: 1px solid #5d9588;
 padding: 6px;
 box-shadow: 0 0 2px 3px #ddd;
-margin: 5px;
+margin: 15px 0 30px;
 }

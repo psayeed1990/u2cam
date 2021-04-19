@@ -1,7 +1,7 @@
 .logo {
 	background-color: var(--light);
 	border: 5px solid var(--light);
-	color: var(--primary);
+	color: #233540;
 	font-weight: bold;
 	font-size: 30px;
 	padding: 10px 30px;
@@ -13,7 +13,7 @@
 }
 
 .logoLast {
-	background-color: var(--primary);
+	background-color: var(--scrollbarBG);
 	color: var(--light);
 	padding: 0 15px;
 	/* border-radius: 30% 2px 2px 30%; */

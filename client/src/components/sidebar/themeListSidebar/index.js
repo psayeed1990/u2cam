@@ -15,9 +15,10 @@ const ThemeListSidebar = () => {
 
     getLists();
   }, []);
+
   return (
     <div className={styles.sidebar}>
-      <ul>
+      <ul id="theme-name-sidebar">
         {lists?.map((list) => {
           return (
             <li className={styles.themeLinks} key={list._id}>
