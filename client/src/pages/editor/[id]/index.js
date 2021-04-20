@@ -31,8 +31,18 @@ const SingleEditor = () => {
   useEffect(() => {
     if (id) {
       const getThemeFiles = async () => {
-        const files = await apiCall('get', `themes/${id}`);
-        setTheme(files.data.data);
+        try {
+          setInitialLoader(true);
+          const files = await apiCall('get', `themes/${id}`);
+          setTheme(files.data.data);
+          setInitialLoader(false);
+          setSuccess('Theme fully loaded');
+          setFailed('');
+        } catch (err) {
+          setFailed('Theme loading failed. Please refresh');
+          setSuccess('');
+          setInitialLoader(false);
+        }
       };
 
       //for dev
@@ -140,11 +150,11 @@ const SingleEditor = () => {
           <ThemeListSidebar />
           <div className="editor">
             <h1 className="heading" id="theme-name">
-              {theme?.tree?.themeName}
+              {failed.length < 1 && theme?.tree?.themeName}
             </h1>
             <p className="error">{failed}</p>
             <p className="success">{success}</p>
-            <h5>{theme?.tree?.size / 1000}KB</h5>
+            <h5>{failed.length < 1 && theme?.tree?.size / 1000}KB</h5>
             <Link href="#">
               <button id={styles.convert}>Convert To WordPress</button>
             </Link>
@@ -165,7 +175,9 @@ const SingleEditor = () => {
                 />
               )}
 
-              {/* <Iframe
+              {/*
+                failed.length < 1 && (
+               <Iframe
                 url={`/themes/eshopper/index.html`}
                 width="100%"
                 height="1500"
@@ -177,41 +189,44 @@ const SingleEditor = () => {
                 onError={() => {
                   setFailed('Failed to load theme');
                 }}
-              /> */}
+              />
+            ) */}
 
               {
                 //if extra folder exist
               }
               {theme?.tree?.children?.length === 1 &&
-              theme?.tree?.children[0]?.type === 'directory' ? (
-                <Iframe
-                  url={`/html-preview/${theme?.upload?.filename}/${theme?.tree?.children[0]?.name}/index.html`}
-                  width="100%"
-                  height="1500"
-                  id="edit-frame"
-                  className="myClassname"
-                  display="initial"
-                  position="relative"
-                  onLoad={editorFunctionReady}
-                  onError={() => {
-                    setFailed('Failed to load theme');
-                  }}
-                />
-              ) : (
-                <Iframe
-                  url={`/html-preview/${theme?.upload?.filename}/index.html`}
-                  width="100%"
-                  height="1500"
-                  id="edit-frame"
-                  className="myClassname"
-                  display="initial"
-                  position="relative"
-                  onLoad={editorFunctionReady}
-                  onError={() => {
-                    setFailed('Failed to load theme');
-                  }}
-                />
-              )}
+              theme?.tree?.children[0]?.type === 'directory'
+                ? failed.length < 1 && (
+                    <Iframe
+                      url={`/html-preview/${theme?.upload?.filename}/${theme?.tree?.children[0]?.name}/index.html`}
+                      width="100%"
+                      height="1500"
+                      id="edit-frame"
+                      className="myClassname"
+                      display="initial"
+                      position="relative"
+                      onLoad={editorFunctionReady}
+                      onError={() => {
+                        setFailed('Failed to load theme');
+                      }}
+                    />
+                  )
+                : failed.length < 1 && (
+                    <Iframe
+                      url={`/html-preview/${theme?.upload?.filename}/index.html`}
+                      width="100%"
+                      height="1500"
+                      id="edit-frame"
+                      className="myClassname"
+                      display="initial"
+                      position="relative"
+                      onLoad={editorFunctionReady}
+                      onError={() => {
+                        setFailed('Failed to load theme');
+                      }}
+                    />
+                  )}
               {
                 //theme?.children?.map((t, i) => {
                 //recursive files in folder read
