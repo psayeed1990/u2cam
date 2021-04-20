@@ -2,15 +2,14 @@
     list-style-type: none;
 }
 .themeLinks a {
-    display: block;
-    border-left: 1px solid var(--fifth);
-    padding: 9px 20px;
-    margin: 1px auto;
-    background: #42bd5b;
-    /*box-shadow: 4px 0px 5px #f2eaea;*/
-    text-transform: uppercase;
-    border-radius: 3px;
-    color: white;
+display: block;
+border-left: 1px solid var(--fifth);
+padding: 9px 20px;
+margin: 1px auto;
+background: #5fbf7f;
+text-transform: uppercase;
+border-radius: 3px;
+color: #fff;
 
 }
 .sidebar {

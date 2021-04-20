@@ -38,6 +38,8 @@ const SingleEditor = () => {
       //for dev
       getThemeFiles();
     }
+
+    // setTheme(props.themes);
   }, [id]);
 
   //check if iframe loaded
@@ -137,7 +139,9 @@ const SingleEditor = () => {
         <div id={styles.editor}>
           <ThemeListSidebar />
           <div className="editor">
-            <h1 className="heading">{theme?.tree?.themeName}</h1>
+            <h1 className="heading" id="theme-name">
+              {theme?.tree?.themeName}
+            </h1>
             <p className="error">{failed}</p>
             <p className="success">{success}</p>
             <h5>{theme?.tree?.size / 1000}KB</h5>
@@ -238,3 +242,14 @@ const SingleEditor = () => {
 };
 
 export default SingleEditor;
+
+// export const getInitialProps = async (context) => {
+//   const { id } = context.query;
+//   const response = await axios({
+//     method: 'get',
+//     url: `/api/v1/themes/${id}`,
+//     headers: { cookie: context.req.headers.cookie },
+//   });
+//   console.log(response.data.data.data);
+//   return { props: { themes: response.data.data.data } };
+// };

@@ -278,3 +278,11 @@ html::-webkit-scrollbar-thumb {
   border-radius: 6px;
   border: 3px solid var(--scrollbarBG);
 }
+
+.selected-theme {
+background-color: white !important;
+color: #48b076 !important;
+font-weight: 400;
+border-right: 2px solid #79a5bb !important;
+text-decoration: underline;
+}
