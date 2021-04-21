@@ -73,6 +73,51 @@ const EditorRightMenu = ({ setRightMenu }) => {
     setRightMenu(false);
   };
 
+  const moveFunction = (e) => {
+    e.preventDefault();
+    if (doc.querySelectorAll("[draggable='true']")[0]) {
+      const dragAble = doc.querySelectorAll("[draggable='true']")[0];
+      dragAble.removeAttribute('draggable');
+      dragAble.removeAttribute('id');
+      dragAble.removeAttribute('style');
+    }
+
+    selectedElement.setAttribute('draggable', 'true');
+    selectedElement.setAttribute('id', 'drag-it');
+    selectedElement.setAttribute('style', 'box-shadow: 0 0 3px #999');
+    //when drag starts
+    selectedElement.addEventListener('dragstart', (ev) => {
+      ev.dataTransfer.setData('text', ev.target.id);
+    });
+
+    //allow drop
+    const allInBody = doc.body.getElementsByTagName('*');
+    for (var i = 0; i < allInBody.length; i++) {
+      allInBody[i].addEventListener('dragover', (ev) => {
+        ev.preventDefault();
+        ev.currentTarget.classList.add('dropable-wp489');
+      });
+      allInBody[i].addEventListener('dragleave', (ev) => {
+        ev.preventDefault();
+        ev.currentTarget.classList.remove('dropable-wp489');
+      });
+    }
+
+    doc.body.addEventListener('drop', (ev) => {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData('text');
+
+      const recentDropables = doc.getElementsByClassName('dropable-wp489');
+      for (var i = recentDropables.length - 1; i > -1; i--) {
+        recentDropables[i].classList.remove('dropable-wp489');
+      }
+
+      ev.target.appendChild(doc.getElementById(data));
+    });
+
+    setRightMenu(false);
+  };
+
   return (
     <ul className="editor-options-wp-converter-78235">
       <li id="add-w453">Add</li>
@@ -80,7 +125,9 @@ const EditorRightMenu = ({ setRightMenu }) => {
         Duplicate
       </li>
       <li id="edit-w453">Edit</li>
-      <li id="move-w453">Move</li>
+      <li id="move-w453" onClick={moveFunction}>
+        Move
+      </li>
       <li id="design-w453">design</li>
       <li id="delete-w453" onClick={deleteFunction}>
         Delete

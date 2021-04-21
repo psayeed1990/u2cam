@@ -47,6 +47,10 @@ const createStyleInIframe = () => {
         .draggable-wp364 {
           cursor: pointer;
         }
+        .dropable-wp489 {
+	        border: 1px solid green;
+
+        }
 
     `,
     head = doc.head || doc.getElementsByTagName('head')[0],

@@ -46,7 +46,7 @@ const SingleEditor = () => {
       };
 
       //for dev
-      getThemeFiles();
+      //getThemeFiles();
     }
 
     // setTheme(props.themes);
@@ -175,24 +175,23 @@ const SingleEditor = () => {
                 />
               )}
 
-              {/*
-                failed.length < 1 && (
-               <Iframe
-                url={`/themes/eshopper/index.html`}
-                width="100%"
-                height="1500"
-                id="edit-frame"
-                className="myClassname"
-                display="initial"
-                position="relative"
-                onLoad={editorFunctionReady}
-                onError={() => {
-                  setFailed('Failed to load theme');
-                }}
-              />
-            ) */}
+              {failed.length < 1 && (
+                <Iframe
+                  url={`/themes/eshopper/index.html`}
+                  width="100%"
+                  height="1500"
+                  id="edit-frame"
+                  className="myClassname"
+                  display="initial"
+                  position="relative"
+                  onLoad={editorFunctionReady}
+                  onError={() => {
+                    setFailed('Failed to load theme');
+                  }}
+                />
+              )}
 
-              {
+              {/* {
                 //if extra folder exist
               }
               {theme?.tree?.children?.length === 1 &&
@@ -247,7 +246,7 @@ const SingleEditor = () => {
                 // }
                 // return recursiveFileRead(t, i);
                 //})
-              }
+              } */}
             </ul>
           </div>
         </div>
