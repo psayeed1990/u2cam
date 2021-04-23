@@ -48,9 +48,14 @@ const createStyleInIframe = () => {
           cursor: pointer;
         }
         .dropable-wp489 {
-	        border: 1px solid green;
+	        border: 1px dotted red;
+          margin: 5px !important;
 
         }
+        .dragable-wp364 {
+          border: 2px dotted green;
+        }
+        [draggable] * {pointer-events: none;}
 
     `,
     head = doc.head || doc.getElementsByTagName('head')[0],

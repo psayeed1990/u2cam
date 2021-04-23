@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import add from '../../../utils/editOptions/add';
 import deleteDom from '../../../utils/editOptions/deleteDom';
 import editDom from '../../../utils/editOptions/editDom';
 import hideEditorOptions from '../../../utils/eventFunctions/hideEditorOptions';
 import removeEditorBorder from '../../../utils/eventFunctions/removeEditorOptions';
+import getDroppablePosition from '../../../utils/getDroppablePosition';
 import innerDoc from '../../../utils/innerDocFunction';
 import styles from './EditorRightMenu.module.css';
 
@@ -79,12 +80,12 @@ const EditorRightMenu = ({ setRightMenu }) => {
       const dragAble = doc.querySelectorAll("[draggable='true']")[0];
       dragAble.removeAttribute('draggable');
       dragAble.removeAttribute('id');
-      dragAble.removeAttribute('style');
+      dragAble.classList.remove('dragable-wp364');
     }
 
     selectedElement.setAttribute('draggable', 'true');
     selectedElement.setAttribute('id', 'drag-it');
-    selectedElement.setAttribute('style', 'box-shadow: 0 0 3px #999');
+    selectedElement.classList.add('dragable-wp364');
     //when drag starts
     selectedElement.addEventListener('dragstart', (ev) => {
       ev.dataTransfer.setData('text', ev.target.id);
@@ -97,24 +98,84 @@ const EditorRightMenu = ({ setRightMenu }) => {
         ev.preventDefault();
         ev.currentTarget.classList.add('dropable-wp489');
       });
-      allInBody[i].addEventListener('dragleave', (ev) => {
-        ev.preventDefault();
-        ev.currentTarget.classList.remove('dropable-wp489');
-      });
+      // allInBody[i].addEventListener('dragleave', (ev) => {
+      //   ev.preventDefault();
+      //   ev.currentTarget.classList.remove('dropable-wp489');
+      // });
     }
 
     doc.body.addEventListener('drop', (ev) => {
       ev.preventDefault();
       var data = ev.dataTransfer.getData('text');
 
+      //remove style based on skeleton setting
+
       const recentDropables = doc.getElementsByClassName('dropable-wp489');
       for (var i = recentDropables.length - 1; i > -1; i--) {
         recentDropables[i].classList.remove('dropable-wp489');
       }
 
+      //get the position to drop
+      //get position of the element in it's parent
+      //const elementIndex = getDroppablePosition(ev.currentTarget);
+      // const parentNode = ev.currentTarget.parentNode;
+
+      // parentNode.insertBefore(doc.getElementById(data), ev.currentTarget);
+
       ev.target.appendChild(doc.getElementById(data));
+
+      //remove drag style
+      if (doc.querySelectorAll("[draggable='true']")[0]) {
+        const dragAble = doc.querySelectorAll("[draggable='true']")[0];
+        dragAble.removeAttribute('draggable');
+        dragAble.removeAttribute('id');
+        dragAble.classList.remove('dragable-wp364');
+      }
     });
 
+    setRightMenu(false);
+  };
+
+  const moveUpFunction = (e) => {
+    e.preventDefault();
+    if (selectedElement.previousElementSibling) {
+      selectedElement.parentNode.insertBefore(
+        selectedElement,
+        selectedElement.previousElementSibling
+      );
+    }
+    setRightMenu(false);
+  };
+  const moveDownFunction = (e) => {
+    e.preventDefault();
+    if (selectedElement.nextElementSibling) {
+      selectedElement.parentNode.insertBefore(
+        selectedElement.nextElementSibling,
+        selectedElement
+      );
+    }
+    setRightMenu(false);
+  };
+  const showSkeleton = () => {
+    const allInBody = doc.body.getElementsByTagName('*');
+    for (var i = 0; i < allInBody.length; i++) {
+      allInBody[i].classList.add('dropable-wp489');
+    }
+    setRightMenu(false);
+  };
+  const hideSkeleton = () => {
+    const allInBody = doc.body.getElementsByTagName('*');
+    for (var i = 0; i < allInBody.length; i++) {
+      allInBody[i].classList.remove('dropable-wp489');
+    }
+    setRightMenu(false);
+  };
+
+  //move outside
+  const moveOutside = () => {
+    if (selectedElement.parentNode) {
+      selectedElement.parentNode.parentNode.appendChild(selectedElement);
+    }
     setRightMenu(false);
   };
 
@@ -128,7 +189,23 @@ const EditorRightMenu = ({ setRightMenu }) => {
       <li id="move-w453" onClick={moveFunction}>
         Move
       </li>
-      <li id="design-w453">design</li>
+      <li id="move-up-w453" onClick={moveUpFunction}>
+        Move Up
+      </li>
+      <li id="move-down-w453" onClick={moveDownFunction}>
+        Move Down
+      </li>
+      <li id="design-w453">Design</li>
+      <li id="resize-w453">Resize</li>
+      <li id="move-out-w453" onClick={moveOutside}>
+        Movie Outside
+      </li>
+      <li id="show-skeleton-w453" onClick={showSkeleton}>
+        Show Skeleton
+      </li>
+      <li id="hide-skeleton-w453" onClick={hideSkeleton}>
+        Hide Skeleton
+      </li>
       <li id="delete-w453" onClick={deleteFunction}>
         Delete
       </li>
