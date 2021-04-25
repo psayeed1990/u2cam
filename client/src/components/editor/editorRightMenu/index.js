@@ -3,9 +3,11 @@ import hideEditorOptions from '../../../utils/eventFunctions/hideEditorOptions';
 import removeEditorBorder from '../../../utils/eventFunctions/removeEditorOptions';
 import getDroppablePosition from '../../../utils/getDroppablePosition';
 import innerDoc from '../../../utils/innerDocFunction';
+import DesignPopup from '../../popups/designPopup';
 import styles from './EditorRightMenu.module.css';
 
-const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
+const EditorRightMenu = ({ setRightMenu, keepSelectedSet, keepSelected }) => {
+  const [showDesignPopup, showDesignPopupSet] = useState(false);
   const doc = innerDoc();
   const selectedElement = doc.getElementsByClassName('editor-border')[0];
 
@@ -13,15 +15,33 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
     e.preventDefault();
     const newContent = selectedElement.cloneNode(true);
 
+    //mouse enter and leave functions
     newContent.addEventListener('mouseover', (e) => {
+      //remove other class of 'editor-border'
+      //get the parents
+      // let temporayElement = element;
+      // const parents = [];
+      // while (temporayElement) {
+      //   parents.unshift(temporayElement);
+      //   temporayElement = temporayElement.parentNode;
+      // }
+      const otherEditorBorder = doc.getElementsByClassName('editor-border');
+
+      for (var j = 0; j < otherEditorBorder.length; j++) {
+        otherEditorBorder[j].classList.remove('editor-border');
+      }
       e.currentTarget.classList.add('editor-border');
     });
     newContent.addEventListener('mouseleave', (e) => {
-      e.currentTarget.classList.remove('editor-border');
+      if (keepSelected) {
+        // do nothing
+      } else {
+        e.currentTarget.classList.remove('editor-border');
+      }
     });
 
-    //add event listener to newly added content
-    newContent.addEventListener('click', hideEditorOptions);
+    //hide editor options
+    element.addEventListener('click', hideEditorOptions);
 
     if (doc.addEventListener) {
       newContent.addEventListener(
@@ -37,6 +57,8 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
           //Now start adding all the functions to the right click
           //add editor class to the one
           elm.classList.add('editor-border');
+          //turn on keep selected border
+          keepSelectedSet(true);
           setRightMenu(true);
         },
         false
@@ -53,6 +75,7 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
         //Now start adding all the functions to the right click
         //add editor class to the one
         elm.classList.add('editor-border');
+        keepSelectedSet(true);
         setRightMenu(true);
       });
     }
@@ -64,11 +87,13 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
     e.preventDefault();
     selectedElement.remove();
     setRightMenu(false);
+    keepSelectedSet(false);
   };
 
   const closeFunction = (e) => {
     e.preventDefault();
     setRightMenu(false);
+    keepSelectedSet(false);
   };
 
   const moveFunction = (e) => {
@@ -131,6 +156,7 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
     });
 
     setRightMenu(false);
+    keepSelectedSet(false);
   };
 
   const moveUpFunction = (e) => {
@@ -142,6 +168,7 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
       );
     }
     setRightMenu(false);
+    keepSelectedSet(false);
   };
   const moveDownFunction = (e) => {
     e.preventDefault();
@@ -152,6 +179,7 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
       );
     }
     setRightMenu(false);
+    keepSelectedSet(false);
   };
   const showSkeleton = () => {
     const allInBody = doc.body.getElementsByTagName('*');
@@ -159,6 +187,7 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
       allInBody[i].classList.add('dropable-wp489');
     }
     setRightMenu(false);
+    keepSelectedSet(false);
   };
   const hideSkeleton = () => {
     const allInBody = doc.body.getElementsByTagName('*');
@@ -166,6 +195,7 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
       allInBody[i].classList.remove('dropable-wp489');
     }
     setRightMenu(false);
+    keepSelectedSet(false);
   };
 
   //move outside
@@ -174,16 +204,24 @@ const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
       selectedElement.parentNode.parentNode.appendChild(selectedElement);
     }
     setRightMenu(false);
+    keepSelectedSet(false);
   };
 
   //design
   const designFunction = (e) => {
     e.preventDefault();
     showDesignPopupSet(true);
-    setRightMenu(false);
+    selectedElement.classList.add('editor-border');
+    keepSelectedSet(true);
   };
 
-  return (
+  return showDesignPopup ? (
+    <DesignPopup
+      showDesignPopupSet={showDesignPopupSet}
+      showDesignPopup={showDesignPopup}
+      setRightMenu={setRightMenu}
+    />
+  ) : (
     <ul className="editor-options-wp-converter-78235">
       <li id="add-w453">Add</li>
       <li id="duplicate-w453" onClick={duplicateFunction}>

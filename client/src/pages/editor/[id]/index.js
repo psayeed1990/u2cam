@@ -19,6 +19,8 @@ import elementArrayList from '../../../utils/elementArrayList';
 import DesignPopup from './../../../components/popups/designPopup';
 
 const SingleEditor = () => {
+  const [elementName, elementNameSet] = useState(null);
+  const [keepSelected, keepSelectedSet] = useState(false);
   const [showDesignPopup, showDesignPopupSet] = useState(false);
   const [initialLoader, setInitialLoader] = useState(true);
   const [editorLoader, setEditorLoader] = useState(false);
@@ -76,49 +78,74 @@ const SingleEditor = () => {
       setPopupMessage('Making theme contents editable');
       const doc = innerDoc();
 
-      // get all the elements
-      //const allElements = getAllElements();
-
       //create style in iframe
       createStyleInIframe();
 
       //doc.addEventListener('mousemove', tooltipFollowFunction, false);
       setPopupMessage('Adding edit options on right click');
 
-      //elementArrayList.forEach((elems) => {
-      const allElements = doc.body.getElementsByTagName('*');
-      for (var i = 0; i < allElements.length; i++) {
-        const element = allElements[i];
+      elementArrayList.forEach((elems) => {
+        const allElements = doc.body.getElementsByTagName(elems);
+        for (var i = 0; i < allElements.length; i++) {
+          const element = allElements[i];
 
-        //mouse enter and leave functions
-        element.addEventListener('mouseover', (e) => {
-          //remove other class of 'editor-border'
-          //get the parents
-          // let temporayElement = element;
-          // const parents = [];
-          // while (temporayElement) {
-          //   parents.unshift(temporayElement);
-          //   temporayElement = temporayElement.parentNode;
-          // }
-          const otherEditorBorder = doc.getElementsByClassName('editor-border');
-          for (var j = 0; j < otherEditorBorder.length; j++) {
-            otherEditorBorder[j].classList.remove('editor-border');
-          }
-          e.currentTarget.classList.add('editor-border');
-        });
-        element.addEventListener('mouseleave', (e) => {
-          e.currentTarget.classList.remove('editor-border');
-        });
+          //mouse enter and leave functions
+          element.addEventListener('mouseover', (e) => {
+            //remove other class of 'editor-border'
+            //get the parents
+            // let temporayElement = element;
+            // const parents = [];
+            // while (temporayElement) {
+            //   parents.unshift(temporayElement);
+            //   temporayElement = temporayElement.parentNode;
+            // }
+            const otherEditorBorder = doc.getElementsByClassName(
+              'editor-border'
+            );
 
-        //hide editor options
-        element.addEventListener('click', hideEditorOptions);
+            for (var j = 0; j < otherEditorBorder.length; j++) {
+              otherEditorBorder[j].classList.remove('editor-border');
+            }
+            e.currentTarget.classList.add('editor-border');
+          });
+          element.addEventListener('mouseleave', (e) => {
+            if (keepSelected) {
+              // do nothing
+            } else {
+              e.currentTarget.classList.remove('editor-border');
+            }
+          });
 
-        if (doc.addEventListener) {
-          element.addEventListener(
-            'contextmenu',
-            (e) => {
+          //hide editor options
+          element.addEventListener('click', hideEditorOptions);
+
+          if (doc.addEventListener) {
+            element.addEventListener(
+              'contextmenu',
+              (e) => {
+                e.preventDefault();
+                window.event.returnValue = false;
+
+                const elm = e.currentTarget;
+
+                // remove all the effects added by this functions before starting again
+                removeEditorBorder();
+
+                //Now start adding all the functions to the right click
+                //add editor class to the one
+                elm.classList.add('editor-border');
+
+                //turn on keep selected border
+                keepSelectedSet(true);
+                setRightMenu(true);
+              },
+              false
+            );
+          } else {
+            element.attachEvent('oncontextmenu', (e) => {
               e.preventDefault();
               window.event.returnValue = false;
+
               const elm = e.currentTarget;
 
               // remove all the effects added by this functions before starting again
@@ -127,27 +154,14 @@ const SingleEditor = () => {
               //Now start adding all the functions to the right click
               //add editor class to the one
               elm.classList.add('editor-border');
+
+              //keep selected
+              keepSelectedSet(true);
               setRightMenu(true);
-            },
-            false
-          );
-        } else {
-          element.attachEvent('oncontextmenu', (e) => {
-            e.preventDefault();
-            window.event.returnValue = false;
-            const elm = e.currentTarget;
-
-            // remove all the effects added by this functions before starting again
-            removeEditorBorder();
-
-            //Now start adding all the functions to the right click
-            //add editor class to the one
-            elm.classList.add('editor-border');
-            setRightMenu(true);
-          });
+            });
+          }
         }
-      }
-      //});
+      });
 
       setPopupMessage('');
       setEditorLoader(false);
@@ -174,16 +188,6 @@ const SingleEditor = () => {
             </Link>
 
             <ul>
-              {showDesignPopup && (
-                <EditorPopup
-                  editorLoader={showDesignPopupSet}
-                  initialLoader={initialLoader}
-                  loadingIcon={
-                    <DesignPopup showDesignPopupSet={showDesignPopupSet} />
-                  }
-                  popupMessage={popupMessage}
-                />
-              )}
               <EditorPopup
                 editorLoader={editorLoader}
                 initialLoader={initialLoader}
@@ -198,6 +202,9 @@ const SingleEditor = () => {
                     <EditorRightMenu
                       showDesignPopupSet={showDesignPopupSet}
                       setRightMenu={setRightMenu}
+                      keepSelectedSet={keepSelectedSet}
+                      keepSelected={keepSelected}
+                      elementNameSet={elementNameSet}
                     />
                   }
                   popupMessage={popupMessage}

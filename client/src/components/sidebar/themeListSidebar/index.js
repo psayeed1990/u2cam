@@ -8,9 +8,13 @@ const ThemeListSidebar = () => {
 
   useEffect(() => {
     const getLists = async () => {
-      const data = await apiCall('get', 'uploads');
-      console.log(data.data.data);
-      return setLists(data.data.data);
+      try {
+        const data = await apiCall('get', 'uploads');
+        console.log(data.data.data);
+        return setLists(data.data.data);
+      } catch (err) {
+        return setLists([]);
+      }
     };
 
     getLists();

@@ -1,5 +1,17 @@
 .designer{
-    margin: 25% auto;
+    margin: 20% auto;
     width: 300px;
     background-color: white;
+}
+.designer p {
+    text-align: left;
+    padding: 4px;
+    margin: 5px;
+}
+.colorInput {
+    width: 86px;
+height: 41px;
+background: white;
+padding: 0px;
+border: 1px solid;
 }
