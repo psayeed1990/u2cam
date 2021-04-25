@@ -13,10 +13,15 @@
     text-align: left;
 }
 #convert {
-background: #283e80;
+background: #0f77d2;
 color: #fff;
-border: 1px solid #82b9ac;
-padding: 6px;
-box-shadow: 0px 1px 2px 1px #2b594e;
+border: 0px solid #82b9ac;
+padding: 10px;
+box-shadow: 3px 3px 1px 1px #244577, 5px 6px 1px 2px #3f8acc;
 margin: 15px 0 30px;
+text-transform: uppercase;
+border-top: 1px solid #950e0e;
+border-left: 1px solid #098009;
+font-family: initial;
+font-size: 13px;
 }

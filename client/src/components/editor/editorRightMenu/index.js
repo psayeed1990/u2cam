@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
-import add from '../../../utils/editOptions/add';
-import deleteDom from '../../../utils/editOptions/deleteDom';
-import editDom from '../../../utils/editOptions/editDom';
 import hideEditorOptions from '../../../utils/eventFunctions/hideEditorOptions';
 import removeEditorBorder from '../../../utils/eventFunctions/removeEditorOptions';
 import getDroppablePosition from '../../../utils/getDroppablePosition';
 import innerDoc from '../../../utils/innerDocFunction';
 import styles from './EditorRightMenu.module.css';
 
-const EditorRightMenu = ({ setRightMenu }) => {
+const EditorRightMenu = ({ setRightMenu, showDesignPopupSet }) => {
   const doc = innerDoc();
   const selectedElement = doc.getElementsByClassName('editor-border')[0];
 
@@ -179,6 +176,13 @@ const EditorRightMenu = ({ setRightMenu }) => {
     setRightMenu(false);
   };
 
+  //design
+  const designFunction = (e) => {
+    e.preventDefault();
+    showDesignPopupSet(true);
+    setRightMenu(false);
+  };
+
   return (
     <ul className="editor-options-wp-converter-78235">
       <li id="add-w453">Add</li>
@@ -195,7 +199,9 @@ const EditorRightMenu = ({ setRightMenu }) => {
       <li id="move-down-w453" onClick={moveDownFunction}>
         Move Down
       </li>
-      <li id="design-w453">Design</li>
+      <li id="design-w453" onClick={designFunction}>
+        Design
+      </li>
       <li id="resize-w453">Resize</li>
       <li id="move-out-w453" onClick={moveOutside}>
         Movie Outside

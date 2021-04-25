@@ -16,8 +16,10 @@ import hideEditorOptions from '../../../utils/eventFunctions/hideEditorOptions';
 import EditorRightMenu from '../../../components/editor/editorRightMenu';
 import removeEditorBorder from '../../../utils/eventFunctions/removeEditorOptions';
 import elementArrayList from '../../../utils/elementArrayList';
+import DesignPopup from './../../../components/popups/designPopup';
 
 const SingleEditor = () => {
+  const [showDesignPopup, showDesignPopupSet] = useState(false);
   const [initialLoader, setInitialLoader] = useState(true);
   const [editorLoader, setEditorLoader] = useState(false);
   const [rightMenu, setRightMenu] = useState(false);
@@ -83,42 +85,38 @@ const SingleEditor = () => {
       //doc.addEventListener('mousemove', tooltipFollowFunction, false);
       setPopupMessage('Adding edit options on right click');
 
-      elementArrayList.forEach((elems) => {
-        const allElements = doc.getElementsByTagName(elems);
-        for (var i = 0; i < allElements.length; i++) {
-          const element = allElements[i];
+      //elementArrayList.forEach((elems) => {
+      const allElements = doc.body.getElementsByTagName('*');
+      for (var i = 0; i < allElements.length; i++) {
+        const element = allElements[i];
 
-          //mouse enter and leave functions
-          element.addEventListener('mouseover', (e) => {
-            e.currentTarget.classList.add('editor-border');
-          });
-          element.addEventListener('mouseleave', (e) => {
-            e.currentTarget.classList.remove('editor-border');
-          });
+        //mouse enter and leave functions
+        element.addEventListener('mouseover', (e) => {
+          //remove other class of 'editor-border'
+          //get the parents
+          // let temporayElement = element;
+          // const parents = [];
+          // while (temporayElement) {
+          //   parents.unshift(temporayElement);
+          //   temporayElement = temporayElement.parentNode;
+          // }
+          const otherEditorBorder = doc.getElementsByClassName('editor-border');
+          for (var j = 0; j < otherEditorBorder.length; j++) {
+            otherEditorBorder[j].classList.remove('editor-border');
+          }
+          e.currentTarget.classList.add('editor-border');
+        });
+        element.addEventListener('mouseleave', (e) => {
+          e.currentTarget.classList.remove('editor-border');
+        });
 
-          //hide editor options
-          element.addEventListener('click', hideEditorOptions);
+        //hide editor options
+        element.addEventListener('click', hideEditorOptions);
 
-          if (doc.addEventListener) {
-            element.addEventListener(
-              'contextmenu',
-              (e) => {
-                e.preventDefault();
-                window.event.returnValue = false;
-                const elm = e.currentTarget;
-
-                // remove all the effects added by this functions before starting again
-                removeEditorBorder();
-
-                //Now start adding all the functions to the right click
-                //add editor class to the one
-                elm.classList.add('editor-border');
-                setRightMenu(true);
-              },
-              false
-            );
-          } else {
-            element.attachEvent('oncontextmenu', (e) => {
+        if (doc.addEventListener) {
+          element.addEventListener(
+            'contextmenu',
+            (e) => {
               e.preventDefault();
               window.event.returnValue = false;
               const elm = e.currentTarget;
@@ -130,10 +128,26 @@ const SingleEditor = () => {
               //add editor class to the one
               elm.classList.add('editor-border');
               setRightMenu(true);
-            });
-          }
+            },
+            false
+          );
+        } else {
+          element.attachEvent('oncontextmenu', (e) => {
+            e.preventDefault();
+            window.event.returnValue = false;
+            const elm = e.currentTarget;
+
+            // remove all the effects added by this functions before starting again
+            removeEditorBorder();
+
+            //Now start adding all the functions to the right click
+            //add editor class to the one
+            elm.classList.add('editor-border');
+            setRightMenu(true);
+          });
         }
-      });
+      }
+      //});
 
       setPopupMessage('');
       setEditorLoader(false);
@@ -160,6 +174,16 @@ const SingleEditor = () => {
             </Link>
 
             <ul>
+              {showDesignPopup && (
+                <EditorPopup
+                  editorLoader={showDesignPopupSet}
+                  initialLoader={initialLoader}
+                  loadingIcon={
+                    <DesignPopup showDesignPopupSet={showDesignPopupSet} />
+                  }
+                  popupMessage={popupMessage}
+                />
+              )}
               <EditorPopup
                 editorLoader={editorLoader}
                 initialLoader={initialLoader}
@@ -170,7 +194,12 @@ const SingleEditor = () => {
                 <EditorPopup
                   editorLoader={rightMenu}
                   initialLoader={initialLoader}
-                  loadingIcon={<EditorRightMenu setRightMenu={setRightMenu} />}
+                  loadingIcon={
+                    <EditorRightMenu
+                      showDesignPopupSet={showDesignPopupSet}
+                      setRightMenu={setRightMenu}
+                    />
+                  }
                   popupMessage={popupMessage}
                 />
               )}
