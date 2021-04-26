@@ -50,7 +50,7 @@ const SingleEditor = () => {
       };
 
       //for dev
-      //getThemeFiles();
+      getThemeFiles();
     }
 
     // setTheme(props.themes);
@@ -210,7 +210,7 @@ const SingleEditor = () => {
                 />
               )}
 
-              {failed.length < 1 && (
+              {/* {failed.length < 1 && (
                 <Iframe
                   url={`/themes/eshopper/index.html`}
                   width="100%"
@@ -224,9 +224,9 @@ const SingleEditor = () => {
                     setFailed('Failed to load theme');
                   }}
                 />
-              )}
+              )} */}
 
-              {/* {
+              {
                 //if extra folder exist
               }
               {theme?.tree?.children?.length === 1 &&
@@ -281,7 +281,7 @@ const SingleEditor = () => {
                 // }
                 // return recursiveFileRead(t, i);
                 //})
-              } */}
+              }
             </ul>
           </div>
         </div>
