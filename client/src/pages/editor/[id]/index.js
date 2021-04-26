@@ -21,7 +21,7 @@ import DesignPopup from './../../../components/popups/designPopup';
 const SingleEditor = () => {
   const [elementName, elementNameSet] = useState(null);
   const [keepSelected, keepSelectedSet] = useState(false);
-  const [showDesignPopup, showDesignPopupSet] = useState(false);
+
   const [initialLoader, setInitialLoader] = useState(true);
   const [editorLoader, setEditorLoader] = useState(false);
   const [rightMenu, setRightMenu] = useState(false);
@@ -200,7 +200,6 @@ const SingleEditor = () => {
                   initialLoader={initialLoader}
                   loadingIcon={
                     <EditorRightMenu
-                      showDesignPopupSet={showDesignPopupSet}
                       setRightMenu={setRightMenu}
                       keepSelectedSet={keepSelectedSet}
                       keepSelected={keepSelected}

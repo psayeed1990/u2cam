@@ -41,7 +41,7 @@ const EditorRightMenu = ({ setRightMenu, keepSelectedSet, keepSelected }) => {
     });
 
     //hide editor options
-    element.addEventListener('click', hideEditorOptions);
+    newContent.addEventListener('click', hideEditorOptions);
 
     if (doc.addEventListener) {
       newContent.addEventListener(
