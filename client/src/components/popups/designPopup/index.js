@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import getAllFonts from '../../../utils/getAllFonts';
 import innerDoc from '../../../utils/innerDocFunction';
 import styles from './DesignPopup.module.css';
 const DesignPopup = ({ showDesignPopupSet, showDesignPopup, setRightMenu }) => {
+  const [fonts, fontsSet] = useState([]);
   const [noChange, noChangeSet] = useState({
     bgcolor: false,
     txtcolor: false,
@@ -208,6 +210,12 @@ const DesignPopup = ({ showDesignPopupSet, showDesignPopup, setRightMenu }) => {
     setRightMenu(false);
   };
 
+  useEffect(() => {
+    const allFonts = getAllFonts();
+    console.log(allFonts);
+    fontsSet(allFonts);
+  }, []);
+
   return (
     <div className={styles.designer}>
       <p>
@@ -222,7 +230,14 @@ const DesignPopup = ({ showDesignPopupSet, showDesignPopup, setRightMenu }) => {
           className={styles.colorInput}
         />
       </p>
-      <p>Font Family:</p>
+      <p>
+        Font Family:
+        <select>
+          {fonts.map((font) => {
+            return <option>{font}</option>;
+          })}
+        </select>
+      </p>
       <p>
         Font Size: <input type="number" />
         px
