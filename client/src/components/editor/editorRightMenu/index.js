@@ -3,11 +3,15 @@ import hideEditorOptions from '../../../utils/eventFunctions/hideEditorOptions';
 import removeEditorBorder from '../../../utils/eventFunctions/removeEditorOptions';
 import getDroppablePosition from '../../../utils/getDroppablePosition';
 import innerDoc from '../../../utils/innerDocFunction';
+import AddPopup from '../../popups/addPopup';
 import DesignPopup from '../../popups/designPopup';
+import EditPopup from '../../popups/editPopup';
 import styles from './EditorRightMenu.module.css';
 
 const EditorRightMenu = ({ setRightMenu, keepSelectedSet, keepSelected }) => {
+  const [showEditPopup, showEditPopupSet] = useState(false);
   const [showDesignPopup, showDesignPopupSet] = useState(false);
+  const [showAddPopup, showAddPopupSet] = useState(false);
   const doc = innerDoc();
   const selectedElement = doc.getElementsByClassName('editor-border')[0];
 
@@ -215,19 +219,53 @@ const EditorRightMenu = ({ setRightMenu, keepSelectedSet, keepSelected }) => {
     keepSelectedSet(true);
   };
 
+  //add function
+  const addFunction = (e) => {
+    e.preventDefault();
+    showAddPopupSet(true);
+    selectedElement.classList.add('editor-border');
+    keepSelectedSet(true);
+  };
+
+  //edit function
+  const editFunction = (e) => {
+    e.preventDefault();
+    showEditPopupSet(true);
+    selectedElement.classList.add('editor-border');
+    keepSelectedSet(true);
+  };
+
   return showDesignPopup ? (
     <DesignPopup
       showDesignPopupSet={showDesignPopupSet}
       showDesignPopup={showDesignPopup}
       setRightMenu={setRightMenu}
     />
+  ) : showAddPopup ? (
+    <AddPopup
+      showAddPopupSet={showAddPopupSet}
+      showAddPopup={showAddPopup}
+      setRightMenu={setRightMenu}
+      keepSelected={keepSelected}
+      keepSelectedSet={keepSelectedSet}
+    />
+  ) : showEditPopup ? (
+    <EditPopup
+      showEditPopup={showEditPopup}
+      showEditPopupSet={showEditPopupSet}
+      setRightMenu={setRightMenu}
+    />
   ) : (
     <ul className="editor-options-wp-converter-78235">
-      <li id="add-w453">Add</li>
+      <li id="add-w453" onClick={addFunction}>
+        Add
+      </li>
       <li id="duplicate-w453" onClick={duplicateFunction}>
         Duplicate
       </li>
-      <li id="edit-w453">Edit</li>
+      <li id="edit-w453" onClick={editFunction}>
+        Edit
+      </li>
       <li id="move-w453" onClick={moveFunction}>
         Move
       </li>

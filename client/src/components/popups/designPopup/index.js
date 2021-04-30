@@ -239,7 +239,7 @@ const DesignPopup = ({ showDesignPopupSet, showDesignPopup, setRightMenu }) => {
 
     const listStyleValue = document.getElementById('wp364-list-style');
     if (listStyleValue.value !== 'select') {
-      selectedElement.style.listStyle = listStyleValue.value;
+      selectedElement.style.listStyleType = listStyleValue.value;
     }
 
     const textDecorationValue = document.getElementById(
