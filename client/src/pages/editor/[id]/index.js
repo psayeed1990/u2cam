@@ -17,8 +17,9 @@ import EditorRightMenu from '../../../components/editor/editorRightMenu';
 import removeEditorBorder from '../../../utils/eventFunctions/removeEditorOptions';
 import elementArrayList from '../../../utils/elementArrayList';
 import DesignPopup from './../../../components/popups/designPopup';
+import axios from 'axios';
 
-const SingleEditor = () => {
+const SingleEditor = ({ themess }) => {
   const [elementName, elementNameSet] = useState(null);
   const [keepSelected, keepSelectedSet] = useState(false);
 
@@ -33,6 +34,7 @@ const SingleEditor = () => {
   const { id } = router.query;
 
   useEffect(() => {
+    const last = window.location.href.split('/').pop();
     if (id) {
       const getThemeFiles = async () => {
         try {
@@ -292,13 +294,20 @@ const SingleEditor = () => {
 
 export default SingleEditor;
 
-// export const getInitialProps = async (context) => {
-//   const { id } = context.query;
-//   const response = await axios({
-//     method: 'get',
-//     url: `/api/v1/themes/${id}`,
-//     headers: { cookie: context.req.headers.cookie },
-//   });
-//   console.log(response.data.data.data);
-//   return { props: { themes: response.data.data.data } };
+// export const getStaticProps = async (context) => {
+//   let themess = [];
+//   try {
+//     const { id } = context.query;
+//     const response = await axios({
+//       method: 'get',
+//       url: `http://localhost:5002/api/v1/themes/${id}`,
+//       headers: context.req ? { cookie: context.req.headers.cookie } : undefined,
+//     });
+
+//     themess = response.data.data.data;
+//   } catch (err) {
+//     console.log(err);
+//   }
+
+//   return { props: { themess } };
 // };

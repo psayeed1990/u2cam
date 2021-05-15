@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import styles from './List.module.css';
-import { Link } from 'next/link';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { apiCall } from '../../api';
@@ -8,7 +8,9 @@ import DeletePopups from '../popups/deletePopups';
 import AdminLayout from '../../layouts/AdminLayout';
 
 const List = ({ model, url, singlePageUrl, data1, data2, heading }) => {
+  const [markList, markListSet] = useState([]);
   const [deleteDetails, setDeleteDetails] = useState({});
+  const [singleURL, singleURLSet] = useState('');
   const [showDelPopup, setShowDelPopup] = useState(false);
   const [lists, setLists] = useState(null);
   const router = useRouter();
@@ -23,6 +25,12 @@ const List = ({ model, url, singlePageUrl, data1, data2, heading }) => {
     getLists();
   }, []);
 
+  useEffect(() => {
+    if (singlePageUrl) {
+      singleURLSet(singlePageUrl);
+    }
+  }, [singlePageUrl]);
+
   const deleteData = async (type, id, b, c) => {
     setDeleteDetails({ type, id, b, c });
     setShowDelPopup(true);
@@ -30,6 +38,30 @@ const List = ({ model, url, singlePageUrl, data1, data2, heading }) => {
 
   const goToSinglePage = (pageId) => {
     router.push(`/${singlePageUrl}/${pageId}`);
+  };
+
+  const markListFunc = (e) => {
+    // e.preventDefault();
+    const index = markList.indexOf(e.target.value);
+    if (index > -1) {
+      markList.splice(index, 1);
+      //e.currentTarget.setAttribute('selected', 'false');
+      e.currentTarget.nextElementSibling.innerHTML = '';
+      console.log(markList);
+    } else {
+      markList.push(e.target.value);
+      //e.currentTarget.setAttribute('selected', 'true');
+      e.currentTarget.nextElementSibling.innerHTML = '&check;';
+      console.log(markList);
+    }
+  };
+
+  const selectDeselect = (e) => {
+    e.preventDefault();
+    const allList = document.querySelectorAll('.list-checkbox');
+    for (var i = 0; i < allList.length; i++) {
+      allList[i].click();
+    }
   };
 
   return (
@@ -56,12 +88,23 @@ const List = ({ model, url, singlePageUrl, data1, data2, heading }) => {
       <div className="content">
         <div className={styles.lists}>
           <h1 className="heading">{heading}</h1>
+          <button className="submit" onClick={selectDeselect}>
+            Select All
+          </button>
           {lists?.map((list, index) => {
             return (
               <div className={styles.list} key={list._id}>
                 <p className={styles.listWrapper}>
-                  <span className={styles.left}>
-                    <input type="checkbox" />
+                  <span className={`${styles.left} ${styles.checkbox}`}>
+                    <label className="container-checkbox">
+                      <input
+                        type="checkbox"
+                        value={list._id}
+                        onClick={markListFunc}
+                        className="list-checkbox"
+                      />
+                      <span className="checkmark"></span>
+                    </label>
                   </span>
                   <span className={styles.left}>{index + 1}</span>
                   {/* <span className={styles.show1}><span className={styles.name}>ID:</span><span className={styles.value}>{list._id}</span></span><br /> */}
@@ -75,12 +118,9 @@ const List = ({ model, url, singlePageUrl, data1, data2, heading }) => {
                   </span>
 
                   <span className={styles.right}>
-                    <span
-                      className="edit-btn cursor-pointer"
-                      onClick={() => goToSinglePage(list._id)}
-                    >
-                      Edit
-                    </span>
+                    <Link href={`/${singleURL}/${list._id}`} passHref>
+                      <a className="edit-btn cursor-pointer">Edit</a>
+                    </Link>
 
                     <span
                       className="delete-btn cursor-pointer"

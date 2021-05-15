@@ -49,3 +49,6 @@ color: var(--body-color);
     padding: 15px;
 }
 
+.checkbox {
+    background-color: white;
+}

@@ -1,10 +1,10 @@
-import { useRouter } from "next/router";
-import Head from "next/head";
-import styles from "./SingleUser.module.css";
-import FormComponent from "../../../../components/formComponents";
-import { Fragment, useEffect, useState } from "react";
-import AdminLayout from "../../../../layouts/AdminLayout";
-import { apiCall } from "../../../../api";
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import styles from './SingleUser.module.css';
+import FormComponent from '../../../../components/formComponents';
+import { Fragment, useEffect, useState } from 'react';
+import AdminLayout from '../../../../layouts/AdminLayout';
+import { apiCall } from '../../../../api';
 
 export const SubmitBtnExtra = () => (
   <Fragment>
@@ -16,7 +16,7 @@ const SingleUser = () => {
   const router = useRouter();
   const { id } = router.query;
   const [singleUser, setSingleUser] = useState(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
   const [returnValue, setReturnValue] = useState(null);
   const [formBuilder, setFormBuilder] = useState(null);
@@ -24,7 +24,7 @@ const SingleUser = () => {
   useEffect(() => {
     if (id) {
       const getUser = async () => {
-        const data = await apiCall("get", `users/${id}`, "get user");
+        const data = await apiCall('get', `users/${id}`, 'get user');
 
         setSingleUser(data.data.data);
       };
@@ -35,7 +35,7 @@ const SingleUser = () => {
 
   useEffect(() => {
     if (success && returnValue) {
-      setMessage("User updated successfully");
+      setMessage('User updated successfully');
     }
   }, [success, returnValue]);
 
@@ -43,45 +43,45 @@ const SingleUser = () => {
     if (singleUser) {
       const formBuilder = [
         {
-          fieldType: "CustomTypeTextField",
-          label: "User Type",
-          customTypesArray: ["user", "admin", "moderator"],
+          fieldType: 'CustomTypeTextField',
+          label: 'User Type',
+          customTypesArray: ['user', 'admin', 'moderator'],
           initFocus: true,
           maxChar: 32,
           minChar: 2,
           isRequired: true,
-          fieldName: "role",
+          fieldName: 'role',
           value: singleUser?.role,
           placeholder: singleUser?.role,
         },
         {
-          fieldType: "TextField",
-          label: "Name",
+          fieldType: 'TextField',
+          label: 'Name',
           initFocus: false,
           maxChar: 32,
           minChar: 2,
           isRequired: true,
-          fieldName: "name",
+          fieldName: 'name',
           value: singleUser?.name,
           placeholder: singleUser?.name,
         },
         {
-          fieldType: "EmailField",
-          label: "Email",
+          fieldType: 'EmailField',
+          label: 'Email',
           initFocus: false,
           isRequired: true,
-          fieldName: "email",
+          fieldName: 'email',
           value: singleUser?.email,
           placeholder: singleUser?.email,
         },
         {
-          fieldType: "TextField",
-          label: "Phone",
+          fieldType: 'TextField',
+          label: 'Phone',
           initFocus: false,
           maxChar: 32,
           minChar: 4,
           isRequired: true,
-          fieldName: "phone",
+          fieldName: 'phone',
           value: singleUser?.phone,
           placeholder: singleUser?.phone,
         },
@@ -116,7 +116,7 @@ const SingleUser = () => {
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
       </div>
     </AdminLayout>
