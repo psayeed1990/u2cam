@@ -8,6 +8,13 @@ const uploadController = require('./../controllers/uploadController');
 
 const router = express.Router();
 
+//delete bulk
+router.post(
+  '/bulk-delete',
+  authController.protect,
+  uploadController.deleteMarkedUploads
+);
+
 router
   .route('/')
   .get(authController.protect, uploadController.getAllUploads)
@@ -21,6 +28,7 @@ router
     checkIndexHTML,
     uploadController.handleZippedTheme
   );
+
 router
   .route('/:id')
   .get(authController.protect, uploadController.getUpload)

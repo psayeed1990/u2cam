@@ -64,6 +64,12 @@ const List = ({ model, url, singlePageUrl, data1, data2, heading }) => {
     }
   };
 
+  const deleteMarked = async (e) => {
+    e.preventDefault();
+    const del = await apiCall('post', `${url}/bulk-delete`, 'Delete', markList);
+    return router.reload(window.location.pathname);
+  };
+
   return (
     <Fragment>
       <Head>
@@ -88,9 +94,15 @@ const List = ({ model, url, singlePageUrl, data1, data2, heading }) => {
       <div className="content">
         <div className={styles.lists}>
           <h1 className="heading">{heading}</h1>
-          <button className="submit" onClick={selectDeselect}>
-            Select All
-          </button>
+          <div className="listActionBar">
+            <button id="selectBtn" onClick={selectDeselect}>
+              Select All
+            </button>
+            <button id="deleteMarked" onClick={deleteMarked}>
+              Delete Marked
+            </button>
+          </div>
+
           {lists?.map((list, index) => {
             return (
               <div className={styles.list} key={list._id}>
