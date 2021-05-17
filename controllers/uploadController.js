@@ -68,14 +68,4 @@ exports.getUpload = factory.getOne(Upload, true);
 
 exports.updateUpload = factory.updateOne(Upload, true);
 exports.deleteUpload = factory.deleteOne(Upload, true);
-exports.deleteMarkedUploads = async (req, res, next) => {
-  const markedList = req.body;
-
-  await markedList.forEach(async (marked) => {
-    await Upload.findByIdAndDelete(marked);
-  });
-
-  return res.status(201).json({
-    status: 'success',
-  });
-};
+exports.deleteMarkedUploads = factory.deleteMarked(Upload);

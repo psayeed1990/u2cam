@@ -288,3 +288,6 @@ border-right: 2px solid #79a5bb !important;
 text-decoration: underline;
 }
 
+#theme-name-sidebar {
+	min-height: 100vh;
+}

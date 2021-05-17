@@ -51,7 +51,7 @@ const List = ({ model, url, singlePageUrl, data1, data2, heading }) => {
     } else {
       markList.push(e.target.value);
       //e.currentTarget.setAttribute('selected', 'true');
-      e.currentTarget.nextElementSibling.innerHTML = '&check;';
+      e.currentTarget.nextElementSibling.innerHTML = '✕';
       console.log(markList);
     }
   };

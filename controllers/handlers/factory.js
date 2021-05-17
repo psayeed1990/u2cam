@@ -104,3 +104,16 @@ exports.getAll = (Model, isPrivate) =>
       },
     });
   });
+
+exports.deleteMarked = (Model) =>
+  catchAsync(async (req, res, next) => {
+    const markedList = req.body;
+
+    await markedList.forEach(async (marked) => {
+      await Model.findByIdAndDelete(marked);
+    });
+
+    return res.status(201).json({
+      status: 'success',
+    });
+  });
