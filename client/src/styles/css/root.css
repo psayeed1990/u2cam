@@ -11,22 +11,22 @@
 	--btn-color: rgb(153, 150, 150);
 	--link-color: rgb(77, 80, 77);
 	--link-bg: white;
-	--primary: #055ba6;
-	--secondory: #0367a6;
-	--third: #73b2d9;
-	--fourth: #0378a6;
-	--fifth: #89c2d9;
+	--primary: #025951;
+	--secondory: #038C73;
+	--third: #BF9E75;
+	--fourth: #D98C71;
+	--fifth: #D9583B;
 	--success: #28a745;
-	--info: #17a2b8;
+	--info: #D9583B;
 	--warning: #ffc107;
 	--danger: #dc3545;
 	--light: #f8f9fa;
 	--dark: #343a40;
 
 	/* pallete */
-	--p1: #1493ff;
-	--p2: #1d365e;
-	--p3: #2cb459;
+	--p1: #025951;
+	--p2: #038C73;
+	--p3: #BF9E75;
 	--p4: #ff3e30;
 	--p5: #f7b529;
 
@@ -36,6 +36,9 @@
 	--pp3: #c3e0c9;
 	--pp4: #97afcc;
 	--pp5: #e2bce8;
+
+	--scrollbarBG:  #D98C71;
+  	--thumbBG: #D9583B;
 }
 body {
 	background-color: var(--light);

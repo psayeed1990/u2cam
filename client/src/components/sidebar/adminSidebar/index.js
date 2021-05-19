@@ -19,12 +19,6 @@ const AdminSidebar = () => {
         <li className={styles.adminLinks}>
           <Link href="/admin/profile">Profile</Link>
         </li>
-        <li className={styles.adminLinks}>
-          <Link href="/admin/uploads">Uploads</Link>
-        </li>
-        <li className={styles.adminLinks}>
-          <Link href="/editor">Theme Editor</Link>
-        </li>
       </ul>
     </div>
   );

@@ -9,7 +9,6 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const dirTree = require('directory-tree');
 
 const app = express();
 
@@ -19,8 +18,6 @@ const errorController = require('./controllers/errorController');
 
 //load routes
 const userRoutes = require('./routes/userRoutes');
-const uploadRoutes = require('./routes/uploadRoutes');
-const themeRoutes = require('./routes/themeRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
 //enable proxy
@@ -67,37 +64,9 @@ app.use(morgan('dev'));
 //isLogged in
 //app.use(authController.isLoggedIn());
 //routes
-app.use('/api/v1/themes', themeRoutes);
-app.use('/api/v1/uploads', uploadRoutes);
+
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/admin', adminRoutes);
-
-//public folder for theme
-app.use('/html-preview', express.static(__dirname + '/html-theme-uploads'));
-
-//theme preview link
-app.get('/html-preview/:filename/*', (req, res) => {
-  const { filename } = req.params;
-  //move files to parent directory
-  const tree = dirTree(`html-theme-uploads/${req.file.filename}/`);
-  if (tree.children.length === 1 && tree.children[0].type === 'directory') {
-    extraFolderName = tree.children[0].name;
-
-    res.sendFile(
-      path.resolve(
-        __dirname,
-        'html-theme-uploads',
-        filename,
-        extraFolderName,
-        'index.html'
-      )
-    );
-  } else {
-    res.sendFile(
-      path.resolve(__dirname, 'html-theme-uploads', filename, 'index.html')
-    );
-  }
-});
 
 // set static folder
 app.use(express.static('client/out'));

@@ -6,6 +6,9 @@
 body{
 	position: relative;
 }
+main{
+	min-height: 100vh;
+}
 .heading {
 	color: #7c99a4;
 	font-family: roboto;
@@ -260,10 +263,7 @@ border: 0px solid #7ba897;
 box-shadow: 0 0 14px 4px #d2dadb
 }
 
-html {
-  --scrollbarBG:  #7fd09a;
-  --thumbBG: #2479ac;
-}
+
 html::-webkit-scrollbar {
   width: 11px;
 }
