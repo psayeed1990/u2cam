@@ -1,19 +1,33 @@
-import Head from "next/head";
-import styles from "./Login.module.css";
-import AuthLayout from "../../../../layouts/AuthLayout";
-import FormComponent from "../../../../components/formComponents";
-import Link from "next/link";
-import { Fragment, useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { UserContext } from "../../../../contexts/UserContext";
-
-export const SubmitBtnExtra = () => (
-  <Fragment>
-    <Link href="/user/auth/forgot-password">Forgot password?</Link>
-    <br />
-    <Link href="/user/auth/registration">Don't have account? </Link>
-  </Fragment>
-);
+import Head from 'next/head';
+import styles from './Login.module.css';
+import AuthLayout from '../../../../layouts/AuthLayout';
+import FormComponent from '../../../../components/formComponents';
+import Link from 'next/link';
+import { Fragment, useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { UserContext } from '../../../../contexts/UserContext';
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+  TwitterLoginButton,
+  InstagramLoginButton,
+} from 'react-social-login-buttons';
+export const SubmitBtnExtra = () => {
+  const handleClick = () => {
+    console.log('hi');
+  };
+  return (
+    <Fragment>
+      <Link href="/user/auth/forgot-password">Forgot password?</Link>
+      <br />
+      <Link href="/user/auth/registration">Don't have account? </Link>
+      <FacebookLoginButton onClick={handleClick} />
+      <GoogleLoginButton onClick={handleClick} />
+      <TwitterLoginButton onClick={handleClick} />
+      <InstagramLoginButton onClick={handleClick} />
+    </Fragment>
+  );
+};
 
 const Login = () => {
   const [user, setUser] = useContext(UserContext);
@@ -23,7 +37,7 @@ const Login = () => {
 
   useEffect(() => {
     if (success && returnValue) {
-      localStorage.setItem("token", returnValue.refreshToken);
+      localStorage.setItem('token', returnValue.refreshToken);
       console.log(returnValue);
       setUser(returnValue.data.user);
     }
@@ -31,10 +45,10 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      if (user.role === "admin") {
-        return router.push("/admin/dashboard");
-      } else if (user.role === "user") {
-        return router.push("/user/dashboard");
+      if (user.role === 'admin') {
+        return router.push('/admin/dashboard');
+      } else if (user.role === 'user') {
+        return router.push('/user/dashboard');
       } else {
         return;
       }
@@ -45,22 +59,22 @@ const Login = () => {
 
   const formBuilder = [
     {
-      fieldType: "EmailField",
-      placeholder: "Email",
-      label: "Email",
+      fieldType: 'EmailField',
+      placeholder: 'Email',
+      label: 'Email',
       initFocus: true,
       isRequired: true,
-      fieldName: "email",
+      fieldName: 'email',
     },
     {
-      fieldType: "PasswordField",
-      placeholder: "Password",
-      label: "Password",
+      fieldType: 'PasswordField',
+      placeholder: 'Password',
+      label: 'Password',
       initFocus: false,
       maxChar: 100,
       minChar: 8,
       isRequired: true,
-      fieldName: "password",
+      fieldName: 'password',
     },
   ];
 
