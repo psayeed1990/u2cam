@@ -6,9 +6,49 @@ const postSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  privacy: {
+    type: String,
+    enum: [
+      'public',
+      'friends',
+      'friends and followers',
+      'followers',
+      'anonymous',
+      'group',
+      'pages',
+    ],
+  },
   text: {
     type: String,
-    minlength: [1, 'First Name must be at least 2 characters long'],
+    minlength: [1, 'Post must be at least 1 characters long'],
+  },
+  photo: {
+    type: String,
+  },
+  gif: {
+    type: String,
+  },
+  video: {
+    type: String,
+  },
+  audio: {
+    type: String,
+  },
+  traveling: {
+    type: String,
+  },
+  file: {
+    type: String,
+  },
+  listening: {
+    type: String,
+  },
+  watching: {
+    type: String,
+  },
+  product: {
+    type: Schema.Types.ObjectId,
+    ref: 'Product',
   },
   category: {
     type: String,
@@ -43,6 +83,14 @@ const postSchema = new Schema({
       ref: 'Comment',
     },
   ],
+  location: {
+    name: {
+      type: String,
+      minlength: [1, 'Location name must be at least 2 characters long'],
+    },
+    longitude: String,
+    lattitude: String,
+  },
   notificationlist: [
     {
       type: Schema.Types.ObjectId,
