@@ -5,12 +5,25 @@ const crypto = require('crypto');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  name: {
+  firstname: {
     type: String,
     trim: true,
-    maxlength: [32, 'Name must be maximum 32 characters long'],
-    minlength: [2, 'Name must be at least 2 characters long'],
-    required: [true, 'Name is required'],
+    maxlength: [32, 'First Name must be maximum 32 characters long'],
+    minlength: [2, 'First Name must be at least 2 characters long'],
+    required: [true, 'First Name is required'],
+  },
+  lastname: {
+    type: String,
+    trim: true,
+    maxlength: [32, 'Last Name must be maximum 32 characters long'],
+    minlength: [2, 'Last Name must be at least 2 characters long'],
+    required: [true, 'Last Name is required'],
+  },
+  username: {
+    type: String,
+    required: [true, 'Username is required'],
+    trim: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -18,6 +31,10 @@ const userSchema = new Schema({
     trim: true,
     unique: true,
     validate: [validator.isEmail, 'Email is not valid'],
+  },
+  profilephoto: {
+    type: String,
+    default: 'default.jpg',
   },
   phone: String,
   password: {
@@ -42,9 +59,9 @@ const userSchema = new Schema({
     enum: ['admin', 'user', 'moderator'],
     default: 'user',
   },
-  photo: {
-    type: String,
-    default: 'default.jpg',
+  location: {
+    longitude: String,
+    lattitude: String,
   },
   emailVerified: {
     type: Boolean,
