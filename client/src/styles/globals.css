@@ -5,6 +5,7 @@
 
 body{
 	position: relative;
+	background-color: #edfbf0;
 }
 main{
 	min-height: 100vh;
@@ -27,16 +28,26 @@ main{
 	padding-bottom: 400px; */
 }
 .header {
-	box-shadow: 3px 0 8px -1px #87a2f7;
-	background-color: var(--light);
-	display: grid;
-	grid-template-columns: 20% 80%;
+box-shadow: 3px 0 10px 1px #bccec3d6;
+background-color: var(--light);
+display: grid;
+grid-template-columns: 20% 15% 80%;
 }
 
 .success-message {
 	font-weight: bold;
 	color: var(--success);
 }
+
+.subMenu{
+    display: none;
+    position: absolute;
+}
+
+a:hover .subMenu {
+    display: block;
+}
+
 @keyframes forAllContent {
 	0%{
 		opacity: 0;

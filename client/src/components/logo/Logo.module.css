@@ -1,8 +1,8 @@
 .logo {
 	background-color: var(--light);
 	border: 5px solid var(--light);
-	color: #233540;
-	font-weight: bold;
+	color: #8599a6;
+	font-weight: lighter;
 	font-size: 30px;
 	padding: 10px 30px;
 	/* box-shadow: 0 10px 16px -7px #1d3531; */
@@ -13,7 +13,7 @@
 }
 
 .logoLast {
-	background-color: var(--scrollbarBG);
+	background-color: #A571D9;
 	color: var(--light);
 	padding: 0 15px;
 	border-radius: 30% 2px 2px 30%; 
