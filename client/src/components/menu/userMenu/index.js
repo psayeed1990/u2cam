@@ -11,8 +11,17 @@ const UserMenu = () => {
       </div>
       <nav id="nav">
         <Link href="/">Home</Link>
-        <Link href="/user/dashboard">Dashboard</Link>
-        <Link href="/user/auth/logout">Logout</Link>
+        <a href="/admin/dashboard">
+          <img src="/images/icons/photo.svg" width="30" />
+          <ul className="subMenu">
+            <li>
+              <Link href="/user/auth/logout">Logout</Link>
+            </li>
+            <li>
+              <Link href="/user/profile">Profile</Link>
+            </li>
+          </ul>
+        </a>
       </nav>
     </menu>
   );

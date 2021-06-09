@@ -1,6 +1,6 @@
 .logo {
 	background-color: var(--light);
-	border: 5px solid var(--light);
+	border: 0px solid var(--light);
 	color: #8599a6;
 	font-weight: lighter;
 	font-size: 30px;

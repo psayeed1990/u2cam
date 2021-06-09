@@ -4,11 +4,7 @@ const Logo = () => {
   return (
     <Link href="/" passHref>
       <button className={styles.logo}>
-        U
-        <span className={styles.logoLast}>
-          <span className={styles.round}>2</span>
-        </span>
-        CAM
+        <img src="/images/logo.png" width="30" />
       </button>
     </Link>
   );

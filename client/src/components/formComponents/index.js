@@ -16,6 +16,7 @@ const CustomTypeTextField = lazy(() =>
   import('./formFields/CustomTypeTextField')
 );
 const CustomSelectField = lazy(() => import('./formFields/CustomSelectField'));
+const PostField = lazy(() => import('./formFields/PostField'));
 
 const FormComponent = ({
   setReturnValue,
@@ -186,6 +187,26 @@ const FormComponent = ({
                       label={f.label}
                       customTypesArray={f.customTypesArray}
                       selectMenuArray={f.selectMenuArray}
+                      initFocus={f.initFocus}
+                      nameToShowOnList={f.nameToShowOnList}
+                      nameToUseAsValue={f.nameToUseAsValue}
+                      placeholder={f.placeholder}
+                      maxChar={f.maxChar}
+                      minChar={f.minChar}
+                      isRequired={f.isRequired}
+                      fieldName={f.fieldName}
+                      register={register}
+                      setValue={setValue}
+                      errors={errors}
+                      setError={setError}
+                      clearErrors={clearErrors}
+                      getValues={getValues}
+                    />
+                  )}
+                  {f.fieldType === 'PostField' && (
+                    <PostField
+                      value={f.value}
+                      label={f.label}
                       initFocus={f.initFocus}
                       nameToShowOnList={f.nameToShowOnList}
                       nameToUseAsValue={f.nameToUseAsValue}
