@@ -3,7 +3,6 @@ import { Fragment, useEffect } from 'react';
 const PostField = ({
   value,
   label,
-  customTypesArray,
   initFocus,
   placeholder,
   maxChar,
@@ -25,7 +24,7 @@ const PostField = ({
   return (
     <Fragment>
       <div className="form-group">
-        <input
+        <textarea
           ref={register({
             required: isRequired ? `${fieldName} is required` : false,
             maxLength: {
@@ -36,8 +35,6 @@ const PostField = ({
               value: minChar,
               message: `Min ${minChar} character`,
             },
-            validate: (value) =>
-              customTypesArray.includes(value) || customTypesArray.join(' or '),
           })}
           id={fieldName}
           autoFocus={initFocus}
@@ -45,17 +42,7 @@ const PostField = ({
           type="text"
           placeholder={placeholder}
           autoComplete="new-password"
-          onChange={() => {
-            if (!customTypesArray.includes(getValues(fieldName))) {
-              setError(fieldName, {
-                type: 'manual',
-                message: `${customTypesArray.join(', ')} allowed `,
-              });
-            } else {
-              clearErrors(fieldName);
-            }
-          }}
-        />
+        ></textarea>
         <label htmlFor={fieldName}>{label}</label>
         <span className={`${errors[fieldName] ? 'error' : ''}`}>
           {errors[fieldName] && errors[fieldName].message}

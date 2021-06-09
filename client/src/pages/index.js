@@ -4,6 +4,7 @@ import styles from './Home.module.css';
 
 //layout
 import WebLayout from './../layouts/WebLayout';
+import PostComponent from '../components/PostComponent';
 
 const Home = ({ message }) => {
   return (
@@ -12,6 +13,7 @@ const Home = ({ message }) => {
         <title>u2cam</title>
       </Head>
       <div className="content">
+        <PostComponent />
         <h1 className="heading">Home page feed</h1>
       </div>
     </WebLayout>
