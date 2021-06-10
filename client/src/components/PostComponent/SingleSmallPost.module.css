@@ -1,7 +1,52 @@
 .post{
-    padding: 30px;
+    padding:30px 0 0 0;
 margin: 20px;
 border: 1px solid #ddd;
 box-shadow: 0 0 11px 3px #ddd;
-background: white;
+background: #f0f0f0;
+}
+
+.postTop {
+    padding: 0 20px;
+}
+
+.postBottom {
+background-color: rgb(236, 236, 236);
+border: 1px solid rgb(236, 236, 236);
+padding: 10px;
+margin-top: 5px;
+display: grid;
+grid-template-columns: auto auto auto;
+}
+
+.reacts, .comments, .shares {
+background-color: white;
+border: 1px solid #e6e1e1;
+padding: 10px;
+box-shadow: inset 0 0 17px 2px #eae9e9;
+}
+
+.text, .name, .privacy {
+    text-align: left;
+
+}
+
+.text{
+background-color: white;
+margin: 5px;
+padding: 20px 10px;
+border-radius: 3px;
+
+}
+
+.name{
+    font-size: 15px;
+}
+.privacy{
+    font-size: 11px;
+}
+.time {
+    color: rgb(192, 188, 188);
+    font-size: 12px;
+    text-align: left;
 }
