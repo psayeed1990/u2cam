@@ -5,6 +5,7 @@ const postSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: [true, ' is required'],
   },
   privacy: {
     type: String,
@@ -17,6 +18,7 @@ const postSchema = new Schema({
       'group',
       'pages',
     ],
+    required: [true, ' is required'],
   },
   text: {
     type: String,
@@ -53,6 +55,7 @@ const postSchema = new Schema({
   category: {
     type: String,
     enum: [
+      'text',
       'photo',
       'gif',
       'video',
@@ -64,6 +67,7 @@ const postSchema = new Schema({
       'file',
       'audio',
     ],
+    required: [true, ' is required'],
   },
   sharedpost: {
     type: Schema.Types.ObjectId,
@@ -86,7 +90,7 @@ const postSchema = new Schema({
   location: {
     name: {
       type: String,
-      minlength: [1, 'Location name must be at least 2 characters long'],
+      minlength: [1, ' must be at least 2 characters long'],
     },
     longitude: String,
     lattitude: String,
@@ -105,6 +109,15 @@ const postSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+postSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'user',
+    select: '-__v',
+  });
+
+  next();
 });
 
 module.exports = Post = mongoose.model('Post', postSchema);

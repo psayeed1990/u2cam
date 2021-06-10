@@ -1,4 +1,5 @@
 import { Fragment, useEffect } from 'react';
+import styles from './PostField.module.css';
 
 const PostField = ({
   value,
@@ -25,6 +26,7 @@ const PostField = ({
     <Fragment>
       <div className="form-group">
         <textarea
+          className={styles.postInputField}
           ref={register({
             required: isRequired ? `${fieldName} is required` : false,
             maxLength: {

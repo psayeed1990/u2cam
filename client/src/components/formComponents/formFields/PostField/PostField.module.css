@@ -1,0 +1,9 @@
+.postInputField {
+    border: 1px solid #e1dede;
+box-shadow: 0 0 15px 2px #d0cbcb;
+width: 400px;
+height: 61px;
+padding: 20px;
+border-radius: 8px;
+color: #b9b5af;
+}

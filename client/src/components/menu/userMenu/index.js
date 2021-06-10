@@ -18,7 +18,7 @@ const UserMenu = () => {
               <Link href="/user/auth/logout">Logout</Link>
             </li>
             <li>
-              <Link href="/user/profile">Profile</Link>
+              <Link href="/user/dashboard">Timeline</Link>
             </li>
           </ul>
         </a>

@@ -15,14 +15,38 @@ const PostComponent = () => {
     }
   }, [success, returnValue]);
 
+  const privacy = [
+    { name: 'public' },
+    { name: 'friends' },
+    { name: 'friends and followers' },
+    { name: 'followers' },
+    { name: 'anonymous' },
+    { name: 'group' },
+    { name: 'pages' },
+  ];
+
   const formBuilder = [
+    {
+      fieldType: 'CustomSelectField',
+      selectMenuArray: privacy,
+      nameToShowOnList: 'name',
+      nameToUseAsValue: 'name',
+      placeholder: 'Privacy',
+      label: 'Privacy',
+      initFocus: false,
+      maxChar: 100,
+      minChar: 2,
+      isRequired: true,
+      fieldName: 'privacy',
+    },
+
     {
       fieldType: 'PostField',
       placeholder: `What's in your mind`,
       label: 'Share status',
       initFocus: true,
       isRequired: true,
-      fieldName: 'post',
+      fieldName: 'text',
     },
   ];
 
