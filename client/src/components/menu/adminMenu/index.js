@@ -14,17 +14,21 @@ const AdminMenu = () => {
       </div>
       <nav id="nav">
         <Link href="/">Home</Link>
-        <a href="/admin/dashboard">
-          <img src="/images/icons/photo.svg" width="30" />
-          <ul className="subMenu">
-            <li>
-              <Link href="/user/auth/logout">Logout</Link>
-            </li>
-            <li>
-              <Link href="/user/profile">Profile</Link>
-            </li>
-          </ul>
-        </a>
+        <Link href="/admin/dashboard" passHref>
+          <img
+            src="/images/icons/photo.svg"
+            width="30"
+            className={styles.avatar}
+          />
+        </Link>
+        <ul className="subMenu">
+          <li>
+            <Link href="/user/auth/logout">Logout</Link>
+          </li>
+          <li>
+            <Link href="/user/profile">Profile</Link>
+          </li>
+        </ul>
       </nav>
     </menu>
   );

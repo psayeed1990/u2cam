@@ -1,7 +1,19 @@
 import styles from './SingleSmallPost.module.css';
 import moment from 'moment';
+import Reacts from './reacts';
+import { useEffect } from 'react';
 
 const SingleSmallPost = ({ post }) => {
+  const showReactBtns = (e) => {
+    const reacts = e.currentTarget.firstChild;
+    reacts.style.display = 'block';
+  };
+
+  const hideReactBtns = (e) => {
+    const reacts = e.currentTarget.firstChild;
+    reacts.style.display = 'none';
+  };
+
   return (
     <div className={styles.post}>
       <div className={styles.postTop}>
@@ -15,7 +27,16 @@ const SingleSmallPost = ({ post }) => {
       </div>
 
       <p className={styles.postBottom}>
-        <span className={styles.reacts}>Reacts</span>
+        <span
+          className={`${styles.reacts} reacts`}
+          onMouseEnter={showReactBtns}
+          onMouseLeave={hideReactBtns}
+        >
+          <div className={`${styles.reactBtns} react-btns`}>
+            <Reacts />
+          </div>
+          Reacts
+        </span>
         <span className={styles.comments}>Comments</span>
         <span className={styles.shares}>Shares</span>
       </p>

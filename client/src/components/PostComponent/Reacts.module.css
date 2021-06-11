@@ -1,0 +1,20 @@
+.reactEmojisList {
+    list-style-type: none;
+        position: absolute;
+    
+}
+
+.reactEmojisList li {
+    display: inline;
+
+padding: 10px;
+margin: 0px;
+background-color: white;
+box-shadow: 0 0 9px 1px #ccc5c5;
+cursor: pointer;
+transition: background-color 0.3s ease-in-out;
+}
+
+.reactEmojisList li:hover {
+    background-color: #e4e1e1;
+}

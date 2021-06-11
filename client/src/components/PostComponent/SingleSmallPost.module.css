@@ -50,3 +50,6 @@ border-radius: 3px;
     font-size: 12px;
     text-align: left;
 }
+.reactBtns{
+    display: none;
+}

@@ -11,8 +11,12 @@ const UserMenu = () => {
       </div>
       <nav id="nav">
         <Link href="/">Home</Link>
-        <a href="/admin/dashboard">
-          <img src="/images/icons/photo.svg" width="30" />
+        <Link href="/admin/dashboard">
+          <img
+            src="/images/icons/photo.svg"
+            width="30"
+            className={styles.avatar}
+          />
           <ul className="subMenu">
             <li>
               <Link href="/user/auth/logout">Logout</Link>
@@ -21,7 +25,7 @@ const UserMenu = () => {
               <Link href="/user/dashboard">Timeline</Link>
             </li>
           </ul>
-        </a>
+        </Link>
       </nav>
     </menu>
   );

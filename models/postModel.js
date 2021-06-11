@@ -81,12 +81,48 @@ const postSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Page',
   },
-  comments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Comment',
-    },
-  ],
+  comments: {
+    type: Schema.Types.ObjectId,
+    ref: 'Comment',
+  },
+
+  reacts: {
+    type: Schema.Types.ObjectId,
+    ref: 'React',
+  },
+  commentcount: {
+    type: Number,
+    default: 0,
+  },
+  reactcount: {
+    type: Number,
+    default: 0,
+  },
+  liked: {
+    type: Boolean,
+    default: false,
+  },
+  loved: {
+    type: Boolean,
+    default: false,
+  },
+  angry: {
+    type: Boolean,
+    default: false,
+  },
+  sad: {
+    type: Boolean,
+    default: false,
+  },
+  happy: {
+    type: Boolean,
+    default: false,
+  },
+  cared: {
+    type: Boolean,
+    default: false,
+  },
+
   location: {
     name: {
       type: String,
