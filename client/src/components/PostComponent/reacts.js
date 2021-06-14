@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react';
 import styles from './Reacts.module.css';
 import ApiCallComponent from './../../api/apiCallComponent';
 
-const Reacts = ({ post, postType, reactCount, setReactCount }) => {
+const Reacts = ({
+  post,
+  postType,
+  reactCount,
+  setReactCount,
+  setReactText,
+  reactText,
+}) => {
   const [apiCallComponent, setApiCallComponent] = useState(false);
   const [success, setSuccess] = useState(false);
   const [returnValue, setReturnValue] = useState(null);
@@ -11,6 +18,25 @@ const Reacts = ({ post, postType, reactCount, setReactCount }) => {
   const [operationalError, setOperationalError] = useState('');
   const [apiData, setApiData] = useState({});
   const addLike = (reactType) => {
+    //check if already liked
+
+    if (reactType === 'like' && reactText !== 'Liked') {
+      setReactText('Liked');
+    } else if (reactType === 'love') {
+      if (reactText !== 'Loved') {
+        setReactText('Loved');
+      }
+    } else if (reactType === 'happy' && reactText !== 'Happy') {
+      setReactText('Happy');
+    } else if (reactType === 'sad' && reactText !== 'Sad') {
+      setReactText('Sad');
+    } else if (reactType === 'care' && reactText !== 'Care') {
+      setReactText('Care');
+    } else if (reactType === 'angry' && reactText !== 'Angry') {
+      setReactText('Angry');
+    } else {
+      return;
+    }
     setApiData({
       post: post._id,
       reacts: post.reacts,
@@ -23,7 +49,6 @@ const Reacts = ({ post, postType, reactCount, setReactCount }) => {
   useEffect(() => {
     if (success) {
       setReactCount(reactCount + 1);
-      console.log('likes');
     }
   }, [success]);
 

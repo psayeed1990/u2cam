@@ -32,7 +32,7 @@ const AdminDashboard = () => {
           <h1 className="heading">Timeline</h1>
 
           {posts?.map((post) => {
-            return <SingleSmallPost post={post} />;
+            return <SingleSmallPost post={post} user={user} />;
           })}
         </div>
       </div>

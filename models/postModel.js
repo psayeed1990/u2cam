@@ -83,12 +83,12 @@ const postSchema = new Schema({
   },
   comments: {
     type: Schema.Types.ObjectId,
-    ref: 'Comment',
+    ref: 'Comments',
   },
 
   reacts: {
     type: Schema.Types.ObjectId,
-    ref: 'React',
+    ref: 'Reacts',
   },
   commentcount: {
     type: Number,
@@ -150,6 +150,15 @@ const postSchema = new Schema({
 postSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'user',
+    select: '-__v',
+  });
+
+  next();
+});
+
+postSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'reacts',
     select: '-__v',
   });
 
