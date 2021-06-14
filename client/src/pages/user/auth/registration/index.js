@@ -1,11 +1,11 @@
-import Head from "next/head";
-import styles from "./Register.module.css";
-import AuthLayout from "../../../../layouts/AuthLayout";
-import FormComponent from "../../../../components/formComponents";
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { UserContext } from "../../../../contexts/UserContext";
+import Head from 'next/head';
+import styles from './Register.module.css';
+import AuthLayout from '../../../../layouts/AuthLayout';
+import FormComponent from '../../../../components/formComponents';
+import Link from 'next/link';
+import { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { UserContext } from '../../../../contexts/UserContext';
 
 export const SubmitBtnExtra = () => (
   <Link href="/user/auth/login">Already have account? Login here </Link>
@@ -19,17 +19,17 @@ const Registration = () => {
 
   useEffect(() => {
     if (success && returnValue) {
-      localStorage.setItem("token", returnValue.refreshToken);
+      localStorage.setItem('token', returnValue.refreshToken);
       setUser(returnValue.data.user);
     }
   }, [success, returnValue]);
 
   useEffect(() => {
     if (user) {
-      if (user.role === "admin") {
-        router.push("/admin/dashboard");
-      } else if (user.role === "user") {
-        router.push("/user/dashboard");
+      if (user.role === 'admin') {
+        router.push('/admin/dashboard');
+      } else if (user.role === 'user') {
+        router.push('/user/dashboard');
       } else {
         return;
       }
@@ -38,45 +38,65 @@ const Registration = () => {
 
   const formBuilder = [
     {
-      fieldType: "TextField",
-      placeholder: "Name",
-      label: "Name",
+      fieldType: 'TextField',
+      placeholder: 'First Name',
+      label: 'First Name',
       initFocus: true,
       maxChar: 32,
       minChar: 2,
       isRequired: true,
-      fieldName: "name",
+      fieldName: 'firstname',
     },
     {
-      fieldType: "EmailField",
-      placeholder: "Email",
-      label: "Email",
+      fieldType: 'TextField',
+      placeholder: 'Last Name',
+      label: 'Last Name',
+      initFocus: false,
+      maxChar: 32,
+      minChar: 2,
+      isRequired: true,
+      fieldName: 'lastname',
+    },
+    {
+      fieldType: 'TextField',
+      placeholder: 'Username',
+      label: 'Userame',
+      initFocus: false,
+      maxChar: 32,
+      minChar: 2,
+      isRequired: true,
+      fieldName: 'username',
+    },
+    {
+      fieldType: 'EmailField',
+      placeholder: 'Email',
+      label: 'Email',
       initFocus: false,
       isRequired: true,
-      fieldName: "email",
+      fieldName: 'email',
     },
     // { fieldType: 'PasswordField', initFocus: false, maxChar: 100, minChar: 8, isRequired: true, fieldName: 'password'},
     {
-      fieldType: "PasswordWithConfirmField",
-      placeholder: "Password",
-      label: "Password",
+      fieldType: 'PasswordWithConfirmField',
+      placeholder: 'Password',
+      label: 'Password',
       initFocus: false,
       maxChar: 100,
       minChar: 8,
       isRequired: true,
-      fieldName: "password",
-      otherFieldName: "passwordConfirm",
+      fieldName: 'password',
+      otherFieldName: 'passwordConfirm',
     },
     {
-      fieldType: "PasswordConfirmField",
-      placeholder: "Password Confirm",
-      label: "Password Confirm",
+      fieldType: 'PasswordConfirmField',
+      placeholder: 'Password Confirm',
+      label: 'Password Confirm',
       initFocus: false,
       maxChar: 100,
       minChar: 8,
       isRequired: true,
-      fieldName: "passwordConfirm",
-      otherFieldName: "password",
+      fieldName: 'passwordConfirm',
+      otherFieldName: 'password',
     },
   ];
 

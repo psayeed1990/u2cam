@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const reactSchema = new Schema({
+const reactsSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   reacts: [
     {
       by: {
@@ -27,6 +31,10 @@ const reactSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Reply',
   },
+  share: {
+    type: Schema.Types.ObjectId,
+    ref: 'Reply',
+  },
 
   createdAt: {
     type: Date,
@@ -34,4 +42,4 @@ const reactSchema = new Schema({
   },
 });
 
-module.exports = React = mongoose.model('React', reactSchema);
+module.exports = Reacts = mongoose.model('Reacts', reactsSchema);

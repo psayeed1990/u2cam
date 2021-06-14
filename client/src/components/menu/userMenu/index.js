@@ -17,15 +17,15 @@ const UserMenu = () => {
             width="30"
             className={styles.avatar}
           />
-          <ul className="subMenu">
-            <li>
-              <Link href="/user/auth/logout">Logout</Link>
-            </li>
-            <li>
-              <Link href="/user/dashboard">Timeline</Link>
-            </li>
-          </ul>
         </Link>
+        <ul className="subMenu">
+          <li>
+            <Link href="/user/auth/logout">Logout</Link>
+          </li>
+          <li>
+            <Link href="/user/dashboard">Timeline</Link>
+          </li>
+        </ul>
       </nav>
     </menu>
   );

@@ -1,6 +1,8 @@
 const multer = require('multer');
 const sharp = require('sharp');
 const Post = require('./../models/postModel');
+const Comments = require('./../models/commentsModel');
+const Reacts = require('./../models/reactsModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const factory = require('./handlers/factory');
@@ -17,7 +19,27 @@ exports.createPost = catchAsync(async (req, res, next) => {
     category: 'text',
   });
 
-  await newPost.save();
+  const post = await newPost.save();
+
+  const newComments = new Comments({
+    user: req.user.id,
+    post: post.id,
+    comments: [],
+  });
+
+  const newReacts = new Reacts({
+    user: req.user.id,
+    post: post.id,
+    reacts: [],
+  });
+
+  const comments = await newComments.save();
+  const reacts = await newReacts.save();
+
+  post.comments = comments.id;
+  post.reacts = reacts.id;
+
+  await post.save();
 
   return res.json({
     status: 'success',

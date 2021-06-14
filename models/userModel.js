@@ -72,6 +72,10 @@ const userSchema = new Schema({
     default: true,
     select: false,
   },
+  profile: {
+    type: Schema.Types.ObjectId,
+    ref: 'Profile',
+  },
   address: String,
   passwordChangedAt: Date,
   passwordResetToken: String,

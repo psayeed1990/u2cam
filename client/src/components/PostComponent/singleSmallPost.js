@@ -1,13 +1,18 @@
 import styles from './SingleSmallPost.module.css';
 import moment from 'moment';
 import Reacts from './reacts';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const SingleSmallPost = ({ post }) => {
+  const [reactCount, setReactCount] = useState(0);
   const showReactBtns = (e) => {
     const reacts = e.currentTarget.firstChild;
     reacts.style.display = 'block';
   };
+
+  useEffect(() => {
+    setReactCount(post.reactcount);
+  }, [post]);
 
   const hideReactBtns = (e) => {
     const reacts = e.currentTarget.firstChild;
@@ -18,7 +23,9 @@ const SingleSmallPost = ({ post }) => {
     <div className={styles.post}>
       <div className={styles.postTop}>
         <p className={styles.name}>
-          <b>{post?.user?.name}</b>
+          <b>
+            {post?.user?.firstname} {post?.user?.lastname}
+          </b>
         </p>
 
         <p className={styles.privacy}>{post?.privacy}</p>
@@ -33,9 +40,13 @@ const SingleSmallPost = ({ post }) => {
           onMouseLeave={hideReactBtns}
         >
           <div className={`${styles.reactBtns} react-btns`}>
-            <Reacts />
+            <Reacts
+              post={post}
+              setReactCount={setReactCount}
+              reactCount={reactCount}
+            />
           </div>
-          Reacts
+          {reactCount} Reacts
         </span>
         <span className={styles.comments}>Comments</span>
         <span className={styles.shares}>Shares</span>

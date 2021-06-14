@@ -14,7 +14,7 @@ const AdminMenu = () => {
       </div>
       <nav id="nav">
         <Link href="/">Home</Link>
-        <Link href="/admin/dashboard" passHref>
+        <Link href="/admin/dashboard">
           <img
             src="/images/icons/photo.svg"
             width="30"

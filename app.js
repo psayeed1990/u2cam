@@ -17,6 +17,7 @@ const app = express();
 const errorController = require('./controllers/errorController');
 
 //load routes
+const reactRoutes = require('./routes/reactRoutes');
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
@@ -66,6 +67,7 @@ app.use(morgan('dev'));
 //app.use(authController.isLoggedIn());
 //routes
 
+app.use('/api/v1/reacts', reactRoutes);
 app.use('/api/v1/posts', postRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/admin', adminRoutes);
