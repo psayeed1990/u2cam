@@ -3,12 +3,14 @@ import styles from './Reacts.module.css';
 import ApiCallComponent from './../../api/apiCallComponent';
 
 const Reacts = ({
-  post,
+  currentPost,
+  setCurrentPost,
   postType,
   reactCount,
   setReactCount,
   setReactText,
   reactText,
+  user,
 }) => {
   const [apiCallComponent, setApiCallComponent] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -22,10 +24,8 @@ const Reacts = ({
 
     if (reactType === 'like' && reactText !== 'Liked') {
       setReactText('Liked');
-    } else if (reactType === 'love') {
-      if (reactText !== 'Loved') {
-        setReactText('Loved');
-      }
+    } else if (reactType === 'love' && reactText !== 'Loved') {
+      setReactText('Loved');
     } else if (reactType === 'happy' && reactText !== 'Happy') {
       setReactText('Happy');
     } else if (reactType === 'sad' && reactText !== 'Sad') {
@@ -35,11 +35,11 @@ const Reacts = ({
     } else if (reactType === 'angry' && reactText !== 'Angry') {
       setReactText('Angry');
     } else {
-      return;
+      setReactText('Like');
     }
     setApiData({
-      post: post._id,
-      reacts: post.reacts,
+      post: currentPost._id,
+      reacts: currentPost.reacts,
       reacttype: reactType,
       posttype: postType,
     });
@@ -47,10 +47,10 @@ const Reacts = ({
   };
 
   useEffect(() => {
-    if (success) {
-      setReactCount(reactCount + 1);
+    if (success && returnValue) {
+      setReactCount(returnValue.data.data.reactcount);
     }
-  }, [success]);
+  }, [success, returnValue]);
 
   return (
     <div className={styles.reactEmojis}>

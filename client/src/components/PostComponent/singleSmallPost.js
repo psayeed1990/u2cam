@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 const SingleSmallPost = ({ post, user }) => {
   const [reactText, setReactText] = useState('Like');
   const [reactCount, setReactCount] = useState(0);
+  const [currentPost, setCurrentPost] = useState({});
   const showReactBtns = (e) => {
     const reacts = e.currentTarget.firstChild;
     reacts.style.display = 'block';
@@ -13,8 +14,15 @@ const SingleSmallPost = ({ post, user }) => {
 
   useEffect(() => {
     if (post) {
-      setReactCount(post.reactcount);
-      post.reacts.reacts.map((react) => {
+      setCurrentPost(post);
+    }
+  }, [currentPost, setCurrentPost]);
+
+  useEffect(() => {
+    if (currentPost) {
+      //set react count
+      setReactCount(currentPost.reactcount);
+      currentPost?.reacts?.reacts.map((react) => {
         if (react.by === user._id) {
           if (react.reacttype === 'like') {
             setReactText('Liked');
@@ -34,11 +42,13 @@ const SingleSmallPost = ({ post, user }) => {
         }
       });
     }
-  }, [post]);
+  }, [currentPost]);
 
   useEffect(() => {
-    if (document.getElementById(`${post._id}-react-text`)) {
-      const reactStatus = document.getElementById(`${post._id}-react-text`);
+    if (document.getElementById(`${currentPost._id}-react-text`)) {
+      const reactStatus = document.getElementById(
+        `${currentPost._id}-react-text`
+      );
       if (reactText !== 'Like') {
         reactStatus.parentNode.style.backgroundColor = '#fafafa';
         reactStatus.style.color = 'purple';
@@ -59,13 +69,13 @@ const SingleSmallPost = ({ post, user }) => {
       <div className={styles.postTop}>
         <p className={styles.name}>
           <b>
-            {post?.user?.firstname} {post?.user?.lastname}
+            {currentPost?.user?.firstname} {currentPost?.user?.lastname}
           </b>
         </p>
 
-        <p className={styles.privacy}>{post?.privacy}</p>
-        <p className={styles.text}>{post?.text}</p>
-        <p className={styles.time}>{moment(post.createdAt).fromNow()}</p>
+        <p className={styles.privacy}>{currentPost?.privacy}</p>
+        <p className={styles.text}>{currentPost?.text}</p>
+        <p className={styles.time}>{moment(currentPost.createdAt).fromNow()}</p>
       </div>
 
       <p className={styles.likeCount}>{reactCount}</p>
@@ -78,14 +88,16 @@ const SingleSmallPost = ({ post, user }) => {
         >
           <div className={`${styles.reactBtns} react-btns`}>
             <Reacts
-              post={post}
+              currentPost={currentPost}
+              setCurrentPost={setCurrentPost}
               setReactCount={setReactCount}
               reactCount={reactCount}
               setReactText={setReactText}
               reactText={reactText}
+              user={user}
             />
           </div>
-          <p id={`${post._id}-react-text`}>{reactText}</p>
+          <p id={`${currentPost._id}-react-text`}>{reactText}</p>
         </span>
         <span className={styles.comments}>Comments</span>
         <span className={styles.shares}>Shares</span>
