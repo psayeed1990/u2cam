@@ -14,4 +14,5 @@ router
   .patch(authController.protect, postController.updatePost)
   .delete(authController.protect, postController.deletePost);
 
+router.route('/:id/comments').get();
 module.exports = router;

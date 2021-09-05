@@ -1,0 +1,19 @@
+.comments {
+    background-color: white;
+
+}
+
+.comments label{
+    display: none;
+}
+.comments input[type="submit"]{
+    display: none;
+}
+
+.comments input{
+background-color: #eae9ea;
+outline: 0px;
+border: 0px solid grey;
+box-shadow: none;
+color: gray;
+}

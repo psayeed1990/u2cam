@@ -2,6 +2,7 @@ import styles from './SingleSmallPost.module.css';
 import moment from 'moment';
 import Reacts from './reacts';
 import { useEffect, useState } from 'react';
+import Comments from './comments';
 
 const SingleSmallPost = ({ post, user }) => {
   const [reactText, setReactText] = useState('Like');
@@ -102,6 +103,8 @@ const SingleSmallPost = ({ post, user }) => {
         <span className={styles.comments}>Comments</span>
         <span className={styles.shares}>Shares</span>
       </p>
+
+      <Comments post={post} />
     </div>
   );
 };

@@ -40,6 +40,8 @@ const Login = () => {
       localStorage.setItem('token', returnValue.refreshToken);
       console.log(returnValue);
       setUser(returnValue.data.user);
+    } else {
+      console.log(returnValue);
     }
   }, [success, returnValue]);
 
